@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Certs</title>
+        <!-- build:css style.min.css -->
+        <link href="css/style.css" rel="stylesheet" type="text/css">
+        <!-- endbuild-->
+        <link href="css/certs.css" rel="stylesheet" type="text/css">
+
+        <!-- load jQuery via CDN. The second script is a fallback option -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+        <script>(window.jQuery) || document.write('<script src="js/libs/jquery-3.3.1.min.js"><\/script>');</script>
+
+        <!-- jQuery UI for fancy widgets -->
+        <script
+            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+        crossorigin="anonymous"></script>
+        <script>(window.jQuery.ui) || document.write('<script src="js/libs/jquery-ui/jquery-ui.js"><\/script>');</script>
+        <link rel="stylesheet" href="js/libs/jquery-ui/jquery-ui.min.css">
+
+        <!-- import AvayaClientServices and its dependencies -->
+        <script src="js/libs/xmlToJSON.js"></script>
+        <script src="js/libs/AvayaClientServices.min.js"></script>
+
+        <script src="js/avayaGlobal.js"></script>
+        <script src="js/links.js"></script>
+
+        <script>
+            $(function () {
+                'use strict';
+                var json = JSON.parse(localStorage.getItem('chatSettings'));
+                if (json !== null) {
+                    console.log(json);
+                    var location = links.getPathNameForConfig();
+                    if (json[location] !== undefined) {
+                        var urls = json[location].urls;
+                        $('#webChatLink').attr('href', 'https://' + urls.webChatHost);
+                        $('#contextStoreLink').attr('href', 'https://' + urls.contextStoreHost);
+                        $('#coBrowseLink').attr('href', 'https://' + urls.coBrowseHost);
+                        $('#oceanaMonitorLink').attr('href', 'https://' + urls.webChatHost + "/services/OceanaMonitorService/monitor.html");
+                    }
+
+
+                } else {
+                    console.log(links.webChatHost);
+                    $('#webChatLink').attr('href', 'https://' + links.webChatHost);
+                    $('#contextStoreLink').attr('href', 'https://' + links.contextStoreHost);
+                    $('#coBrowseLink').attr('href', 'https://' + links.coBrowseHost);
+                    $('#oceanaMonitorLink').attr('href', 'https://' + links.webChatHost + "/services/OceanaMonitorService/monitor.html");
+                }
+            });
+        </script>
+        <script>
+            // UI stuff
+            function toggleChrome() {
+                $('#chromeList').toggle('fold');
+            }
+
+            function toggleFirefox() {
+                $('#firefoxList').toggle('fold');
+            }
+
+            function toggleEdge() {
+                $('#edgeList').toggle('fold');
+            }
+        </script>
+
+    </head>
+    <body>
+        <!-- -- HEADER -- -->
+        <div class="header">
+            <!-- -- MENU -- -->
+            <div class="menu">
+                <div class="dropdown">
+                    <a href="home.html">Home</a>  
+                </div>
+            </div>
+        </div>
+
+        <div class="certsMain">
+
+            <p class="certsWarning">Warning: This is for lab testing only! Delete this page in a production site!</p>
+
+            <div class="certsPurpose">Purpose of this page</div>
+            <div>
+                <p>If a secure connection is requested, the browser will first examine the certificate of the server. If it considers the certificate to be invalid for any of the following reasons, the chat or other requests will fail:</p>
+                <ul >
+                    <li>The certificate has expired or has an invalid date</li>
+                    <li>The certificate is not signed by a certificate authority that the browser trusts</li>
+                    <li>The certificate uses an invalid hostname or doesn't include an IP address (e.g. the IP address for foo.com is 1.2.3.4, but the cert is only valid for foo.com and not 1.2.3.4)</li>
+                </ul>
+                <p>The browser can be instructed to ignore this. While this is generally discouraged, it is acceptable for testing purposes in the lab. This page exists precisely to do this.</p>
+
+            </div>
+
+            <div onclick="toggleChrome()">
+                <p class="certsBrowserHeader">Chrome (Windows)</p>
+                <p>Chrome uses the certificate manager of the underlying OS; installing for Chrome will also install it for Edge or Internet Explorer. Click this paragraph for instructions on how to accept the certificate for each link:</p>
+                <ol id="chromeList" class="certsList">
+                    <li>Visit the link</li>
+                    <li>When the browser shows an alert, click on the padlock item at the left of the address bar.</li>
+                    <li>Click on "Details". This will open the browser console</li>
+                    <li>Click on "View certificate" in the console. This will open a window to view the certificate details.</li>
+                    <li>Click on "Details" in the certificate window, then click "Copy to file"</li>
+                    <li>Leave the format as it is, and lick "Next".</li>
+                    <li>Specify the location and name of the file, and click "Next".</li>
+                    <li>Click "Finish", and close the certificate window.</li>
+                    <li>Find the certificate file.</li>
+                    <li>Double-click it to open the certificate details.</li>
+                    <li>Click "Install Certificate...".</li>
+                    <li>Choose "Local Machine" to install for all users, or "Current User" to install for the current user only. Click "Next".</li>
+                    <li>For the remaining pages, use the default settings, and click "Next" until you have finished.</li>
+                    <li>You may need to close the browser tab and open it again to make sure it has been accepted. =</li>
+                </ol>
+
+            </div>
+            <div onclick="toggleEdge()">
+                <p class="certsBrowserHeader">IE/Edge</p>
+                <p>IE and Edge use the certificate manager on Windows; installing it for Edge or Internet Explorer will also install it for Chrome. Click this paragraph for instructions on how to accept the certificate for each link:</p>
+                <ol id="edgeList" class="certsList">
+                    <li>Visit the link</li>
+                    <li>When the browser shows an error, click on "Continue to this website".</li>
+                    <li>Click on "Certificate error" in the address bar, then click "View certificates".</li>
+                    <li>When the certificate window appears, click on "Install Certificate"</li>
+                    <li>Select "Current User" to install the cert for the current user only, or select "Local Machine" to install for all users, and click "Next".</li>
+                    <li>Leave the next page as it is, and click "Next".</li>
+                    <li>Click "Finish".</li>
+                </ol>
+            </div>
+            <div onclick="toggleFirefox()">
+                <p class="certsBrowserHeader">Firefox</p>
+                <p>Firefox uses its own certificate manager: installing it will <span style="text-decoration:underline; font-weight:bold">not</span> make the cert available to any other browser. Click this paragraph for instructions on how to accept the certificate for each link:</p>
+
+                <ol id="firefoxList" class="certsList">
+                    <li>Visit the link</li>
+                    <li>When the browser throws an alert, click on "I Understand the Risks".</li>
+                    <li>Click "Add Exception" to display the Firefox Security Manager.</li>
+                    <li>Click "Confirm Security Exception" to permanently make an exception for the site.</li>
+                </ol>
+
+            </div>
+
+            <div class="certsLinks">
+                <p class="certsBrowserHeader">Links</p>
+                <ul>
+                    <li><a id="webChatLink" href="" >Web Chat/EWT</a></li>
+                    <li><a id="contextStoreLink" href="" >Context Store</a></li>
+                    <li><a id="coBrowseLink" href="" >Co-Browsing</a></li>
+                    <li><a id="oceanaMonitorLink" href="" >Oceana Monitor Service</a></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="clear"></div>
+    </body>
+</html>

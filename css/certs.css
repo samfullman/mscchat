@@ -1,0 +1,39 @@
+@CHARSET "ISO-8859-1";
+
+/*
+ * This is a stylesheet for the certs.html page only.
+ */
+body {
+	font-size: 14px;
+}
+
+.certsMain {
+	padding-left: 30px;
+	padding-top: 20px;
+	float: left;
+}
+
+.certsLinks {
+	float:left;
+	position:relative;
+
+}
+
+.certsList {
+	display: none;
+}
+
+.certsWarning {
+	font-weight: bold;
+	font-size: 24px;
+}
+
+.certsPurpose {
+	font-size: 18px;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.certsBrowserHeader {
+	font-weight: bold;
+}

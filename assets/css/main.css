@@ -1,0 +1,820 @@
+/*
+ * Author: Carlos Alvarez
+ * URL: http://alvarez.is
+ *
+ * Project Name: SPOT - Free Bootstrap 3 Theme
+ * Version: 1.0
+ * URL: http://blacktie.co
+ */
+
+/* FONTS */
+@font-face {
+    font-family: 'Lato'; /*a name to be used later*/
+    src: url('../fonts/Lato-Light.ttf'); /*URL to font*/
+}
+@font-face {
+    font-family: 'Raleway'; /*a name to be used later*/
+    src: url('../fonts/Raleway-Medium.ttf'); /*URL to font*/
+}
+/* OVERALL ASPECT */
+
+body {
+  background-color: #f2f2f2;
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 16px;
+    color: #555;
+
+    -webkit-font-smoothing: antialiased;
+    -webkit-overflow-scrolling: touch;
+
+    margin-top: 70px;
+}
+
+/* Titles */
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Raleway";
+    font-weight: 300;
+    color: #333;
+}
+
+
+/* Paragraph & Typographic */
+p {
+    line-height: 28px;
+    margin-bottom: 25px;
+}
+
+/* this is for live chat button */
+#hp {
+    line-height: 28px;
+    margin-bottom: 0px;
+}
+
+.centered {
+    text-align: center;
+}
+
+/* Links */
+a {
+    color: #f85c37;
+    word-wrap: break-word;
+
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+a:hover,
+a:focus {
+    color: #7b7b7b;
+    text-decoration: none;
+    outline: 0;
+}
+
+a:before,
+a:after {
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+ hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+
+.navbar {
+	font-weight: 800;
+	font-size: 14px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.navbar-inverse {
+	background: #2d2d2d;
+	border-color: #2d2d2d;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+    color: #3498db;
+}
+
+.navbar-inverse .navbar-nav > .active > a {
+	background: #ff7878;
+}
+
+.navbar-inverse .navbar-brand {
+	color: white;
+	font-weight: bolder;
+	font-size: 22px;
+	letter-spacing: 1px;
+}
+
+/* caption on manin image*/
+.caption {
+    opacity: 0.8;
+}
+
+
+/*TILT*/
+.tilt {
+  -webkit-transition: all 0.5s ease;
+     -moz-transition: all 0.5s ease;
+       -o-transition: all 0.5s ease;
+      -ms-transition: all 0.5s ease;
+          transition: all 0.5s ease;
+}
+
+.tilt:hover {
+  -webkit-transform: rotate(-10deg);
+     -moz-transform: rotate(-10deg);
+       -o-transform: rotate(-10deg);
+      -ms-transform: rotate(-10deg);
+          transform: rotate(-10deg);
+}
+
+/* ==========================================================================
+   Wrap Sections
+   ========================================================================== */
+
+#headerwrap {
+	background: url(../img/lp-home.jpg) no-repeat center top;
+	margin-top: -10px;
+	padding-top:20px;
+	text-align:center;
+	background-attachment: relative;
+	background-position: center center;
+	min-height: 500px;
+	width: 100%;
+
+    /*-webkit-background-size: 100%;*/
+    /*-moz-background-size: 100%;*/
+    /*-o-background-size: 100%;*/
+    background-size: 100%;
+
+    /*-webkit-background-size: cover;*/
+    /*-moz-background-size: cover;*/
+    /*-o-background-size: cover;*/
+    background-size: cover;
+}
+
+#headerwrap h1 {
+	margin-top: 100px;
+	color: white;
+	font-size: 70px;
+	font-weight: 300;
+	letter-spacing: 3px;
+}
+
+#headerwrap h2 {
+	color: white;
+	font-size: 40px;
+	font-weight: 700;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+}
+
+/* Dark Grey Wrap */
+#dg {
+	background: #e0e0e0;
+	padding-top: 70px;
+	padding-bottom: 70px;
+	text-align: center;
+}
+
+#dg h4 {
+	font-weight: 700;
+}
+
+/* Light Grey */
+#lg {
+	background: #ebebeb;
+	padding-top: 70px;
+	padding-bottom: 70px;
+	text-align: center;
+}
+
+#lg h4 {
+	font-weight: 700;
+}
+
+
+/* Red Wrap */
+#r {
+	background: #ff7878;
+	padding-top: 35px;
+	padding-bottom: 35px;
+}
+
+#r h4 {
+	color: white;
+	font-weight: 700;
+}
+
+#r p {
+	color: white;
+}
+
+/* Blue Wrap */
+
+#blue {
+	background: #3498db;
+	padding-top: 35px;
+	padding-bottom: 35px;
+}
+
+#blue h4 {
+	color: white;
+	font-weight: 700;
+}
+
+#blue p {
+	color: white;
+}
+
+
+
+/* Footer Wrap */
+#f {
+	background: #2d2d2d;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+#f i {
+	color: #bdbdbd;
+	font-size: 30px;
+	padding: 20px;
+}
+
+#f h2 {
+    color: white;
+}
+
+#f h4 {
+    color: white;
+    font-weight: 700;
+}
+
+#f p {
+    color: white;
+}
+
+#f i:hover {
+	color: #ff7878;
+}
+
+/****** SECTIONS *****/
+
+.w {
+	padding-top: 35px;
+}
+
+.w h4 {
+	font-weight: 700;
+}
+
+.w i {
+	color: #ff7878;
+	font-size: 30px;
+}
+
+
+.wb {
+	padding-top: 35px;
+	margin-bottom: 0px;
+}
+
+.wb h4 {
+	font-weight: 700;
+}
+
+.desc {
+	padding-top: 35px;
+}
+
+.desc h4 {
+	font-weight: 700;
+}
+
+.desc i {
+	color: #ff7878;
+	font-size: 12px;
+	padding: 5px;
+}
+
+
+/* ==========================================================================
+   Pricing Tables
+   ========================================================================== */
+
+.pricing-option {
+    padding-bottom: 40px;
+}
+
+.pricing-option .pricing-top {
+    position: relative;
+    background: #222;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+
+    padding: 40px 20px 30px 20px;
+    /*-webkit-box-sizing: border-box;*/
+    /*-moz-box-sizing: border-box;*/
+    box-sizing: border-box;
+}
+
+.pricing-option .pricing-top .special-label {
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #ff7878;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 3px 0;
+}
+
+.special .pricing-top {
+    background: black;
+}
+
+.pricing-option .pricing-edition {
+    text-transform: uppercase;
+    display: block;
+    font-size: 25px;
+    letter-spacing: 8px;
+}
+
+.pricing-option .price {
+    display: inline-block;
+    position: relative;
+}
+
+.pricing-option .price sup {
+    position: absolute;
+    top: 50px;
+    left: -10px;
+    font-size: 24px;
+}
+
+.pricing-option .price .price-amount {
+    font-size: 108px;
+    letter-spacing: -4px;
+}
+
+.pricing-option .price small {
+    position: relative;
+    left: -10px;
+    font-size: 18px;
+}
+
+.pricing-option ul {
+    list-style: none;
+    margin: 0;
+    background: #eee;
+    text-align: center;
+    padding-left: 0px;
+}
+
+.pricing-option ul li {
+    border-bottom: solid 1px #e1e1e1;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.pricing-option .pricing-signup {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px 10px;
+    color: white;
+    background: #ff7878;
+}
+
+.pricing-option .pricing-signup:hover {
+    background: #3498db;
+}
+.pricing-option .pricing-signup:active {
+    background: #3498db;
+}
+
+/********* Wizard Form *********/
+#tp-wizard-form {}
+.tp-wizard-form {}
+.tp-wizard-form .wizard-section {
+    background: #fafafa;
+    padding: 60px;
+}
+.tp-wizard-form .wizard-section .tab-content {
+    margin-top: 30px;
+}
+.tp-wizard-form .wizard-section .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    color: #fff;
+    background-color: #3498db;
+}
+.tp-wizard-form .wizard-section .tab-content .form-control {
+    margin-bottom: 30px;
+}
+.tp-wizard-form .wizard-section .nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 65px 10px 20px;
+}
+.tp-wizard-form .wizard-section .nav-pills>li>a {
+    border-radius: 4px;
+    background: #fff;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    color: #62656a;
+    line-height: 1.5;
+}
+.tp-wizard-form .wizard-section .nav-pills>li>a small {
+    display: inherit;
+}
+.tp-wizard-form .wizard-section .pager {
+    margin-top: 20px;
+}
+.tp-wizard-form .wizard-section .pager li>a, .pager li>span {
+    display: inline-block;
+    background-color: #62656a;
+    /*-webkit-transition: all 0.3s;*/
+    /*-moz-transition: all 0.3s;*/
+    transition: all 0.3s;
+}
+.tp-wizard-form .wizard-section .pager li>a, .pager li>span {
+    display: inline-block;
+    padding: 5px 14px;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 2px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.tp-wizard-form .wizard-section button {
+    margin-top: 30px;
+    margin-bottom: 60px;
+}
+
+/* Avaya */
+
+/*
+ *	CHAT
+ *	****************************************************************
+ */
+
+.openbutton-chat {
+    border: 1px solid #aaa;
+    border-radius: 0;
+    background-color: white;
+}
+
+.slide-out-div-chat {
+    padding-top: 10px;
+    padding-bottom: 0px;
+    padding-right: 20px;
+    padding-left: 20px;
+    width: 520px;
+    background: #E6F1F5;
+    color: #333;
+}
+
+#chatForm {
+    display: block;
+    margin-top: 10px;
+}
+#chatInterface {
+    display: none;
+}
+/*
+ *	The messages in the chat are posted inside this div.
+ *	The overflow setting, when combined with a maximum height,
+ *	gives the div a scrollbar.
+ */
+#messages {
+    border-bottom: 1px solid #cccccc;
+    padding-left: 0px;
+    padding-right: 5px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    height: 230px;
+    word-wrap: break-word;
+    overflow-y: scroll;
+}
+#messages a {
+    color: white;
+}
+#participants {
+    padding-top: 4px;
+}
+#participants div {
+    display: inline-block;
+    width: 145px;
+    border: 1px dotted #cccccc;
+}
+#controls {
+    padding-top: 7px;
+    padding-bottom: 2px;
+}
+#usersDiv {
+}
+
+.bigtext {
+    font-size: 20px;
+    font-weight: bold;
+
+}
+.smalltext {
+    font-size: 14px;
+    font-weight: bold;
+
+}
+
+.sectionBorder {
+    display: block;
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 5px;
+}
+
+.formTable {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    padding: 0px;
+}
+.formTable td {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+.formLabel {
+    padding: 0px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+.formField {
+    width: 170px;
+    padding-bottom: 2px;
+    text-align: left;
+}
+.formField input,select {
+    width: 160px;
+    border: 1px solid #cccccc;
+    padding: 3px;
+    background-color: white;
+    font-size: 13px;
+    color: black;
+    font-weight: bold;
+}
+.formField select {
+    width: 168px;
+}
+
+.formCheckbox {
+    padding-right: 172px;
+    text-align: right;
+}
+
+#openbutton-chat {
+    width: 160px;
+}
+
+#sendbutton-chat {
+    border: 1px solid #aaa;
+    border-radius: 0;
+    background-color: white;
+}
+
+#sendbutton-chat {
+    background-color: white;
+    color: black;
+}
+
+.chatField {
+    width: 305px;
+    border: 1px solid #cccccc;
+    padding: 3px;
+    background-color: white;
+    font-size: 12px;
+    color: black;
+}
+
+.poweredBy  {
+    display: block;
+    border-top: 1px solid #aaa;
+    margin-bottom: 15px;
+    margin-top: 5px;
+    padding-top: 10px;
+    text-align: right;
+    font-size: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+/*
+ *	The WebOnHold URLS are posted inside this div.
+ */
+#webOnHoldDiv {
+    float: right;
+    width: 50%;
+    padding-top: 20px;
+}
+
+/*
+ *	Sent chat messages are inside a red paragraph
+ */
+p.sent {
+    color: #347E38;
+    font-weight: bolder;
+}
+
+/*
+ *	Received chat messages are inside a blue paragraph,
+ *	with italics to help distinguish them from sent paragraphs
+ */
+p.response {
+    /*color: rgb(0,204,255);*/
+    color: #3498DD;
+    font-weight: bolder;
+    font-style: italic;
+}
+
+/*
+ *	CHAT
+ *	****************************************************************
+ */
+.slide-out-div-chat {
+	padding-top: 10px;
+	padding-bottom: 0px;
+	padding-right: 20px;
+	padding-left: 20px;
+	width: 520px;
+	background: #4a4a4a;
+	color: white;
+}
+
+#chatForm {
+	display: block;
+	margin-top: 10px;
+}
+#chatInterface {
+	display: none;
+}
+/*
+ *	The messages in the chat are posted inside this div.
+ *	The overflow setting, when combined with a maximum height,
+ *	gives the div a scrollbar.
+ */
+#messages {
+	border-bottom: 1px solid #cccccc;
+	padding-left: 0px;
+	padding-right: 5px;
+	padding-top: 0px;
+	padding-bottom: 5px;
+	height: 230px;
+	word-wrap: break-word;
+	overflow-y: scroll;
+}
+#messages a {
+	color: white;
+}
+#participants {
+	padding-top: 4px;
+}
+#participants div {
+	display: inline-block;
+	width: 145px;
+	border: 1px dotted #cccccc;
+}
+#controls {
+	padding-top: 7px;
+
+}
+#usersDiv {
+	height: 45px;
+}
+
+.bigtext {
+	font-size: 19px;
+}
+.smalltext {
+	font-size: 13px;
+}
+
+.sectionBorder {
+	display: block;
+	border-bottom: 1px solid #cccccc;
+	padding-bottom: 5px;
+}
+
+.formTable {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0px;
+	padding: 0px;
+}
+.formTable td {
+	padding-left: 3px;
+	padding-right: 3px;
+}
+.formLabel {
+	padding: 0px;
+	font-size: 11px;
+	color: white;
+}
+.formField {
+	width: 170px;
+	padding-bottom: 2px;
+	text-align: left;
+}
+.formField input,select {
+	width: 160px;
+	border: 1px solid #cccccc;
+	padding: 3px;
+	background-color: #4a4a4a;
+	font-size: 12px;
+	color: white;
+}
+.formField select {
+	width: 168px;
+}
+
+.formCheckbox {
+	padding-right: 172px;
+	text-align: right;
+}
+
+#openbutton-chat {
+	width: 160px;
+}
+
+.chatField {
+	width: 305px;
+	border: 1px solid #cccccc;
+	padding: 3px;
+	background-color: #4a4a4a;
+	font-size: 12px;
+	color: white;
+}
+
+.poweredBy  {
+	display: block;
+	border-top: 1px solid #cccccc;
+	padding-top: 10px;
+	text-align: right;
+	position: relative;
+	left: -20px;
+	width: 520px;
+	padding-right: 40px;
+	font-size: 10px;
+    background: #4a4a4a;
+
+}
+
+/*
+ *	The WebOnHold URLS are posted inside this div.
+ */
+#webOnHoldDiv {
+	float: right;
+	width: 50%;
+	padding-top: 20px;
+}
+
+/*
+ *	Sent chat messages are inside a red paragraph
+ */
+p.sent {
+	color: rgb(255,51,0);
+}
+
+/*
+ *	Received chat messages are inside a blue paragraph,
+ *	with italics to help distinguish them from sent paragraphs
+ */
+p.response {
+	color: rgb(0,204,255);
+	font-style: italic;
+}

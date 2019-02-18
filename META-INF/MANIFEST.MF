@@ -1,0 +1,32 @@
+Manifest-Version: 1.0
+Built-By: bambooagent
+Build-OS: Linux
+Created-By: Apache Maven 3.3.9
+Build-Jdk: 1.8.0_171
+
+Name: Maven
+serviceVersion: 3.5.0.1.10060.181114143516
+artifactId: ocp-web-ui
+version: 10.0.6
+groupId: com.avaya.ocp
+
+Name: Git
+Git-Branch: null
+Git-ClosestTag: null
+Git-CommitAbbrev: null
+Git-Commit: null
+
+Name: Bamboo
+Bamboo-JobName: Release Job
+Bamboo-JobKey: REL
+Bamboo-PlanName: 10.0.6
+Bamboo-BuildResultKey: OCPROVIDER-WEBUIJS139-REL-1
+Bamboo-BuildResultUrl: https://bamboo.forge.avaya.com/browse/OCPROVIDE
+ R-WEBUIJS139-REL-1
+Bamboo-PlanKey: OCPROVIDER-WEBUIJS139
+Bamboo-BranchName: null
+Bamboo_AgentOS: CENTOS 7
+Bamboo-BuildKey: OCPROVIDER-WEBUIJS139-REL
+Bamboo_AgentHostName: bamcentos7x64-usdc2-06.forge.avaya.com
+Bamboo-AgentId: 294748185
+

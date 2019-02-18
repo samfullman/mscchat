@@ -1,0 +1,47 @@
+
+/**
+ *  Copyright 2018 Avaya Inc. All Rights Reserved.
+ *
+ * Usage of this source is bound to the terms described in
+ * licences/License.txt
+ *
+ * Avaya - Confidential & Proprietary. Use pursuant to your signed agreement or
+ * Avaya Policy
+ */
+
+/**
+ * This stylesheet is used specifically by demo.html
+ */
+
+.demo {
+    background: rgb(209, 8, 18);
+}
+
+.demo .header{
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+.demo .menu {
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+.footer {
+    height: 100px;
+    padding-top: 10px;
+    font-size: 16px;
+}
+
+#demoSiteIframe {
+    width: 100%;
+    height: 600px;
+}
+
+/*
+ *  Override the position of the liveChatLink
+ */
+#liveChatLink {
+    left: 0px;
+    width:20px;
+}

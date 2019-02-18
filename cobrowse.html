@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Form Submission</title>
+
+        <link href="css/cobrowse.css" rel="stylesheet" type="text/css">
+
+        <!-- load jQuery via CDN. The second script is a fallback option -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+        <script>(window.jQuery) || document.write('<script src="js/libs/jquery-3.3.1.min.js"><\/script>');</script>
+
+        <!-- jQuery UI for fancy widgets -->
+        <script
+            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+        crossorigin="anonymous"></script>
+        <script>(window.jQuery.ui) || document.write('<script src="js/libs/jquery-ui/jquery-ui.js"><\/script>');</script>
+        <link rel="stylesheet" href="js/libs/jquery-ui/jquery-ui.min.css">
+
+        <!-- CoBrowse dependencies -->
+        <script src="cobrowse-oceana/js/libs/LAB.min.js"></script>
+        <script src="cobrowse-oceana/js/coBrowse.js"></script>
+        <script src="cobrowse-oceana/js/coBrowseUI.js"></script>
+        <link href="cobrowse-oceana/css/cbe.css" rel="stylesheet" type="text/css">
+        <link href="cobrowse-oceana/css/cobrowseUI.css" rel="stylesheet" type="text/css">
+
+        <script>
+            function handleSubmit(event) {
+                location.href = "thankYou.html";
+            }
+
+            function handleCancel(event) {
+                location.reload();
+            }
+        </script>
+
+    </head>
+
+    <body>
+
+        <div id="ao-h2" class="form_main_div">
+
+            <div id="form-header" class="form_header_div">
+                <p>Open Account
+                    Sample</p>
+                <label id="ao-msg" >Simple
+                    steps and you can sign on to your account instantly. All your
+                    details remain private and secure at Avaya.</label>
+            </div>
+
+            <br />
+
+            <!-- Open Account Form - PersonalInfo Section -->
+            <form onsubmit="return false;">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td class="cui-form-label"><label>Account Type:</label></td>
+                            <td><input  id="savingsRadioId"
+                                       type="radio" id="accTypeSavings" value="Savings"
+                                       checked="checked"> Customer <input
+                                        id="currentRadioId" type="radio"
+                                       id="accTypeCurrent" value="Current"> Employee</td>
+                        </tr>
+                        <!-- Name -->
+                        <tr>
+                            <td class="cui-form-label"><label for="name_prefix">Prefix:</label></td>
+                            <td><select name='name_prefix' id='name_prefix' >
+                                    <option value=''></option>
+                                    <option value='Mr.'>Mr.</option>
+                                    <option value='Mrs.'>Mrs.</option>
+                                    <option value='Miss'>Miss</option>
+                                    <option value='Ms.'>Ms.</option>
+                                    <option value='Dr.'>Dr.</option>
+                                    <option value='REV.'>REV.</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td class="cui-form-label"><label for="first_name"><span
+                                        class="asterisk">*</span> First name:</label></td>
+                            <td><input type="text" name="first_name" maxlength="12"
+                                       size="12" value="" id="first_name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cui-form-label"><label for="middle_name">M.I.:</label></td>
+                            <td><input type="text" id="middle_name" maxlength="1"
+                                       size="2" value="" class=""></td>
+                        </tr>
+                        <tr>
+                            <td class="cui-form-label"><label for="last_name"><span
+                                        class="asterisk">*</span> Last name:</label></td>
+                            <td><input type="text" name="last_name" maxlength="20"
+                                       size="20" value="" class="" id="last_name" >
+                            </td>
+                        </tr>
+                        <!-- Address -->
+                        <tr>
+                            <td class="cui-form-label"><label for="address"><span
+                                        class="asterisk">*</span>Address:</label></td>
+                            <td><textarea type="text" name="home_address_1"
+                                          maxlength="30" cols="27" id="address" ></textarea></td>
+                        </tr>
+                        <tr>
+                            <td class="cui-form-label"><label
+                                    for="home_address_building_description">Building prefix:</label></td>
+                            <td><select name='home_address_building_description'
+                                        id='home_address_building_description' >
+                                    <option value=''>
+                                    <option value='Apt'>Apt</option>
+                                    <option value='Floor'>Floor</option>
+                                    <option value='Ph'>Ph</option>
+                                    <option value='Room'>Room</option>
+                                    <option value='Suite'>Suite</option>
+                                    <option value='#'>#</option>
+                                </select> <label for="home_address_apartment_number"
+                                                 id="label_home_address_apartment_number">Number:</label> <input
+                                                 type="text" name="home_address_apartment_number" maxlength="6"
+                                                 id="home_address_apartment_number" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cui-form-label"><label for="city"><span
+                                        class="asterisk">*</span> City:</label></td>
+                            <td><input type="text" name="home_address_city"
+                                       maxlength="25" size="18" value="" id="city" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cui-form-label"><label for="home_address_state"><span
+                                        class="asterisk">*</span>State:</label></td>
+                            <td><select name='home_address_state' id='home_address_state'>
+                                    <option value=''>-----</option>
+                                    <option value='AK'>AK</option>
+                                    <option value='AL'>AL</option>
+                                    <option value='AZ'>AZ</option>
+                                    <option value='CA'>CA</option>
+                                    <option value='CO'>CO</option>
+                                    <option value='CT'>CT</option>
+                                    <option value='DC'>DC</option>
+                                    <option value='MI'>MI</option>
+                                    <option value='NH'>NH</option>
+                                    <option value='NJ'>NJ</option>
+                                    <option value='NM'>NM</option>
+                                    <option value='NV'>NV</option>
+                                    <option value='NY'>NY</option>
+                                    <option value='OH'>OH</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td class="cui-form-label"><label for="home_address_zip"><span
+                                        class="asterisk">*</span> Zip Code:</label></td>
+                            <td><input type="text" name="home_address_zip" maxlength="5"
+                                       size="5" id="home_address_zip"></td>
+                        </tr>
+                        <!-- Phone number and e-mail -->
+                        <tr>
+                            <td class="cui-form-label"><label for="home_address_zip"><span
+                                        class="asterisk">*</span> Contact:</label></td>
+                            <td><input type="text" name="home_phone_number"
+                                       maxlength="12" size="14" id="home_phone"></td>
+                        </tr>
+                        <tr>
+                            <td class="cui-form-label"><label for="email"><span
+                                        class="asterisk">*</span> E-mail:</label></td>
+                            <td><input type="text" name="email" maxlength="20" size="25"
+                                       value="" id="email"></td>
+                        </tr>
+                        <tr>
+                            <td class="cui-form-label"><input type="checkbox"
+                                                              name="mkt_message_option" class="avcobrowse-block" value="on"
+                                                              checked="checked" id="pers_email_info" /></td>
+                            <td><label for="pers_email_info">Send me promotional
+                                    e-mails <a ID="cmlink_TargetedEmailDisclosure" target=""
+                                               title="I would like to receive emails about promotional updates and current offers from Avaya">Learn
+                                        More</a>
+                                </label></td>
+                        </tr>
+                        <!-- Proof of your identity -->
+                        <tr>
+                            <td class="cui-form-label"><label for="ssn"><span
+                                        class="asterisk">*</span>SSN</label></td>
+                            <td><input type="text" name="ssn" maxlength="11" size="14"
+                                       value="" id="ssn" 
+                                       placeholder="Social Security Number" class="avcobrowse-mask">
+                                <input type="hidden" name="tempssn" value="" id="tempssn">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cui-form-label"><label for="citizenship_code"><span
+                                        class="asterisk">*</span> Citizenship:</label></td>
+                            <td><select name='citizenship_code' id='citizenship_code'>
+                                    <option value=''>Choose One
+                                    <option value='ARG'>Argentina
+                                    <option value='AUS'>Australia
+                                    <option value='FRA'>France
+                                    <option value='HKG'>Hong Kong
+                                    <option value='HUN'>Hungary
+                                    <option value='IND'>India
+                                    <option value='RUS'>Russia
+                                    <option value='SGP'>Singapore
+                                    <option value='ARE'>United Arab Emirates
+                                    <option value='GBR'>United Kingdom
+                                    <option value='USA'>United States
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td class="cui-form-label"><label for="dob_day"><span
+                                        class="asterisk">*</span>Date of Birth:</label></td>
+                            <td><input type="text" name="dob_month" maxlength="2"
+                                       size="2" id="dob_month"> <span>/</span> <input
+                                       type="text" name="dob_day" maxlength="2" size="2" id="dob_day">
+                                <span>/</span> <input type="text" name="dob_year" maxlength="4"
+                                                      size="4" id="dob_year"> <span>mm/dd/yyyy</span></td>
+                        </tr>
+                        <tr>
+                            <td><br></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <button class="avcobrowse-block" id="submitButton"
+                                        onClick="handleSubmit(event);">Submit</button>
+                                <button id="cancelButton" onClick="handleCancel(event);">Cancel</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </body>
+</html>

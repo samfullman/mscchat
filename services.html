@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta charset="UTF-8">
+        <!-- IE Edge Meta Tag -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- Viewport - optimizes break points and text size for mobile devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Minified CSS -->
+
+        <link rel="stylesheet" href="assets/css/bootstrap.css">
+        <link rel="stylesheet" href="assets/css/bootstrap_style.css">
+
+        <!-- load jQuery via CDN. The second script is a fallback option -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+        <script>(window.jQuery) || document.write('<script src="js/libs/jquery-3.3.1.min.js"><\/script>');</script>
+
+
+       <!-- load bootstrap -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script>(window.bootstrap) || document.write('<script src="js/libs/bootstrap.min.js"><\/script>')</script>
+        
+        <!-- import AvayaClientServices and its dependencies -->
+        <script src="js/libs/xmlToJSON.js"></script>
+        <script src="js/libs/AvayaClientServices.min.js"></script>
+
+        <!-- Other utility files for Customer Journey -->
+        <script src="js/avayaGlobal.js"></script>
+        <script src="js/links.js"></script>
+
+        <!-- customer journey code -->
+        <script src="js/customerJourneyCommon.js"></script>
+        <script src="js/oceanaCoreData.js"></script>
+
+        <!-- Set up the Customer Journey -->
+        <script>
+            $(function () {
+                'use strict';
+                customerJourneyCommon.setup();
+            });
+        </script>
+
+        <!-- UI code goes here to prevent a conflict with Bootstrap -->
+        <script
+            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+        crossorigin="anonymous"></script>
+        <script>(window.jQuery.ui) || document.write('<script src="js/libs/jquery-ui/jquery-ui.js"><\/script>');</script>
+        <link rel="stylesheet" href="js/libs/jquery-ui/jquery-ui.min.css">
+        
+        <script src="js/contextStoreUI.js"></script>
+        <link href="css/style.css" rel="stylesheet" type="text/css">
+
+        <title>Services</title>
+    </head>
+    <body>
+        
+        <!-- topic for the customer journey. Must NOT contain spaces or special characters such as ?#@  -->
+        <input type="text" id="topic" maxLength="255" title="Denotes a topic for the contact" pattern="([a-zA-Z0-9])+([_~\-.][a-zA-Z0-9]+)*" placeholder="e.g. RepairServices">
+
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="menu">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#collapsemenu" aria-expanded="false">
+                            <span class="sr-only"> Toggle Navigation</span> <span class="icon-bar"></span> <span
+                                class="icon-bar"></span> <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="home.html"><img alt="Avaya Home"
+                                                                      src="images/AvayaLogoSmall.jpg"></a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="collapsemenu">
+                        <ul class="nav navbar-nav">
+                            <li><a href="products.html">Products&nbsp; | &nbsp;</a></li>
+                            <li><a href="solutions.html">Solutions&nbsp; | &nbsp;</a></li>
+                            <li><a href="services.html">Services&nbsp; | &nbsp;</a></li>
+                            <li><a href="videoconferencing.html">Video Conferencing&nbsp; | &nbsp;</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Language&nbsp; | &nbsp; <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <div class="radio">
+                                            <label><input type="radio" 
+                                                          value="Language.English"
+                                                          title="Click to add 'Language.English' to the current attributes"
+                                                          onClick="oceanaCoreData.addAttribute(this.value)" name="optradio" />English</label>
+                                        </div>
+                                        <div class="radio">
+                                            <label><input type="radio" 
+                                                          value="Language.Dutch" title="Click to add 'Language.Dutch' to the current attributes"
+                                                          onClick="oceanaCoreData.addAttribute(this.value)" name="optradio" />Dutch</label>
+                                        </div>
+                                        <div class="radio">
+                                            <label><input type="radio" 
+                                                          value="Language.Spanish"
+                                                          title="Click to add 'Language.Spanish' to the current attributes"
+                                                          onClick="oceanaCoreData.addAttribute(this.value)" name="optradio" />Spanish</label>
+                                        </div>
+                                        <div class="radio">
+                                            <label><input type="radio" 
+                                                          value="Language.German" title="Click to add 'Language.German' to the current attributes"
+                                                          onClick="oceanaCoreData.addAttribute(this.value)" name="optradio" />German</label>
+                                        </div>
+                                    </li>
+                                </ul></li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class=container>
+            <h1>
+                <font face="Tahoma">Services</font>
+            </h1>
+        </div>
+        <div class="jumbotron-services"></div>
+
+        <div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Professional Services</h2>
+                    <p>Our global, experienced communications services team helps maximize your investment in
+                        collaborative communications. Services range from communications initial planning and design,
+                        to seamless implementation, to integration and ongoing optimization. We help you use
+                        communications to minimize risk, enable people, and deliver a differentiated customer
+                        experience.</p>
+                    <p>
+                        <button class="btn btn-default" value="Service.ProfessionalServices"
+                                title="Add Service.ProfessionalServices to the current attributes"
+                                onClick="oceanaCoreData.addAttribute(this.value)" role="button">View details &raquo;</button>
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h2>Private Cloud Services</h2>
+                    <p>Rely on Avaya for the expertise and resources to manage part or all of your
+                        communications infrastructure and applications. We provide managed services for unified
+                        communications, contact centers, data, and video. And we can manage your existing
+                        infrastructure as well as help you plan and facilitate a technology transformation, including
+                        Avaya private cloud solutions.</p>
+                    <p>
+                        <button class="btn btn-default" value="Service.CloudServices"
+                                title="Add Service.CloudServices to the current attributes"
+                                onClick="oceanaCoreData.addAttribute(this.value)" role="button">View details &raquo;</button>
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h2>Optimization and SUpport</h2>
+                    <p>Avaya’s award-winning proactive, preventative monitoring of system performance and the
+                        ability to quickly find and fix problems help keep your communications running optimally.
+                        Remote diagnostics and resolutions help us rapidly resolve potential problems, saving time and
+                        reducing the risk of an outage. Avaya offers every level of support for communications
+                        solutions with both niche and end-to-end services, available globally</p>
+                    <p>
+                        <button class="btn btn-default" value="Service.Support"
+                                title="Add Service.Support to the current attributes"
+                                onClick="oceanaCoreData.addAttribute(this.value)" role="button">View details &raquo;</button>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        <hr>
+        <footer>
+            <!-- -- FOOTER -- -->
+            <div class="footer">
+                <!-- -- SOCIAL MEDIA LINKS -- -->
+                <div class="footerSocialMedia">
+                    <a href="#"><img src="images/twitter.png"></a> &nbsp;&nbsp;<a href="#"><img
+                            src="images/facebook.png"></a> &nbsp;&nbsp;<a href="#"><img src="images/youtube.png"></a>
+                    &nbsp;&nbsp;<a href="#"><img src="images/linkedin.png"></a> &nbsp;&nbsp;<a href="#"><img
+                            src="images/avaya.png"></a> &nbsp;&nbsp;<a href="#"><img src="images/google.png"></a>
+                    &nbsp;&nbsp;<a href="#"><img src="images/pinterest.png"></a>
+                </div>
+
+                <!-- -- COLUMN LINKS -- -->
+                <div class="footerColumn">
+                    INFORMATION FOR
+                    <div class="footerLinks">
+                        <a href="#">Industries</a> <br> <a href="#">Small Business</a> <br> <a href="#">Federal
+                            Government</a> <br> <a href="#">Developers</a> <br> <a href="#">Partners</a> <br> <a
+                            href="#">Consultants</a>
+                    </div>
+                </div>
+                <div class="footerColumn">
+                    TOP LINKS
+                    <div class="footerLinks">
+                        <a href="#">Products A-Z</a> <br> <a href="#">Support</a> <br> <a href="#">Solution
+                            Finder</a> <br> <a href="#">Phones</a>
+                    </div>
+                </div>
+                <div class="footerColumn">
+                    READY TO BUY?
+                    <div class="footerLinks">
+                        <a href="#">How to Buy</a> <br> <a href="#">Find an Avaya Partner</a> <br> <a
+                            href="#">Promotions/Programs</a> <br> <a href="#">Avaya Product Calculator</a> <br>1-866-GO-AVAYA
+                        <br>prompt 2
+                    </div>
+                </div>
+                <div class="footerColumn">
+                    ABOUT AVAYA
+                    <div class="footerLinks">
+                        <a href="#">Newsroom</a> <br> <a href="#">Company Overview</a> <br> <a href="#">Investor
+                            Relations</a> <br> <a href="#">Innovations</a> <br> <a href="#">Customer Success
+                            Stories</a> <br> <a href="#">Avaya Perspectives</a> <br> <a href="#">Industry
+                            Recognition</a>
+                    </div>
+                </div>
+                <div class="footerColumn">
+                    FOLLOW US
+                    <div class="footerLinks">
+                        <a href="#">Avaya Community</a> <br> <a href="#">Blogs</a> <br> <a href="#">Subscribe
+                            to monthly email</a>
+                    </div>
+                </div>
+
+                <!-- -- GENERAL LINKS -- -->
+                <div class="footerGeneral">
+                    <div class="footerGeneralLeft">
+                        <a href="#">About Avaya</a> &nbsp;&nbsp;&nbsp;<a href="#">Contacts</a> &nbsp;&nbsp;&nbsp;<a
+                            href="#">Careers</a> &nbsp;&nbsp;&nbsp;<a href="#">Resource Library</a> &nbsp;&nbsp;&nbsp;<a
+                            href="#">Site Map</a>
+                    </div>
+                    <div class="footerGeneralRight">
+                        <a href="">Terms of User</a> &nbsp;&nbsp;&nbsp;<a href="#">Privacy Statement</a>
+                        &nbsp;&nbsp;&nbsp;© 2009-2012 Avaya Inc.
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="contextConfigLink" title="Help/show curent attributes"
+         onclick="contextStoreUI.showAttributes();">
+        <img src="images/Help.png" >
+    </div>
+
+</body>
+</html>

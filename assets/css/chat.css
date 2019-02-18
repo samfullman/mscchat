@@ -1,0 +1,185 @@
+/*
+ *	A default stylesheet for the user to extend.
+ */
+html, body {
+	margin: 0px;
+	padding: 0px;
+	font-family: Arial, san-serif;
+	font-size: 12px;
+	background-color: rgb(74, 74, 74);
+}
+
+/*
+ *	Paragraphs in general scale to match their parent div
+ */
+p {
+	word-wrap: break-word;
+	width: 100%;
+}
+
+/*
+ *	The clear uses the clear attribute to prevent divs from being on
+ *	either side of it, and should come before the footer div to keep
+ *	the footer at the bottom of the page.
+ */
+.clear {
+	width: 100%;
+	clear: both;
+}
+
+/*
+ *	CHAT
+ *	****************************************************************
+ */
+.slide-out-div-chat {
+	padding-top: 10px;
+	padding-bottom: 0px;
+	padding-right: 20px;
+	padding-left: 20px;
+	width: 520px;
+	background: #4a4a4a;
+	color: white;
+}
+
+#chatForm {
+	display: block;
+	margin-top: 10px;
+}
+#chatInterface {
+	display: none;
+}
+/*
+ *	The messages in the chat are posted inside this div.
+ *	The overflow setting, when combined with a maximum height,
+ *	gives the div a scrollbar.
+ */
+#messages {
+	border-bottom: 1px solid #cccccc;
+	padding-left: 0px;
+	padding-right: 5px;
+	padding-top: 0px;
+	padding-bottom: 5px;
+	height: 230px;
+	word-wrap: break-word;
+	overflow-y: scroll;
+}
+#messages a {
+	color: white;
+}
+#participants {
+	padding-top: 4px;
+}
+#participants div {
+	display: inline-block;
+	width: 145px;
+	border: 1px dotted #cccccc;
+}
+#controls {
+	padding-top: 7px;
+
+}
+#usersDiv {
+	height: 45px;
+}
+
+.bigtext {
+	font-size: 19px;
+}
+.smalltext {
+	font-size: 13px;
+}
+
+.sectionBorder {
+	display: block;
+	border-bottom: 1px solid #cccccc;
+	padding-bottom: 5px;
+}
+
+.formTable {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0px;
+	padding: 0px;
+}
+.formTable td {
+	padding-left: 3px;
+	padding-right: 3px;
+}
+.formLabel {
+	padding: 0px;
+	font-size: 11px;
+	color: white;
+}
+.formField {
+	width: 170px;
+	padding-bottom: 2px;
+	text-align: left;
+}
+.formField input,select {
+	width: 160px;
+	border: 1px solid #cccccc;
+	padding: 3px;
+	background-color: #4a4a4a;
+	font-size: 12px;
+	color: white;
+}
+.formField select {
+	width: 168px;
+}
+
+.formCheckbox {
+	padding-right: 172px;
+	text-align: right;
+}
+
+#openbutton-chat {
+	width: 160px;
+}
+
+.chatField {
+	width: 290px;
+	border: 1px solid #cccccc;
+	padding: 3px;
+	background-color: #4a4a4a;
+	font-size: 12px;
+	color: white;
+}
+
+.poweredBy  {
+	display: block;
+	border-top: 1px solid #cccccc;
+	padding-top: 10px;
+	text-align: right;
+	position: relative;
+	left: -20px;
+	width: 520px;
+	padding-right: 40px;
+	font-size: 10px;
+    background: #4a4a4a;
+
+}
+
+/*
+ *	The WebOnHold URLS are posted inside this div.
+ */
+#webOnHoldDiv {
+	float: right;
+	width: 50%;
+	padding-top: 20px;
+}
+
+/*
+ *	Sent chat messages are inside a red paragraph
+ */
+p.sent {
+	color: rgb(255,51,0);
+}
+
+/*
+ *	Received chat messages are inside a blue paragraph,
+ *	with italics to help distinguish them from sent paragraphs
+ */
+p.response {
+	color: rgb(0,204,255);
+	font-style: italic;
+}

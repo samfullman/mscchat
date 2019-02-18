@@ -1,0 +1,38 @@
+@CHARSET "ISO-8859-1";
+
+/**
+ *  Copyright 2018 Avaya Inc. All Rights Reserved.
+ *
+ * Usage of this source is bound to the terms described in
+ * licences/License.txt
+ *
+ * Avaya - Confidential & Proprietary. Use pursuant to your signed agreement or
+ * Avaya Policy
+ */
+
+/**
+ *  Defines a style for the configuration panel.
+ */
+
+body {
+	overflow-x: hidden;
+	height: 100%;
+}
+
+.configButton {
+    width:100%;
+}
+
+
+/*
+ * Collapsible divs to hide/show things
+ */
+.configCollapseDiv{
+    display:none;
+}
+
+.configHelpLink{
+    font-decoration:underline;
+    border-bottom: 1px dashed #aaa;
+    cursor:help;
+}

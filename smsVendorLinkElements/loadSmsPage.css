@@ -1,0 +1,30 @@
+
+/**
+ *  Copyright 2018 Avaya Inc. All Rights Reserved.
+ *
+ * Usage of this source is bound to the terms described in
+ * licences/License.txt
+ *
+ * Avaya - Confidential & Proprietary. Use pursuant to your signed agreement or
+ * Avaya Policy
+ */
+
+
+/**
+ * Stylesheet for the SMS loading widget.
+ */
+ 
+#smsVendorSnapinLink {
+    position: fixed;
+    top: 450px;
+    left: 0;
+    cursor: pointer;
+}
+
+/**
+ * This is the icon that the user will actually see. It will inherit anything set in the parent div.
+ */
+#smsVendorSnapinLink img {
+    width: 32px;
+    height: 32px;
+}

@@ -1,0 +1,50 @@
+.jumbotron-services {
+	position: relative;
+	text-align: center, left;
+	background: url("../../images/marquee_services_1280x410v3.jpg")
+		no-repeat center center;
+	min-height: 250px;
+	width: 100%;
+	height: 100%;
+	background-size: 100% 100%;
+}
+
+.jumbotron-products {
+	position: relative;
+	text-align: center, left;
+	background: url("../../images/products_banner_image.jpg") no-repeat
+		center center;
+	min-height: 250px;
+	width: 100%;
+	height: 100%;
+	background-size: 100% 100%;
+}
+
+.jumbotron-solutions {
+	position: relative;
+	text-align: center, left;
+	background: url("../../images/solutions_banner_image.jpg") no-repeat
+		center center;
+	min-height: 250px;
+	width: 100%;
+	height: 100%;
+	background-size: 100% 100%;
+}
+
+.navbar-default {
+	background-image: url("../../images/AvayaBackgroundCustom1.jpg");
+	background-size: cover; /* <------ */
+	background-repeat: no-repeat;
+	background-position: center center;
+
+}
+
+.nav.navbar-nav li a {
+	color: #fff;
+	
+}
+
+  .navbar-default .navbar-nav .open .dropdown-menu>li>a,.navbar-default .navbar-nav .open .dropdown-menu {
+    color:#000;
+    
+  }
