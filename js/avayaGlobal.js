@@ -17,6 +17,27 @@
 
 var avayaGlobal = {
 
+	/* \\\\\\\\\\\\\\\\\\\\\ SF added these \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
+	initialAttributes : [ 'InteractionType.Avaya_APS' ],
+	
+	/* By default, user must wait to chat (other than first message on the init form) till an agent replies */
+	disableUserChatInitially : true,
+	
+	/* Based on requirements we populate these the first time the user calls initChat via Live Chat 
+	   Since MSC Direct hard reloads for login/out, these can persist for the duration of the page */
+	client: {
+		regState: 'g', //default
+		firstName: '',
+		lastName: '',
+		email: '',
+		phoneArea: '',
+		phonePrefix: '',
+		phoneBody: '',
+	},
+	
+	
+	/* \\\\\\\\\\\\\\\\\\\\\\\ end added \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
+
     browserWarning : 'Your browser does not support required features for this website. The earliest supported versions are Internet Explorer 10, Firefox 11, Chrome 31, Safari 7.1 and Opera 12.1',
     language : 'en_GB',
 

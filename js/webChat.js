@@ -1431,3 +1431,39 @@ var webChat = {
     }
 };
 
+function initChat(regState, firstName, lastName, email, parsedPhone){
+	var phone = parsedPhone.split('|');
+	avayaGlobal.client.regState = regState ? regState : 'g';
+	avayaGlobal.client.firstName = firstName ? firstName : '';
+	avayaGlobal.client.lastName = lastName ? lastName : '';
+	avayaGlobal.client.email = email ? email : '';
+	avayaGlobal.client.phoneArea = phone[0] ? phone[0] : '';
+	avayaGlobal.client.phonePrefix = phone[1] ? phone[1] : '';
+	avayaGlobal.client.phoneBody = phone[2] ? phone[2] : '';
+
+	$('#liveChatLink').hide();
+	$('#chatPanel').dialog({
+		width : 400,
+		height : 'auto',
+		dialogClass : 'fixedPosition',
+		open: function(event, ui){
+			console.log('dialog opened');
+			document.getElementById('user-chat').value = avayaGlobal.client.firstName;
+			document.getElementById('user-chat-last').value = avayaGlobal.client.lastName;
+			document.getElementById('email-chat').value = avayaGlobal.client.email;
+			document.getElementById('phone-area').value = avayaGlobal.client.phoneArea;
+			//@todo: modify coding to allow a dash between so we don't look like robots
+			document.getElementById('phone-country').value = '+1';
+			document.getElementById('phone-chat').value = avayaGlobal.client.phonePrefix + avayaGlobal.client.phoneBody;
+		},
+		close: function(event, ui){
+			console.log('dialog closed');
+			if (webSocket !== undefined ) {
+				chatUI.closePanel(event);    
+			}
+			$('#liveChatLink').show();
+		},
+	});	
+}
+
+

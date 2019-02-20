@@ -17,7 +17,7 @@ var chatLogon = {
     * The attributes for the chat. There is a known issue where Work Assignment does not accept any contact
     * whose contextId has more than 10 attributes associated with it. Those attributes include this array *AND*
     */
-    attributes : [ 'Location.Inhouse' ],
+    attributes : [ 'InteractionType.Avaya_APS' ],
 
     // workaround for ED having issues with more than 10 attributes per context ID.
     attributeCount : 1,
@@ -140,6 +140,8 @@ var chatLogon = {
 			chatLogon.mscattribute = 'InteractionType.CC_Sale';
 		} else if (chatLogon.reason === 'The website') {
 			chatLogon.mscattribute = 'InteractionType.CC_Ecomm_Tier3';
+			//The above is not the same as the working example (no error of "No suitable agent") at 172.25.17.73/prodmscchat35/, so we change it
+			chatLogon.mscattribute = 'InteractionType.CC_Ecomm';
 		} else if (chatLogon.reason === 'Technical Product Info') {
 			chatLogon.mscattribute = 'InteractionType.CC_ProductTech';	
 		} else {
