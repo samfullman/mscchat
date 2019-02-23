@@ -175,6 +175,8 @@ var chatUI = {
         'use strict';
 
         // set up the link for liveChat - this is what the user clicks to open the chat
+		/*
+		// 2019-02-21 sfullman@presidio.com: taken care of in initChat()
         $('#liveChatLink').click(function(event) {
             event.preventDefault();
             $('#liveChatLink').hide();
@@ -188,6 +190,7 @@ var chatUI = {
                 }
             });
         });
+		*/
 
         // gives the liveChatLink a fancier tooltip
         $('#liveChatLink').tooltip();

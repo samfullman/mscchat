@@ -1432,7 +1432,7 @@ var webChat = {
 };
 
 function initChat(regState, firstName, lastName, email, parsedPhone){
-	var phone = parsedPhone.split('|');
+	var phone = (parsedPhone || '').split('|');
 	avayaGlobal.client.regState = regState ? regState : 'g';
 	avayaGlobal.client.firstName = firstName ? firstName : '';
 	avayaGlobal.client.lastName = lastName ? lastName : '';
@@ -1464,6 +1464,8 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 			$('#liveChatLink').show();
 		},
 	});	
+	
+	return false;
 }
 
 

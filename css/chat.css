@@ -30,11 +30,6 @@
 /**
  *  This is the element the user will click to show the chat panel.
  */
-#liveChatLink {
-    position: fixed;
-    right: 0px;
-    top: 200px;
-}
 
 #chatPanel {
     display:none;

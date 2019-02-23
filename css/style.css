@@ -367,3 +367,244 @@ p {
 #contextDisplayDialog{
     white-space: pre;
 }
+
+
+
+
+
+
+
+
+
+
+/*---------------------------------------------------------*/
+
+/*---------------------[Presidio CSS]----------------------*/
+
+/*---------------------------------------------------------*/
+
+
+
+.ui-widget {
+
+	font-size: 12px; color: #333; font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+
+}
+
+
+
+.ui-widget-content.ui-widget {
+
+	border-color: rgb(0,0,0);
+
+}
+
+
+
+.ui-widget-content a {
+
+	color: #006FBA;
+
+}
+
+
+
+.ui-corner-all {
+
+	border-radius: 0;
+
+}
+
+
+
+.ui-dialog {
+
+	padding: 0;
+
+}
+
+
+
+.ui-widget-header {
+
+	background-color: #006FBA; border: none; font-weight: normal;
+
+}
+
+
+
+.ui-dialog .ui-dialog-content {
+
+	padding: 15px;
+
+	overflow: hidden;
+
+}
+
+
+
+.ui-dialog .ui-dialog-button {
+
+	padding: 0 15px 10px 15px; outline: none
+
+}
+
+
+
+.ui-dialog .ui-dialog-buttonpane {
+
+	border: none; margin: 0; padding: 0 15px 15px 15px;
+
+}
+
+
+
+.ui-dialog .ui-dialog-buttonpane button {
+
+	margin: 0; outline: none;
+
+}
+
+
+
+
+
+.ui-widget-content {
+
+	border: none;
+
+}
+
+
+
+.chatField {
+
+	margin-bottom: 15px;
+
+}
+
+
+
+.agentDate {
+
+	font-style: italic;
+
+}
+
+
+
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+
+	float: none;
+
+}
+
+
+
+.ui-dialog .ui-dialog-titlebar-close,
+
+.ui-dialog .ui-dialog-titlebar-close:hover,
+
+.ui-dialog .ui-dialog-titlebar-close:active,
+
+.ui-dialog .ui-dialog-titlebar-close:focus {
+
+	background: transparent; right: 15px; border: 1px solid #FFF; width: 15px; height: 15px; border-radius: 0; margin: -8px 0px 0px; padding: 0; outline: none
+
+}
+
+
+
+#closebutton-chat, .poweredBy {
+
+	display: none;
+
+}
+
+
+
+.ui-button,
+
+.ui-button:hover,
+
+.ui-button:active,
+
+.ui-button:focus {
+
+    width: 100%; border: none; color: #fff; padding: 8px 10px; border-radius: 3px; margin: 5px 0 5px 0; background: #39b3d7; font-weight: normal;
+
+}
+
+
+
+.ui-widget input, .formField input {
+
+    border: 1px solid #ccc; padding: 5px 10px; color: #777; font-size: 15px; display: inline-block; box-sizing: border-box; 
+
+}
+
+
+
+.formField input {
+
+	border: 1px solid #ccc; padding: 5px 10px; color: #777; font-size: 15px; display: inline-block; box-sizing: border-box; 
+
+}
+
+
+
+#chatForm img, #transcript-chat {
+
+	margin-bottom: 10px;
+
+}
+
+
+
+#user-chat, #user-chat-last {
+
+	width: 183px; margin: 5px 0 15px 0;
+
+}
+
+
+
+#email-chat, #address-chat, #reason, #outmessage {
+
+	width: 370px; margin: 5px 0 15px 0;
+
+}
+
+
+
+#phone-country {
+
+	width: 45px; margin-bottom: 15px;
+
+}
+
+
+
+#phone-area {
+
+	width: 55px; margin-bottom: 15px;
+
+}
+
+
+
+#phone-chat {
+
+	width: 60px; margin-bottom: 15px;
+
+}
+
+
+
+#loginErrorsDiv {
+
+	margin: 15px 0;
+
+}
+
+
