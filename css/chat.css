@@ -327,7 +327,6 @@ p.chatbot {
 
 
 .button-widget {
-    background-color: red; /* Green */
     border: none;
     color: white;
     padding: 4px 6px;
@@ -341,7 +340,6 @@ p.chatbot {
 }
 
 .radio-widget {
-   background-color: red; /* Green */
     border: none;
     color: white;
     padding: 4px 6px;

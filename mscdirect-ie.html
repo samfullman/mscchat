@@ -42,6 +42,9 @@ type="text/css" media="print">	 		 <!--[if IE 11]><link href="//qacdn.mscdirect.
 		<![endif]-->
 	 
 <SCRIPT src="mscdirect-ie_files/jquery-3.1.1.min.js"></SCRIPT>
+<script>
+jQuery.migrateMute = true
+</script>
 	 
 <SCRIPT src="mscdirect-ie_files/jquery-migrate-3.js"></SCRIPT>
 	 
@@ -138,21 +141,30 @@ src="mscdirect-ie_files/logo.png"></A></DIV><!-- // end logo - show from proper 
                 
 <DIV id="main-top-nav-help"><A href="https://quality.mscdirect.com/customer-service/information">Help</A></DIV>
 <SCRIPT>
-	var chatFlagValue = '2';
-</SCRIPT>
-			 
-<DIV id="main-top-nav-chat"><A onclick="advancedChat();" href="https://quality.mscdirect.com/#">
-							Chat				 </A>			 </DIV>
+/*
+sfullman@presidio.com: 
+Values generated server-side; this is the only touchpoint for chat from the server-side
+*/
+var _MSCGlobal_ = {
+	chatFlagValue: 2,
+	allowedTime: true,
+	userType: 'R',
+	avayaGuestFlagEnabled: true,
+	punchOutSessionObject: false,
+	avayaPOFlagEnabled: false,
+	firstName: 'Abel',
+	lastName: 'Tester',
+	email: 'atester@gmail.com',
+	phoneNumber: '512|555|0001',
+	
+	//Presidio-suggested values
+	
+};
+</SCRIPT>			 
 <SCRIPT src="mscdirect-ie_files/v4-chat.js" type="text/javascript"></SCRIPT>
- 
-<SCRIPT>
-$(document).ready(function () {
-	chatOnLoad('2', true , 'G', true, false, false);
-});
-function advancedChat() {
-	invokeAdvacedChat('2', true , 'G', true, false, false,'',"",'', '')
-}
-</SCRIPT>
+<DIV id="main-top-nav-chat">
+	<A onclick="return advancedChat();" href="https://quality.mscdirect.com/#">Chat</A>
+</DIV>
                  
 <DIV id="main-top-nav-about"><A href="https://quality.mscdirect.com/corporate/about-msc">About 
 Us</A></DIV></DIV></DIV>
@@ -163,7 +175,7 @@ Us</A></DIV></DIV></DIV>
     	"url" : "https://quality.mscdirect.com",
     	"logo" : "https://qacdn.mscdirect.com/global/application-content/images/header/logo.png?v=313"
 	}
-    </SCRIPT>
+</SCRIPT>
              
 <SCRIPT>
                var flyoutAllowedForOneStop;
@@ -2550,7 +2562,6 @@ function sendPrintCmiCartTags(){
 
         <!-- CHAT PANEL -->
         <div id="chatPanel" title="MSC Live Chat">
-
             <!-- Login form -->
             <div id="chatForm">
 				<div class="pres-chatInitLogo">
@@ -2581,7 +2592,6 @@ function sendPrintCmiCartTags(){
                 <div class="formField addressClass">
                     <input type="text" id="address-chat" placeholder="e.g. Galway" value="">
                 </div>
-                
                <div class="formLabel">Reason: I need help with...</div>
                 <div class="formField">
                     <select id="reason">
@@ -2597,26 +2607,19 @@ function sendPrintCmiCartTags(){
                 <div class="formField">
                     <input type="text" id="pageTopic" maxLength="255" title="Denotes a topic for the contact" pattern="([a-zA-Z0-9])+([_~\-.][a-zA-Z0-9]+)*" placeholder="e.g. FrenchInsurance">
                 </div>
-
                 <div class="formLabel">
                     <input type="checkbox" id="transcript-chat">Email the chat transcript to me
                 </div>
                 <div class="formLabel"></div>
-                
                 <div id="loginErrorsDiv"></div>
-                
                 <div>
-                    <button id="openbutton-chat" onclick="chatLogon.gatherDetails()" class="button">Chat
-                        Now</button>
+                    <button id="openbutton-chat" onclick="chatLogon.gatherDetails()" class="button">Chat Now</button>
                 </div>
             </div>
-
             <!-- The chat interface, or what the user actually uses to chat with an agent -->
             <div id="chatInterface">
-
                 <!-- messages -->
                 <div id="messages"></div>
-
                 <!-- participants -->
                 <div id="usersDiv">
                     <div id="participants">
@@ -2631,14 +2634,11 @@ function sendPrintCmiCartTags(){
                         </div>
                     </div>
                 </div>
-
                 <div id="controls">
                     <input type="text" id="outmessage" class="chatField" placeholder="Type your message here">
                     <button type="button" id="sendbutton-chat" onclick="webChat.sendChatMessage()" class="button">Send</button>
                     <button type="button" id="closebutton-chat" onclick="webChat.quitChat()" class="button">Close</button>
-
                 </div>
-
             </div>
         </div>
 
@@ -2647,13 +2647,11 @@ function sendPrintCmiCartTags(){
 
         <!-- Configuration panel. Remove for production -->
         <div id="configPanel" class="configPanel" title="Web UI 3.5.0.0 Configuration">
-
             <div onclick="chatConfigPanel.toggleInfo()" class="configHeader">
                 <span class="configHelpLink"
                       title="This is a configuration panel for testing and configuring demos in a lab. It is not a deployment mechanism.">About
                     this panel</span>
             </div>
-
             <div id="toggleUrls" class="configHeader">
                 <span style="text-decoration: underline">Click here</span> to configure URLs
             </div>
@@ -2697,7 +2695,6 @@ function sendPrintCmiCartTags(){
                     </tr>
                 </table>
             </div>
-
             <div class="configHeader" id="toggleWorkflow">
                 <span style="text-decoration: underline">Click here</span> to configure workflow and routepoints
             </div>
@@ -2713,7 +2710,6 @@ function sendPrintCmiCartTags(){
                     </tr>
                 </table>
             </div>
-
             <div class="configHeader" id="toggleReconnectionSettings">
                 <span style="text-decoration: underline">Click here</span> to configure reconnections
             </div>
@@ -2738,7 +2734,6 @@ function sendPrintCmiCartTags(){
                     </tr>
                 </table>
             </div>
-            
             <div class="configHeader" onclick="chatConfigPanel.toggleCustomData()">
                 <span style="text-decoration:underline">Click here</span> to configure custom data (Watson)
             </div>
@@ -2746,7 +2741,6 @@ function sendPrintCmiCartTags(){
                 <textarea id="customDataInput"></textarea>
                 <button class="button configButton" onclick="chatConfigPanel.loadCustomData()">Create custom data</button>
             </div>
-
             <div class="configHeader" id="toggleCoBrowse">
                 <span style="text-decoration: underline">Click here</span> to configure Co-Browse
             </div>
@@ -2760,7 +2754,6 @@ function sendPrintCmiCartTags(){
                     </tr>
                 </table>
             </div>
-            
             <div class="configHeader" id="toggleRequiredContactDetails">
                 <span style="text-decoration: underline">Click here</span> to toggle require contact details
             </div>
@@ -2774,7 +2767,6 @@ function sendPrintCmiCartTags(){
                 <input type="checkbox" id="toggleRequireEmail" >
                 <label for="toggleRequireEmail">Require Email</label>
             </div>
-
             <div class="configHeader">
                 <button class="configButton button" id="requestEwt">Request Estimated Wait Time</button>
                 <button class="configButton button" id="showChatPanel"
@@ -2786,8 +2778,8 @@ function sendPrintCmiCartTags(){
         </div>
 
 		<!-- start compiled file list for chat -->
-
         <link href="css/chat.css" rel="stylesheet" type="text/css">
+		<link href="css/style.css" rel="stylesheet" type="text/css">
 
         <!-- import AvayaClientServices and its dependencies -->
         <script src="js/libs/xmlToJSON.js"></script>
@@ -2826,6 +2818,5 @@ function sendPrintCmiCartTags(){
         <script type="text/javascript" src="smsVendorLinkElements/loadSmsPage.js"></script>
         <link href="smsVendorLinkElements/loadSmsPage.css" rel="stylesheet" type="text/css">
         <!-- ===== END COMPLETE AVAYA INTEGRATION ===== -->
-
 
    </BODY></HTML>
