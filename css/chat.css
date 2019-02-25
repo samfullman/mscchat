@@ -34,10 +34,8 @@
 #chatPanel {
     display:none;
 }
-
 #chatForm {
     display: block;
-    margin-top: 10px;
 }
 #chatInterface {
     display: none;

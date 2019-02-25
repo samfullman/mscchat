@@ -111,25 +111,18 @@
 
 
 /*---------------------------------------------------------*/
-
 /*---------------------[Presidio CSS]----------------------*/
-
 /*---------------------------------------------------------*/
-
-
 
 .ui-widget {
 	color: #333; 
 	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
-
 }
 
 
 
 .ui-widget-content.ui-widget {
-
 	border-color: rgb(0,0,0);
-
 }
 
 
@@ -177,20 +170,14 @@
 	margin-bottom: 15px;
 }
 
-
-
 .agentDate {
-
 	font-style: italic;
-
 }
 
 
 
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
-
 	float: none;
-
 }
 
 
@@ -301,4 +288,19 @@
 
 }
 
+/* ---- Added by SF --- */
+
+.ui-dialog .ui-dialog-titlebar-close{
+	right: inherit !important;
+    border: 1px solid #FFF;
+    width: 20px !important;
+    height: 20px !important;
+    margin: inherit !important;
+	margin-top: -8px !important;
+    padding: 0px !important;
+}
+
+.ui-widget-header .ui-icon:hover {
+    background-image: inherit !important;
+}
 
