@@ -118,20 +118,16 @@ var chatUI = {
         }, 2000);
     },
     
-    markElAsRequired: function(id, isRequired){
+	markElAsRequired: function(id, isRequired){
         "use strict";
-        
-        var text = $(id).text();
-        var newText;
-        console.log(text);
-        
+		console.log('Setting ' + id + ' as ' + (isRequired ? 'required' : 'not required'));
+        var html = $(id).html(), newHtml;
         if (isRequired) {
-            newText = text + " (required)";
+            newHtml = html + "<sup class='presav-required'>*</sup>";
         } else {
-            newText = text.replace(" (required)", "");
+            newHtml = html.replace("<sup class='presav-required'>*</sup>", "");
         }
-        
-        $(id).text(newText);
+        $(id).html(newHtml);
     },
 
     /**
@@ -173,6 +169,14 @@ var chatUI = {
      */
     setup : function() {
         'use strict';
+		
+		if(webChat.settings.reasonOptions){
+			console.log('Appending reason field options');
+			for(var i in webChat.settings.reasonOptions){
+				var a = webChat.settings.reasonOptions[i];
+				$('#reason').append('<option value="' + a[0] + '">' + a[1] + '</option>');
+			}
+		}
 
         // set up the link for liveChat - this is what the user clicks to open the chat
 		/*
@@ -197,9 +201,8 @@ var chatUI = {
 
         $('#configLink').click(function(event) {
             $('#configPanel').dialog({
-                width : 400,
-                height : 350,
-                'resize' : 'auto',
+                width : 450,
+                resize : 'auto',
                 dialogClass : 'fixedPosition'
             });
             event.preventDefault();
@@ -224,7 +227,8 @@ var chatUI = {
         $('#chatJavaScriptAlertHeader').hide();
         chatUI.shakeChatTab();
         
-        chatUI.markElAsRequired("#nameLabel", chatConfig.requireFirstName || chatConfig.requireLastName);
+        chatUI.markElAsRequired("#firstNameLabel", chatConfig.requireFirstName);
+		chatUI.markElAsRequired("#lastNameLabel", chatConfig.requireLastName);
         chatUI.markElAsRequired("#emailLabel", chatConfig.requireEmail);
         chatUI.markElAsRequired("#phoneLabel", chatConfig.requirePhone);
     },

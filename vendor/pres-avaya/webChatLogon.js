@@ -132,21 +132,9 @@ var chatLogon = {
             errors += "A custom field cannot have an empty title\n";
         }
 
-//Padma New code start
-		
-		chatLogon.reason = avayaGlobal.getEl('reason').value;
-		
-		if (chatLogon.reason === 'Placing an order or quote') {
-			chatLogon.mscattribute = 'InteractionType.CC_Sale';
-		} else if (chatLogon.reason === 'The website') {
-			chatLogon.mscattribute = 'InteractionType.CC_Ecomm_Tier3';
-			//The above is not the same as the working example (no error of "No suitable agent") at 172.25.17.73/prodmscchat35/, so we change it
-			chatLogon.mscattribute = 'InteractionType.CC_Ecomm';
-		} else if (chatLogon.reason === 'Technical Product Info') {
-			chatLogon.mscattribute = 'InteractionType.CC_ProductTech';	
-		} else {
-			chatLogon.mscattribute = 'InteractionType.Avaya_APS';
-		}
+		// Modified by Sam, simplified
+		chatLogon.reason = reason;
+		chatLogon.mscattribute = reason;
 		
         if (errors === '') {
             var phoneCountryVal = avayaGlobal.getEl("phone-country").value;
@@ -157,6 +145,14 @@ var chatLogon = {
             if (!isStringEmpty(customFieldTitle)) {
                 webChat.addCustomFields(reason);    
             }
+			
+			if(_MSCGlobal_.userType === 'R'){
+				webChat.addCustomFields('sessionId', 'abc123def987');
+				webChat.addCustomFields('original_user', _MSCGlobal_.firstName + ' ' + _MSCGlobal_.lastName);
+				webChat.addCustomFields('original_email', _MSCGlobal_.email);
+				webChat.addCustomFields('original_phone', _MSCGlobal_.phoneNumber);
+				
+			}
             
             avayaGlobal.setSessionStorage('user', l_user);
             avayaGlobal.setSessionStorage('user_last', l_user_last);
@@ -240,64 +236,6 @@ var chatLogon = {
 
 	},
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
     /**
      * Verifies that the phone number is valid using a regex.
@@ -305,30 +243,8 @@ var chatLogon = {
      * @returns {Boolean} true if the phone number is valid
      */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     isValidNumber : function(country, area, phone) {
         'use strict';
-
-
-
-
-
-
 		        
         /*
          * This should approve any number that fits pattern of phone number fields

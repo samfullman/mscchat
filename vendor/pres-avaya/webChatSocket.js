@@ -249,10 +249,15 @@ var chatSocket = {
     
     reloadAfterRefresh: function(){
         'use strict';
+		
         var ak = avayaGlobal.getSessionStorage("ak");
         var guid = parseInt(avayaGlobal.getSessionStorage("guid"));
-        var reloadTimestamp = parseInt(avayaGlobal.getSessionStorage("reloadTimestamp"));
-        if (isNaN(reloadTimestamp)) {
+        var reloadTimestamp = avayaGlobal.getSessionStorage("reloadTimestamp");
+		if(reloadTimestamp) reloadTimestamp = parseInt(reloadTimestamp);
+		if(!reloadTimestamp){
+			console.log('Reload timestamp has not yet been set');
+			return;
+		}else if (isNaN(reloadTimestamp)) {
             avayaGlobal.log.warn("WebChat: Reload timestamp is not a valid UTC timestamp!");
             chatSocket.clearRefresh();
             return;

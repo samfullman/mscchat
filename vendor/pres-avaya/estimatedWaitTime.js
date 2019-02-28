@@ -15,10 +15,10 @@
 
     // maximum wait time in seconds, and various status messages.
     var maxWaitTime = 600,
-            chatAvailableMsg = 'The chat is available. Your estimated wait time is {0} minutes. Click the "Live Chat" tab to open the chat',
-            chatPossibleMsg = 'The chat is available. Click the "Live Chat" tab to open the chat.',
-            chatNotAvailableMsg = 'The chat is not currently available. Please try again later',
-            noAgentsAvailableMsg = 'No agents are currently available. Please try again later';
+	chatAvailableMsgEwt = 'The chat is available. Your estimated wait time is {0} minutes. Click the "Live Chat" tab to open the chat',
+	chatAvailableMsg = 'The chat is available. Click the "Live Chat" tab to open the chat.',
+	chatNotAvailableMsg = 'The chat is not currently available. Please try again later',
+	noAgentsAvailableMsg = 'No agents are currently available. Please try again later';
             
     // refactoring for test purposes. In production, these can be left unchanged.
     var minAgentCount = 1;
@@ -70,14 +70,13 @@
      * @param {String} serviceId
      */
     ewt.parseServiceMap = function(responseJson, serviceId) {
-        
 
         var serviceMap = responseJson[serviceId];
         
         // check if the EWT is defined here. We assume that chat is available,
         // unless specifically stated otherwise
-        var alertMsg = chatPossibleMsg;
-        var chatAvailable = true;
+        var alertMsg = chatAvailableMsg;
+        var chatAvailable = false;
         var metrics = serviceMap.metrics;
         if (metrics !== undefined) {
             var waitTime = parseInt(metrics.EWT);
@@ -89,12 +88,12 @@
             // FYI: if agents are logged in, that doesn't necessarily mean they *can* take a call. They may be busy, or on a break.
             if (waitTime < maxWaitTime && waitTime >= minWaitTime && agentCount >= minAgentCount) {
                 var waitTimeInMins = Math.round(waitTime / 60);
-                alertMsg = chatAvailableMsg.replace('{0}', waitTimeInMins);
+                alertMsg = chatAvailableMsgEwt.replace('{0}', waitTimeInMins);
                 chatAvailable = true;
+				//2019-02-26 SF: this is called below, don't think it needs called here
                 chatUI.showChatPanel();
                 chatUI.addEwtToChatTab(waitTimeInMins);
             } else {
-                chatAvailable = false;
                 if (waitTime > maxWaitTime) {
                     // customise alert messages depending on the circumstances. 
                     alertMsg = chatNotAvailableMsg;
@@ -111,7 +110,9 @@
         }
 
         // leave this in for ease of testing
-        chatUI.showAlert(alertMsg);
+        if(webChat.settings.initiallyShowChatStatus){
+			chatUI.showAlert(alertMsg);
+		}
     };
     
     /**
@@ -247,8 +248,9 @@
     /**
      * Request EWT.
      */
-    ewt.requestEwt = function () {
+    ewt.requestEwt = function (callback) {
         var url = links.getEstimatedWaitTimeUrl();
+		var callbackReturn;
         
         // account for local testing
         if (url.indexOf('localhost') > -1 || url.indexOf("127.0.0.1") > -1) {
@@ -271,9 +273,18 @@
         request.open('POST', links.getEstimatedWaitTimeUrl());
         request.setRequestHeader('Content-Type', 'application/json');
         request.addEventListener('readystatechange', handleResponse);
+		// 2019-02-26 SF: add callback if sent
+		if(typeof callback === 'function'){
+			request.onload = function(response){
+				callback(response);
+			};
+		}
         request.send(JSON.stringify({
             'serviceMap' : services
         }));
+		
+		//void/undefined if no callback
+		return callbackReturn;
     };
 
     return ewt;

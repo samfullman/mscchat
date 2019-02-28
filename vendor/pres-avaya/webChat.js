@@ -185,32 +185,32 @@ var webChat = {
 			}
 
             msg = {
-                'apiVersion' : '1.0',
-                'type' : 'request',
-                'body' : {
-                    'method' : 'requestChat',
-                    'deviceType' : navigator.userAgent,
-                    'routePointIdentifier' : webChat.routePointIdentifier,
-                    'workFlowType' : webChat.workflowType,
-                    'requestTranscript' : wantsEmail,
-                    'workRequestId' : avayaGlobal.getSessionStorage('contextId'),
-                    'calledParty' : calledParty,
-                    'leaseTime' : leaseTime,
-                    'intrinsics' : {
-                        'channelAttribute' : 'Chat',
-                        'attributes' : chatLogon.attributes,
-                        'email' : email,
-                        'name' : firstName,
-                        'lastName' : lastName,
-                        'country' : phone.country,
-                        'area' : phone.area,
-                        'phoneNumber' : phone.number,
+                apiVersion : '1.0',
+                type : 'request',
+                body : {
+                    method : 'requestChat',
+                    deviceType : navigator.userAgent,
+                    routePointIdentifier : webChat.routePointIdentifier,
+                    workFlowType : webChat.workflowType,
+                    requestTranscript : wantsEmail,
+                    workRequestId : avayaGlobal.getSessionStorage('contextId'),
+                    calledParty : calledParty,
+                    leaseTime : leaseTime,
+                    intrinsics : {
+                        channelAttribute : 'Chat',
+                        attributes : chatLogon.attributes,
+                        email : email,
+                        name : firstName,
+                        lastName : lastName,
+                        country : phone.country,
+                        area : phone.area,
+                        phoneNumber : phone.number,
 
-                        'topic' : pageTopic,
-                        'customFields' : webChat.customFields
+                        topic : pageTopic,
+                        customFields : webChat.customFields
                     },
-                    'priority' : ewt.getPriority(),
-                    'customData': webChat.customData
+                    priority : ewt.getPriority(),
+                    customData: webChat.customData
                 }
             };
             webChat.writeResponse('Sending Login Details', chatConfig.writeResponseClassSystem);
@@ -1372,8 +1372,11 @@ var webChat = {
     /**
      * Call this to set up webChat.
      */
-    setupWebChat: function() {
+    setupWebChat: function(settings) {
         'use strict';
+				
+		//2019-02-26 SF: bind server-declared settings
+		this.settings = settings || {};
         
         // check if this browser supports required features
         avayaGlobal.detectBrowserSupport();
@@ -1389,13 +1392,15 @@ var webChat = {
         // set up the UI
         chatUI.setup();
 
-        // Set Co-Browsing iFrame onLoad handler. Comment out if not using Co-Browsing.
-        webChat.coBrowseIframe.onload = webChat.onLoadCoBrowseIframe;
+        if(this.settings.initCobrowse){
+			// Set Co-Browsing iFrame onLoad handler. Comment out if not using Co-Browsing.
+			webChat.coBrowseIframe.onload = webChat.onLoadCoBrowseIframe;
 
-        // Setup Co-Browsing instance on this page. Comment out if not using Co-Browsing
-        coBrowseUI.addListener(webChat);
-        webChat.initCoBrowse();
-        
+			// Setup Co-Browsing instance on this page. Comment out if not using Co-Browsing
+			coBrowseUI.addListener(webChat);
+			webChat.initCoBrowse();
+		}
+		        
         // check if there was a chat in progress before reloading
         chatSocket.reloadAfterRefresh();
         
@@ -1443,8 +1448,7 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 
 	$('#liveChatLink').hide();
 	$('#chatPanel').dialog({
-		width : 400,
-		height : 'auto',
+		width : 475,
 		dialogClass : 'fixedPosition',
 		open: function(event, ui){
 			console.log('dialog opened');
