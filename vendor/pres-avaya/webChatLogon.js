@@ -72,41 +72,26 @@ var chatLogon = {
         'use strict';
         var isStringEmpty = avayaGlobal.isStringEmpty;
         var l_user = avayaGlobal.getEl('user-chat').value, l_user_last = avayaGlobal.getEl("user-chat-last").value, l_email = avayaGlobal.getEl('email-chat').value;
-
-
-
-
-
-
-
-
 	
-        // gather custom fields
-       // var customFieldTitle = avayaGlobal.getEl("customFieldTitle").value;
-       // var customFieldValue = avayaGlobal.getEl("customFieldValue").value;
+		// gather custom fields
+		// var customFieldTitle = avayaGlobal.getEl("customFieldTitle").value;
+		// var customFieldValue = avayaGlobal.getEl("customFieldValue").value;
 		var reason = avayaGlobal.getEl("reason").value;
 		var customFieldTitle = "title";
-        var customFieldValue = "titlevalue";
-
-
-
+		var customFieldValue = "titlevalue";
 
         var errors = '';
         
         if (chatConfig.requireEmail) {
-            console.log("Email required!");
             if (isStringEmpty(l_email)) {
                 errors += "A valid email address is required\n";    
             }
-            
         }
-
-
 
         if (!chatLogon.validatePhone()) {
             errors += 'A valid phone number is required\n';
         }
-
+		
         // check if the name is too long
         if (l_user.length > 50) {
             errors += 'Your name is too long. It must be less than 50 characters\n';
@@ -131,7 +116,7 @@ var chatLogon = {
         if (isStringEmpty(customFieldTitle) && ! isStringEmpty(customFieldValue)) {
             errors += "A custom field cannot have an empty title\n";
         }
-
+		
 		// Modified by Sam, simplified
 		chatLogon.reason = reason;
 		chatLogon.mscattribute = reason;
@@ -151,14 +136,12 @@ var chatLogon = {
 				webChat.addCustomFields('original_user', _MSCGlobal_.firstName + ' ' + _MSCGlobal_.lastName);
 				webChat.addCustomFields('original_email', _MSCGlobal_.email);
 				webChat.addCustomFields('original_phone', _MSCGlobal_.phoneNumber);
-				
 			}
             
             avayaGlobal.setSessionStorage('user', l_user);
             avayaGlobal.setSessionStorage('user_last', l_user_last);
             avayaGlobal.setSessionStorage('phone', phoneVal);
             avayaGlobal.setSessionStorage('email', l_email);
-
 
 			oceanaCoreData.initialise();
 			chatLogon.addAttribute(chatLogon.mscattribute);
@@ -249,7 +232,7 @@ var chatLogon = {
         /*
          * This should approve any number that fits pattern of phone number fields
          * In the case of country code and area we also allow blank.
-         */							
+         */	
         var reCountry = new RegExp("^("+country.getAttribute("pattern")+"|)$");
         var reArea = new RegExp("^("+area.getAttribute("pattern") + "|)$");
         var rePhone = new RegExp("^"+phone.getAttribute("pattern")+"$");

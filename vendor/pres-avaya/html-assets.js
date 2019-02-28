@@ -33,13 +33,13 @@ var _AVAYA_HTML_ =
         '<div class="formLabel" id="phoneLabel">Phone</div> ' + 
         '<div class="formField"> ' + 
             '<div class="presav-w-50" style="width: 25%;"> ' + 
-                '<input type="text" id="phone-country" placeholder="e.g +353" maxLength="10"> ' + 
+                '<input type="text" id="phone-country" placeholder="e.g. +1" maxLength="10" pattern="[-+0-9]+"> ' + 
             '</div> ' + 
             '<div class="presav-w-50" style="width: 33%;"> ' + 
-                '<input type="text" id="phone-area" placeholder="e.g 011" maxLength="10" title="Area code. Numbers only" > ' + 
+                '<input type="text" id="phone-area" placeholder="e.g. 904" maxLength="10" title="Area code. Numbers only" pattern="[0-9]+"> ' + 
             '</div> ' + 
             '<div class="presav-w-50" style="width: 42%;"> ' + 
-                '<input type="text" id="phone-chat" placeholder="e.g. 2112231" maxLength="32" title="Phone number. Numbers only"> ' + 
+                '<input type="text" id="phone-chat" placeholder="e.g. 207-2231" maxLength="32" title="Phone number. Numbers only" pattern="[-0-9]+"> ' + 
             '</div> ' + 
         '</div> ' + 
         '<!-- The Chat API requires this field. It will be used in a future release --> ' + 

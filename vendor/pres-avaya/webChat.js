@@ -1456,9 +1456,10 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 			document.getElementById('user-chat-last').value = avayaGlobal.client.lastName;
 			document.getElementById('email-chat').value = avayaGlobal.client.email;
 			document.getElementById('phone-area').value = avayaGlobal.client.phoneArea;
-			//@todo: modify coding to allow a dash between so we don't look like robots
 			document.getElementById('phone-country').value = '+1';
-			document.getElementById('phone-chat').value = avayaGlobal.client.phonePrefix + avayaGlobal.client.phoneBody;
+			document.getElementById('phone-chat').value = avayaGlobal.client.phonePrefix + 
+				(avayaGlobal.client.phonePrefix && avayaGlobal.client.phoneBody ? '-' : '') + 
+				avayaGlobal.client.phoneBody;
 		},
 		close: function(event, ui){
 			console.log('dialog closed');

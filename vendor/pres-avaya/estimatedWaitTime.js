@@ -58,8 +58,12 @@
                 } else {
                     avayaGlobal.log.error('EWT: ' + response);
                 }
-                chatUI.showAlert(chatNotAvailableMsg);
+				if(webChat.settings.initiallyShowChatStatus){
+					chatUI.showAlert(chatNotAvailableMsg);
+				}
+
                 chatUI.hideChatPanel();
+				$('.bottom_chat_btn').hide();
             }
         }
     };
