@@ -185,10 +185,10 @@
 	top: 50%; width: 100%; position: absolute; z-index: 50;
 }
 .v4-recs-prev-next-box .owl-prev {
-	background: url("https://cdn.mscdirect.com/global/media/images/slider/arrows.png") no-repeat; border: 0px currentColor; border-image: none; width: 30px; height: 30px; text-indent: -9999px; cursor: pointer;
+	border: 0px currentColor; border-image: none; width: 30px; height: 30px; text-indent: -9999px; cursor: pointer;
 }
 .v4-recs-prev-next-box .owl-next {
-	background: url("https://cdn.mscdirect.com/global/media/images/slider/arrows.png") no-repeat; border: 0px currentColor; border-image: none; width: 30px; height: 30px; text-indent: -9999px; cursor: pointer;
+	\border: 0px currentColor; border-image: none; width: 30px; height: 30px; text-indent: -9999px; cursor: pointer;
 }
 .v4-recs-prev-next-box .owl-prev {
 	left: 0px; margin-top: -15px; position: absolute;
@@ -710,7 +710,7 @@ li.fancybox-thumbs-loading {
 	background: url("//cdn.mscdirect.com/global/application-content/images/icons/star-ratings.png") no-repeat 0px 0px; margin: 0px; width: 125px; height: 16px; bottom: 1px; padding-left: 83px; display: block; position: relative; -webkit-transform: translate3d(0, 0, 0);
 }
 .rating-refinements {
-	background: url("//cdn.mscdirect.com/global/application-content/images/icons/star-ratings.png") no-repeat 0px 0px; top: 2px; width: 80px; height: 16px; margin-right: 5px; display: inline-block; position: relative; -webkit-transform: translate3d(0, 0, 0);
+	top: 2px; width: 80px; height: 16px; margin-right: 5px; display: inline-block; position: relative; -webkit-transform: translate3d(0, 0, 0);
 }
 .nostar {
 	background-position: 0px 0px;
