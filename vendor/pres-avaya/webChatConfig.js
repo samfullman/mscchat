@@ -93,10 +93,10 @@ var chatConfig = {
     writeResponseClassChatbot : 'chatbot',
 
     // links to various images
-    agentImage : 'images/agent.png',
-    agentTypingImage : 'images/agent_typing.png',
-    supervisorImage : 'images/supervisor.png',
-    supervisorTypingImage : 'images/supervisor_typing.png',
+    agentImage : 'vendor/pres-avaya/agent.png',
+    agentTypingImage : 'vendor/pres-avaya/agent_typing.png',
+    supervisorImage : 'vendor/pres-avaya/supervisor.png',
+    supervisorTypingImage : 'vendor/pres-avaya/supervisor_typing.png',
 
     // used only by the configuration panel
     useSecureUrls : false,

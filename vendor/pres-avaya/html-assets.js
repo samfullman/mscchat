@@ -1,5 +1,5 @@
 /*
-See /mscdirect-unminified.html for this string in actual HTML format
+This JS string is source of truth for the chat panel HTML and console etc.
 */
 var _AVAYA_HTML_ = 
 '<!-- CHAT PANEL --> ' + 
@@ -73,6 +73,7 @@ var _AVAYA_HTML_ =
     '<div id="chatInterface"> ' + 
         '<!-- messages --> ' + 
         '<div id="messages"></div> ' + 
+		'<div id="otherThanMessages">' +
         '<!-- participants --> ' + 
         '<div id="usersDiv"> ' + 
             '<div id="participants"> ' + 
@@ -88,10 +89,15 @@ var _AVAYA_HTML_ =
             '</div> ' + 
         '</div> ' + 
         '<div id="controls"> ' + 
-            '<input type="text" id="outmessage" class="chatField" placeholder="Type your message here"> ' + 
-            '<button type="button" id="sendbutton-chat" onclick="webChat.sendChatMessage()" class="button">Send</button> ' + 
+			'<div class="presav-w-50">' + 
+				'<input type="text" id="outmessage" class="chatField" placeholder="Type your message here"> ' + 
+			'</div>' + 
+			'<div class="presav-w-50">' +
+				'<button type="button" id="sendbutton-chat" onclick="webChat.sendChatMessage()" class="button">Send</button> ' + 
+			'</div>' +
             '<button type="button" id="closebutton-chat" onclick="webChat.quitChat()" class="button">Close</button> ' + 
         '</div> ' + 
+		'</div>' + 
     '</div> ' + 
 '</div> ' + 
 '<!-- Generic div for a jQuery alert dialog --> ' + 
