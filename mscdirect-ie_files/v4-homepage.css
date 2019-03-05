@@ -8,10 +8,10 @@
 	width: 25px; opacity: 1;
 }
 .left.carousel-control {
-	background: url("//cdn.mscdirect.com/global/media/images/carousel-left-arrow.png") no-repeat 50% rgb(245, 245, 245); border: 1px solid rgb(204, 204, 204); border-image: none; top: 80px; height: 100px; filter: none;
+	border: 1px solid rgb(204, 204, 204); border-image: none; top: 80px; height: 100px; filter: none;
 }
 .right.carousel-control {
-	background: url("//cdn.mscdirect.com/global/media/images/carousel-right-arrow.png") no-repeat 50% rgb(245, 245, 245); border: 1px solid rgb(204, 204, 204); border-image: none; top: 80px; height: 100px; filter: none;
+	border: 1px solid rgb(204, 204, 204); border-image: none; top: 80px; height: 100px; filter: none;
 }
 .carousel-indicators li {
 	margin: 0px 5px 0px 0px; border-radius: 0px; border: 1px solid rgb(221, 221, 221); border-image: none; width: 14px; height: 14px;
@@ -233,7 +233,7 @@
 	background-position: 0px -22px;
 }
 .theme-default .nivo-directionNav a {
-	background: url("//cdn.mscdirect.com/global/media/images/slider/arrows.png") no-repeat; border: 0px currentColor; border-image: none; width: 30px; height: 30px; text-indent: -9999px; display: block;
+	border: 0px currentColor; border-image: none; width: 30px; height: 30px; text-indent: -9999px; display: block;
 }
 .theme-default a.nivo-nextNav {
 	background-position: -30px 0px; right: 4px;
