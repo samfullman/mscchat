@@ -4358,6 +4358,5 @@ var customerJourneyCommon = {
 
 
 $(document).ready(function(){
-	$('body').append('<link rel="stylesheet" type="text/css" href="vendor/presidio-avaya/chat.css" />');
 	$('body').append(_AVAYA_HTML_);
 });
