@@ -1359,7 +1359,9 @@ var webChat = {
         webChat.gatherChatElements();
         
         // set up the configuration panel. Remove this in production
-        chatConfigPanel.setup();
+		if(this.settings.initChatConfigPanel){
+			chatConfigPanel.setup();
+		}
         
         
         // set up the UI
