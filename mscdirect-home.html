@@ -76,86 +76,25 @@ media="all">
 <META name="GENERATOR" content="MSHTML 11.00.9600.19180">
 
 
+<!-- Step 1: include jquery-ui CSS per requirements -->
+<link rel="stylesheet" href="src/libs/jquery-ui/jquery-ui.min.css" />
 
-		<!-- ===== JQUERY-UI PER REQUIREMENTS ===== -->
-		<link rel="stylesheet" href="src/libs/jquery-ui/jquery-ui.min.css" />
+<!-- Step 2: include the Presidio vendor css -->
+<link rel="stylesheet" href="vendor/presidio-avaya/chat-main-1.0.css" />
 
+<!-- Step 2: include chat-main file -->
+<script src="vendor/presidio-avaya/chat-main-1.0.js"></script>
 
-
-        <!-- ===== BEGIN COMPLETE AVAYA INTEGRATION ===== -->
-		<!--
-		<div id="chatJavaScriptAlertHeader">If you see this, then either you have disabled JavaScript, or there is a syntax error in the Avaya WebChat files.</div>
-        <div id="cobrowseJavaScriptAlertHeader">If you see this, then either you have disabled JavaScript, or there is a syntax error in the Avaya CoBrowsing files.</div>
-		-->
-        <!-- MAIN -->
-		<!-- COBROWSE ASSETS --
-        <div class="AvayaCoBrowseWrapper">
-			<!-- SF 2019-02-27 - we may need to wrap the desired cobrowse area of MSC Direct into this AvayaCoBrowseWrapper to make it work --  >
-			<!-- Iframe for customer site was here --  >
-            <!-- COBROWSE Iframe --  >
-            <iframe id="cobrowse"> </iframe>
-            <!-- survey for after chat. Insert your page or link here --  >
-            <div id="survey" hidden>Insert your survey here</div>
-        </div>
-		-->
-        <!-- COBROWSE CONTROLS -->
-		<!--
-        <div id="coBrowseDialog" class="hidden" title="Co-Browse Session">
-            <div id="coBrowseText"></div>
-        </div>
-        <div id="requestControlDialog" class="hidden" title="Request Control">
-            <div id="requestControlText"></div>
-        </div>
-		-->
-		<!-- start compiled file list for chat -->
-		<script src="src/html-assets.js"></script>
-        <link href="src/chat.css" rel="stylesheet" type="text/css">
-        <!-- import AvayaClientServices and its dependencies -->
-        <script src="src/libs/xmlToJSON.js"></script>
-        <script src="src/libs/AvayaClientServices.min.js"></script>
-        <!-- utility files for webChat, etc -->
-        <script src="src/avayaGlobal.js"></script>
-        <script src="src/links.js"></script>
-        <!-- webChat files -->
-        <script src="src/webChatConfig.js"></script>
-        <script src="src/webChatLogon.js"></script>
-        <script src="src/webChatSocket.js"></script>
-        <script src="src/webChatUI.js"></script>
-        <script src="src/estimatedWaitTime.js"></script>
-        <script src="src/webChat.js"></script>
-		<script src="src/oceanaCoreData.js"></script>
-		<script src="src/customerJourneyCommon.js"></script>
-        <!-- Configuration panel - you can just remove this in production -->
-        <script src="src/chatConfigPanel.js"></script>
-        <link href="src/configPanel.css" rel="stylesheet" type="text/css">
-        <!-- CoBrowse dependencies -->
-		<!-- 
-        <script src="cobrowse-oceana/js/libs/LAB.min.js"></script>
-        <script src="cobrowse-oceana/js/coBrowse.js"></script>
-        <script src="cobrowse-oceana/js/coBrowseUI.js"></script>
-        <link href="cobrowse-oceana/css/cbe.css" rel="stylesheet" type="text/css">
-        <link href="cobrowse-oceana/css/cobrowseUI.css" rel="stylesheet" type="text/css">
-		-->
-        <!--
-		<script type="text/javascript" src="smsVendorLinkElements/loadSmsPage.js"></script>
-        <link href="smsVendorLinkElements/loadSmsPage.css" rel="stylesheet" type="text/css">
-		-->
-        <!-- ===== END COMPLETE AVAYA INTEGRATION ===== -->
-
-
-
-
-        <!-- 
-		Initialise Web Chat once the page is ready. Using setTimeout with a value of zero effectively re-queues this until rendering has finished.
-		You can start this manually by simply commenting out and entering webChat.setupWebChat(_MSCGlobal_) in the console.
-		All _MSCGlobal_ attributes are initialized to webChat.settings
-		-->
-        <script>
-		$(document).ready(function(){
-			$('body').append(_AVAYA_HTML_);
-			webChat.setupWebChat(_MSCGlobal_);
-		});
-		</script>
+<!-- Step 3: initialize Web Chat
+Note: must be called once the page is ready.
+You can start this manually by simply commenting out and entering webChat.setupWebChat(_MSCGlobal_) in the console.
+All _MSCGlobal_ attributes are initialized to webChat.settings
+-->
+<script>
+$(document).ready(function(){
+	webChat.setupWebChat(typeof _MSCGlobal_ !== 'undefined' ? _MSCGlobal_ : {});
+});
+</script>
 
 
 
