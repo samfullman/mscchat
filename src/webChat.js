@@ -389,11 +389,11 @@ var webChat = {
      */
     notifyIsTyping : function(body) {
         'use strict';
-        var isAgentTyping = body.isTyping;
+        var isTyping = body.isTyping;
 
-        if (isAgentTyping === true) {
+        if (isTyping === true) {
             var agent = webChat.users[body.agentId];
-            agent.isTyping = isAgentTyping;
+            agent.isTyping = isTyping;
             webChat.updateTypingCell(agent, true);
 
             var agentTypeOut;
@@ -954,12 +954,12 @@ var webChat = {
         'use strict';
         var image = agent.image;
         if (agent.agentType === 'active_participant' || agent.agentType === 'passive_participant') {
-            image.src = isTyping === true ? chatConfig.agentTypingImage : chatConfig.agentImage;
+            image.src = webChatConfig.cdnLocation + (isTyping ? chatConfig.agentTypingImage : chatConfig.agentImage);
         } else {
-            image.src = isTyping === true ? chatConfig.supervisorTypingImage : chatConfig.supervisorImage;
+            image.src = webChatConfig.cdnLocation + (isTyping ? chatConfig.supervisorTypingImage : chatConfig.supervisorImage);
         }
 
-        image.nextSibling.textContent = isTyping === true ? agent.name.concat(' is typing') : agent.name;
+        image.nextSibling.textContent = (isTyping ? agent.name.concat(' is typing') : agent.name);
     },
 
     /**
@@ -1177,52 +1177,6 @@ var webChat = {
     },
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     ////////////////////////////////////////////////////////////////////////////
     // Subscribed Co-Browse iFrame Events
     ////////////////////////////////////////////////////////////////////////////
@@ -1377,6 +1331,25 @@ var webChat = {
 				
 		//2019-02-26 SF: bind server-declared settings
 		this.settings = settings || {};
+				
+		//Presidio: get CDN location per requirements; note trailing slash
+		var host = window.location.host;
+		if(host.match(/quality\./)){
+			chatConfig.cdnLocation = '//qacdn.mscdirect.com/';
+		}else if(host.match(/dev\./)){
+			chatConfig.cdnLocation = '//devcdn.mscdirect.com/';
+		}else if(this.settings.cdnLocation){
+			// allow for a custom specified CDN location say for local testing
+			chatConfig.cdnLocation = this.settings.cdnLocation;
+		}else{
+			// production
+			chatConfig.cdnLocation = '//cdn.mscdirect.com/';
+		}
+		
+		// if an override is given for URLs, set them
+		if(this.settings.webChatHost) links.webChatHost = this.settings.webChatHost;
+		if(this.settings.coBrowseHost) links.coBrowseHost = this.settings.coBrowseHost;
+		if(this.settings.contextStoreHost) links.contextStoreHost = this.settings.contextStoreHost;
         
         // check if this browser supports required features
         avayaGlobal.detectBrowserSupport();
@@ -1449,7 +1422,7 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 	$('#liveChatLink').hide();
 	$('#chatPanel').dialog({
 		width : 475,
-		dialogClass : 'fixedPosition',
+		dialogClass : 'fixedPosition presav-chatPanel',
 		open: function(event, ui){
 			console.log('dialog opened');
 			document.getElementById('user-chat').value = avayaGlobal.client.firstName;
@@ -1460,6 +1433,10 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 			document.getElementById('phone-chat').value = avayaGlobal.client.phonePrefix + 
 				(avayaGlobal.client.phonePrefix && avayaGlobal.client.phoneBody ? '-' : '') + 
 				avayaGlobal.client.phoneBody;
+				
+			//we want the actual chat dialog to remain at least the same height as the chat entry form; no change in bottom location.  Tried using min-height and it failed/was reset
+			chatUI.panelStartingHeight = document.getElementById('chatPanel').offsetHeight;
+			
 		},
 		close: function(event, ui){
 			console.log('dialog closed');

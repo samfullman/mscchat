@@ -20,19 +20,22 @@ var links = {
 
     /**
      * The hostname or cluster of the OCP cluster
+	   Value during testing: oce-stf-p-cc3-node-vip.mscpla.local
      */
-    webChatHost : 'oce-stf-p-cc3-node-vip.mscpla.local',
+    webChatHost : (window.location.host && window.location.host.match(/www\.mscdirect/) ? 'chat.mscdirect.com' : 'qachat.mscdirect.com'),
 
     /**
      * The hostname or address of the cluster that hosts the Co-Browsing service.
+	   Value during testing: oce-stf-p-cc4-node-vip.mscpla.local
      */
-    coBrowseHost : 'oce-stf-p-cc4-node-vip.mscpla.local',
+    coBrowseHost : (window.location.host && window.location.host.match(/www\.mscdirect/) ? 'chat.mscdirect.com' : 'qachat.mscdirect.com'),
 
     /**
      * The hostname or address of the cluster that hosts Context Store, the CustomerManagement service,
      * and the OceanaCoreDataService.
+	   Value during testing: oce-stf-p-cc1-node-vip.mscpla.local
      */
-    contextStoreHost : 'oce-stf-p-cc1-node-vip.mscpla.local',
+    contextStoreHost : (window.location.host && window.location.host.match(/www\.mscdirect/) ? 'chat.mscdirect.com' : 'qachat.mscdirect.com'),
 
     /**
      * Return the URL for the WebSocket. 

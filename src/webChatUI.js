@@ -11,6 +11,8 @@
  */
 
 var chatUI = {
+	
+	panelStartingHeight : null,
 
     /**
      * Hide the chat panel.
@@ -52,13 +54,19 @@ var chatUI = {
      */
     changeToChatMode : function() {
         'use strict';
-        $('#chatForm').hide();
-        $('#chatInterface').show();
-        $('#chatPanel').dialog({
-            width : 400,
-            'resize' : 'auto',
-            dialogClass : 'fixedPosition'
-        });
+		
+		if(chatUI.panelStartingHeight){
+			console.log('maintaining panel height');
+			console.log(document.getElementById('chatPanel').style.height = chatUI.panelStartingHeight + 'px');
+		}else{
+			$('#chatPanel').dialog({
+				width : 475,
+				'resize' : 'auto',
+				dialogClass : 'fixedPosition presav-chatPanel'
+			});
+		}
+        $('#chatForm').fadeOut(400);
+        $('#chatInterface').delay(400).fadeIn(400);
         
         $('#chatPanel').dialog('widget').attr('id', 'chatPanelHidden');    
     },
@@ -115,7 +123,7 @@ var chatUI = {
         $('#loginErrorsDiv').text(msg);
         setTimeout(function(){
             $('#loginErrorsDiv').hide("fold");
-        }, 2000);
+        }, 5000);
     },
     
 	markElAsRequired: function(id, isRequired){

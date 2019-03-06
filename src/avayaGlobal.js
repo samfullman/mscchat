@@ -26,7 +26,7 @@ var avayaGlobal = {
 	/* Based on requirements we populate these the first time the user calls initChat via Live Chat 
 	   Since MSC Direct hard reloads for login/out, these can persist for the duration of the page */
 	client: {
-		regState: 'g', //default
+		regState: 'G', //default
 		firstName: '',
 		lastName: '',
 		email: '',

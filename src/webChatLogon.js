@@ -147,7 +147,6 @@ var chatLogon = {
 			chatLogon.addAttribute(chatLogon.mscattribute);
 			
 			console.log('Webchat: Adding CS data and Inititialzing of OCP completed');
-			
             chatLogon.logon(l_user, l_user_last, l_email, phoneCountryVal, phoneAreaVal, phoneVal);
         } else {
             var message = "Please correct the following errors:\n" + errors;
