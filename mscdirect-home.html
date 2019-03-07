@@ -184,6 +184,13 @@ var _MSCGlobal_ = {
 	email: 'atester@gmail.com',
 	phoneNumber: '512|555|0001',
 	
+	//hook values may be a defined or anonymous function.
+	hookStartChatError: null,
+	hookStartChatDataChanged: null,
+	hookRefreshChatAndResume: null,
+	hookRefreshChatAndClose: null,
+	hookAcceptAgentLink: null,
+	
     /* found in links.js */
 	webChatHost : 'oce-stf-p-cc3-node-vip.mscpla.local',
     coBrowseHost : 'oce-stf-p-cc4-node-vip.mscpla.local',
@@ -191,7 +198,7 @@ var _MSCGlobal_ = {
 	
 	/* Presidio-suggested values */
 	initiallyShowChatStatus: false,				//default false
-	initCobrowse: false,						//default false		Do we initialize co-browsing service
+	initCobrowse: false,						//default false		Do we initialize co-browsing service - note that if we do, more assets need to be included; see mscdirect-unminified-src.html for full stack of includable files.
 	
 	reasonOptions: [							//required			These are very likely to change fluidly
 		['InteractionType.CC_Sale', 'Placing an order or quote'],
