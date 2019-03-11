@@ -17,11 +17,11 @@ var _AVAYA_HTML_ =
         '</div> ' + 
         '<div class="formField"> ' + 
             '<div class="presav-w-50"> ' + 
-                '<span id="firstNameLabel">First</span><br /> ' + 
+                '<span id="firstNameLabel" class="formLabel">First</span><br /> ' + 
                 '<input type="text" id="user-chat" maxLength="10" placeholder="e.g. John" title="Max length 50 characters"> ' + 
             '</div> ' + 
             '<div class="presav-w-50"> ' + 
-                '<span id="lastNameLabel">Last</span><br /> ' + 
+                '<span id="lastNameLabel" class="formLabel">Last</span><br /> ' + 
                 '<input type="text" id="user-chat-last" maxLength="10" placeholder="e.g. Smith" title="Max length 100 characters"> ' + 
             '</div> ' + 
         '</div> ' + 
@@ -89,14 +89,16 @@ var _AVAYA_HTML_ =
             '</div> ' + 
         '</div> ' + 
         '<div id="controls"> ' + 
-			'<div class="presav-w-50">' + 
+			'<div class="controls-user-message presav-w-50">' + 
 				'<input type="text" id="outmessage" class="chatField" placeholder="Type your message here"> ' + 
 			'</div>' + 
-			'<div class="presav-w-50">' +
+			'<div class="controls-user-submit presav-w-50">' +
 				'<button type="button" id="sendbutton-chat" onclick="webChat.sendChatMessage()" class="button">Send</button> ' + 
 			'</div>' +
-            '<button type="button" id="closebutton-chat" onclick="webChat.quitChat()" class="button">Close</button> ' + 
         '</div> ' + 
+		'<span>' + 
+            '<button type="button" id="closebutton-chat" onclick="webChat.quitChat()" class="button">Close</button> ' + 
+		'</span>' +
 		'</div>' + 
     '</div> ' + 
 '</div> ' + 

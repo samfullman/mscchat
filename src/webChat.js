@@ -419,6 +419,31 @@ var webChat = {
         }
     },
 
+	writeStandardBlock : function(body){
+		'use strict';
+		var chatMessageClass = (body.displayName === webChat.chatBotName ? chatConfig.writeResponseClassChatbot : chatConfig.writeResponseClassResponse);
+		
+		console.log(body);
+		var ampm = 'AM', date = new Date(body.timestamp), dateStr = '';
+		var hours = parseInt(date.getHours());
+		var minutes = date.getMinutes().toString();
+		if(hours > 12){
+			ampm = 'PM';
+			hours -= 12;
+		}
+		dateStr = hours + ':' + (minutes.length === 1 ? '0' : '') + minutes + ampm;
+		
+		var message = '<div class="presav-message-wrap incoming-message presav-' + chatMessageClass + '">' + 
+		'<div class="presav-timestamp" data-timestamp="' + body.timestamp + '">' + dateStr + '</div>' + 
+		'<div class="presav-messager">' + (body.displayName ? body.displayName : 'Agent') + '</div>' + 
+		'<div class="presav-message">' + body.message + '</div>' + 
+		'</div>';
+		var chat = webChat.messages.innerHTML;
+		webChat.messages.innerHTML = chat + message;
+		webChat.messages.scrollTop = webChat.messages.scrollHeight;
+
+	},
+
     /**
      * Notify the user of a new chat message.
      * 
@@ -426,22 +451,26 @@ var webChat = {
      */
     notifyNewMessage : function(body) {
         'use strict';
-        var date = new Date(body.timestamp);
+		// this method is now only for widgets
+		if(body.type !== 'widget'){
+			//hand off to writeStandardBlock
+			webChat.writeStandardBlock(body);
+			return;
+		}
+		
+        var chatMessageClass, date = new Date(body.timestamp);
         var dateMessage = body.displayName + ' (' + date.toLocaleTimeString() + ')';
         webChat.writeResponse(dateMessage, chatConfig.writeResponseClassAgentDate);
 
         // get the chat message class. If it's a chatbot, use the chatbot class instead of the agent class.
-        var chatMessageClass = chatConfig.writeResponseClassResponse;
         if (body.displayName === webChat.chatBotName) {
             chatMessageClass = chatConfig.writeResponseClassChatbot;
-        }
-       if (body.type === "widget") {
-            webChat.writeResponse(body.data.text, chatMessageClass);
-            webChat.createWidgets(body.data);
-        }
-        else {
-            webChat.writeResponse(body.message, chatMessageClass);
-        }
+        }else{
+			chatMessageClass = chatConfig.writeResponseClassResponse;
+		}
+		
+		webChat.writeResponse(body.data.text, chatMessageClass);
+		webChat.createWidgets(body.data);
     },
 
     /**
@@ -640,6 +669,7 @@ var webChat = {
             webChat.startOnHoldMessages();
         } else {
             webChat.writeResponse('Successfully reconnected', chatConfig.writeResponseClassSystem);
+			webChat.messages.scrollTop = webChat.messages.scrollHeight;
         }
     },
 
@@ -766,9 +796,9 @@ var webChat = {
      * Sends a chat message to the server. If the message box is empty, nothing
      * is sent.
      */
-    sendChatMessage : function() {
+    sendChatMessage : function(text) {
         'use strict';
-        var text = webChat.outMessage.value;
+        var text = text || webChat.outMessage.value;
 
         if (!avayaGlobal.isStringEmpty(text)) {
 
@@ -954,9 +984,9 @@ var webChat = {
         'use strict';
         var image = agent.image;
         if (agent.agentType === 'active_participant' || agent.agentType === 'passive_participant') {
-            image.src = webChatConfig.cdnLocation + (isTyping ? chatConfig.agentTypingImage : chatConfig.agentImage);
+            image.src = this.cdnLocation + (isTyping ? chatConfig.agentTypingImage : chatConfig.agentImage);
         } else {
-            image.src = webChatConfig.cdnLocation + (isTyping ? chatConfig.supervisorTypingImage : chatConfig.supervisorImage);
+            image.src = this.cdnLocation + (isTyping ? chatConfig.supervisorTypingImage : chatConfig.supervisorImage);
         }
 
         image.nextSibling.textContent = (isTyping ? agent.name.concat(' is typing') : agent.name);
@@ -1032,12 +1062,20 @@ var webChat = {
     /**
      * Writes the specified text out to the transcript box and includes an
      * autoscroll mechanism.
+	 * NOTE: this function is too ingrained in the coding to make a complete change without a lot of work.  It's inadequate for writing rich blocks of request/response as it only writes a line of text and adds a class to it.  There is no container (any sense of a parent wrapper) and no way to add multiple elements.
      * 
      * @param text
      * @param msgClass
+	 * @param useBlockMethod 
+	 * @param direction
      */
-    writeResponse : function(text, msgClass) {
+    writeResponse : function(text, msgClass, useBlockMethod, type) {
         'use strict';
+		
+		if(useBlockMethod){
+			
+		}
+		
         var paragraph = document.createElement('p');
         paragraph.className = msgClass;
 
@@ -1335,15 +1373,15 @@ var webChat = {
 		//Presidio: get CDN location per requirements; note trailing slash
 		var host = window.location.host;
 		if(host.match(/quality\./)){
-			chatConfig.cdnLocation = '//qacdn.mscdirect.com/';
+			this.cdnLocation = '//qacdn.mscdirect.com/';
 		}else if(host.match(/dev\./)){
-			chatConfig.cdnLocation = '//devcdn.mscdirect.com/';
+			this.cdnLocation = '//devcdn.mscdirect.com/';
 		}else if(this.settings.cdnLocation){
 			// allow for a custom specified CDN location say for local testing
-			chatConfig.cdnLocation = this.settings.cdnLocation;
+			this.cdnLocation = this.settings.cdnLocation;
 		}else{
 			// production
-			chatConfig.cdnLocation = '//cdn.mscdirect.com/';
+			this.cdnLocation = '//cdn.mscdirect.com/';
 		}
 		
 		// if an override is given for URLs, set them

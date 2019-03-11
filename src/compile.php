@@ -17,6 +17,8 @@ $files = [
 ];
 $str = '';
 $lines = 0;
+$here = __FILE__;
+chdir(str_replace('compile.php', '', $here));
 foreach($files as $i=>$file){
     $str .= '/* ---- File (' . ($i+1) . '): ' . $file . '; compiled ' . date('Y-m-d H:i:s') . ' by /src/compile.php ---- */' . "\n";
     $a = file($file);

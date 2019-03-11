@@ -48,18 +48,20 @@
  *  gives the div a scrollbar.
  */
 #messages {
-    border-bottom: 1px solid #cccccc;
+    border-bottom: 1px solid #ccc;
 	position: absolute;
 	top: 0px;
-	width: 100%;
+	left: -15px;
+	right: -15px;
+	padding: 0px 15px;
     height: 70%;
     word-wrap: break-word;
-    overflow-y: scroll;
+    overflow-y: auto;
     white-space: pre-wrap;
 }
 #otherThanMessages{
 	position: absolute;
-	bottom: 0px;
+	bottom: -15px;
 	height: 30%;
 	width: 100%;
 }
@@ -78,9 +80,6 @@
     display: inline-block;
     width: 145px;
     border: 1px dotted #cccccc;
-}
-#controls {
-    padding-top: 7px;
 }
 
 #usersDiv {
@@ -115,7 +114,7 @@
 }
 .formLabel {
     padding-top: 5px;
-    font-size: 16px;
+	font-weight: 700;
 }
 
 
@@ -174,25 +173,17 @@
  *  Sent chat messages are inside a red paragraph
  */
 p.sent {
-    color: red;
 }
 
-/*
- *  Received chat messages are inside a blue paragraph,
- *  with italics to help distinguish them from sent paragraphs
- */
 p.response {
     color: black;
-    font-style: italic;
-    text-align: right;
 }
 
 /*
  * System messages are left-aligned in blue italics.
  */
 p.system {
-    color: blue;
-    font-style: italic;
+    color: darkblue;
     text-align: left;
 }
 
@@ -210,7 +201,6 @@ p.agentDate {
     width: 50%;
     left: 50%;
     position: relative;
-    font-style: italic;
 }
 
 /*
@@ -299,7 +289,6 @@ p.chatbot {
     border-radius: 4px;
     text-decoration: none;
     display: inline-block;
-    font-style: italic;
     margin: 4px 2px;
     cursor: pointer;
 }
@@ -471,7 +460,6 @@ p.chatbot {
 }
 
 .agentDate {
-	font-style: italic;
 }
 
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
@@ -485,7 +473,7 @@ p.chatbot {
 	border-radius: 0; 
 	outline: none;
 	background: transparent; 
-	right: 15px !important;
+	right: 7px !important;
     border: 1px solid #FFF;
     width: 20px !important;
     height: 20px !important;
@@ -534,6 +522,9 @@ p.chatbot {
 #email-chat, #address-chat, #reason, #outmessage {
 	margin: 5px 0 10px 0;
 }
+.presav-notice{
+	font-size: 85%;
+}
 
 #loginErrorsDiv {
 	margin: 15px 0;
@@ -552,7 +543,7 @@ p.chatbot {
 	width: 50%; 
 	padding-right: 10px;
 }
-.presav-w-50:last-child{
+div.presav-w-50:last-child{
 	padding-right: 0 !important;
 }
 .presav-cb{
@@ -561,6 +552,7 @@ p.chatbot {
 .presav-chatPostInstructions{
 	font-size: 75%;
 	clear: both;
+	color: #999;
 }
 .presave-checkbox-label{
 	cursor:pointer;
@@ -590,4 +582,53 @@ p.chatbot {
 	background-repeat: no-repeat !important;
 	background-position: 10px 0px !important;
 	background-size: auto 20px !important;
+}
+#controls {
+	position: absolute;
+	bottom: 0px;
+	left: -15px;
+	right: -15px;
+	padding: 7px 15px;
+	border-top: 1px solid #999;
+}
+#controls .controls-user-message{
+	width: 75%;
+}
+#controls .controls-user-message input{
+	padding-bottom: 10px !important;
+}
+#controls .controls-user-submit{
+	width: 25%;
+}
+// let's just use our own clearing div
+#controls:after{
+	content: '';
+	clear: both;
+}
+
+.presav-message-wrap{
+	border-top: 1px solid #999;
+	padding: 10px 15px;
+	margin-left: -15px;
+	margin-right: -15px;
+}
+.presav-message-wrap:first-child{
+	border-top: none;
+}
+.presav-message-wrap:after{
+	content: '';
+	clear: both;
+}
+.incoming-message{}
+.presav-timestamp{
+	float: right;
+	color: #999;
+	font-size: 85%;
+}
+.presav-messager{
+	font-size: 111%;
+}
+.presav-message{
+	padding-top: 10px;
+	clear: both;
 }

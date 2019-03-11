@@ -62,7 +62,18 @@ var chatUI = {
 			$('#chatPanel').dialog({
 				width : 475,
 				'resize' : 'auto',
-				dialogClass : 'fixedPosition presav-chatPanel'
+				dialogClass : 'fixedPosition presav-chatPanel',
+				open: function(event, ui){
+					console.log('dialog re-opened');
+				},
+				close: function(event, ui){
+					console.log('dialog closed after page nav');
+					if (webSocket !== undefined ) {
+						console.log('closePanel');
+						chatUI.closePanel(event);    
+					}
+					$('#liveChatLink').show();
+				}
 			});
 		}
         $('#chatForm').fadeOut(400);
@@ -205,7 +216,9 @@ var chatUI = {
 		*/
 
         // gives the liveChatLink a fancier tooltip
-        $('#liveChatLink').tooltip();
+		try{
+			$('#liveChatLink').tooltip();
+		}catch(e) { }
 
         $('#configLink').click(function(event) {
             $('#configPanel').dialog({
@@ -224,9 +237,11 @@ var chatUI = {
         });
 
         // show a tooltip for the configuration panel
-        $('#configLink').tooltip();
+		try{
+			$('#configLink').tooltip();
+			$('.configButton').tooltip();
+		}catch(e) { }
 
-        $('.configButton').tooltip();
 
         // Set jQuery UI button
         $('.button').button();
