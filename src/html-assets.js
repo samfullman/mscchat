@@ -7,7 +7,7 @@ var _AVAYA_HTML_ =
     '<!-- Login form --> ' + 
     '<div id="chatForm"> ' + 
         '<div class="presav-chatInitLogo"> ' + 
-            '<img src="images/msclogo.jpg"> ' + 
+            '&nbsp;' + 
         '</div> ' + 
         '<div class="pres-chatInitInstructions"> ' + 
             'Please complete the following information to chat live now! ' + 

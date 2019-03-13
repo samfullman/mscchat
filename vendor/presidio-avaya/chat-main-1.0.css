@@ -26,6 +26,13 @@
     background: red;
     color:white;
 }
+/* logo.png must be present in the same CDN instance */
+.presav-chatInitLogo{
+	background-image: url("/global/application-content/images/header/logo.png");
+	background-repeat: no-repeat;
+	width: 303px;
+	height: 41px;
+}
 
 /**
  *  This is the element the user will click to show the chat panel.
@@ -76,11 +83,21 @@
 #participants {
     padding-top: 4px;
 }
-#participants div {
+
+#participants .user {
     display: inline-block;
-    width: 145px;
+    min-width: 100px;
     border: 1px dotted #cccccc;
+	padding: 5px;
 }
+
+#participants .user img{
+	vertical-align: baseline;
+	margin-bottom: -2px;
+	padding-right: 5px;
+}
+
+
 
 #usersDiv {
     height: 45px;
@@ -214,11 +231,6 @@ p.chatbot {
 
 .center {
     text-align: center;
-}
-
-.user {
-    display: inline;
-    width: 170px;
 }
 
 .hidden {
@@ -632,3 +644,4 @@ div.presav-w-50:last-child{
 	padding-top: 10px;
 	clear: both;
 }
+

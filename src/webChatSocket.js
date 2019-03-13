@@ -345,10 +345,12 @@ var chatSocket = {
         var transcript = [];
         var messages = webChat.getCurrentTranscript();
         for (var i = 0; i < messages.length; i++) {
-            var para = messages[i];
-            var paraText = para.textContent;
-            var paraClass = para.className;
-            transcript.push({ textContent : paraText, className: paraClass });
+            transcript.push({ 
+				textContent : messages[i].textContext, 
+				className: messages[i].className,
+				/* Added for embedded divs where textContext alone will not work */
+				innerHTML: messages[i].innerHTML
+			});
         }
         avayaGlobal.setSessionStorage('transcript', JSON.stringify(transcript));
     },

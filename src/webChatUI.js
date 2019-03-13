@@ -220,7 +220,8 @@ var chatUI = {
 			$('#liveChatLink').tooltip();
 		}catch(e) { }
 
-        $('#configLink').click(function(event) {
+        /* unused
+		$('#configLink').click(function(event) {
             $('#configPanel').dialog({
                 width : 450,
                 resize : 'auto',
@@ -228,6 +229,7 @@ var chatUI = {
             });
             event.preventDefault();
         });
+		*/
 
         $('#showCoBrowseLink').click(function(event) {
             if (!coBrowseUI.checkDialogOpen(coBrowseUI.proactiveJoinDialogId)) {

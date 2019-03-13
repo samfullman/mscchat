@@ -1204,14 +1204,13 @@ var webChat = {
      */
     gatherChatElements : function() {
         'use strict';
-        var find = avayaGlobal.getEl;
-        chatLogon.openChatButton = find('openbutton-chat');
-        webChat.sendButton = find('sendbutton-chat');
-        webChat.closeButton = find('closebutton-chat');
-        webChat.messages = find('messages');
-        webChat.outMessage = find('outmessage');
-        webChat.participants = find('participants');
-        webChat.coBrowseIframe = find('cobrowse');
+        chatLogon.openChatButton = document.getElementById('openbutton-chat');
+        webChat.sendButton = document.getElementById('sendbutton-chat');
+        webChat.closeButton = document.getElementById('closebutton-chat');
+        webChat.messages = document.getElementById('messages');
+        webChat.outMessage = document.getElementById('outmessage');
+        webChat.participants = document.getElementById('participants');
+        webChat.coBrowseIframe = document.getElementById('cobrowse');
     },
 
 
