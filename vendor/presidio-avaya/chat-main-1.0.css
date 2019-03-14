@@ -187,16 +187,6 @@
 }
 
 /*
- *  Sent chat messages are inside a red paragraph
- */
-p.sent {
-}
-
-p.response {
-    color: black;
-}
-
-/*
  * System messages are left-aligned in blue italics.
  */
 p.system {
@@ -619,19 +609,18 @@ div.presav-w-50:last-child{
 }
 
 .presav-message-wrap{
-	border-top: 1px solid #999;
-	padding: 10px 15px;
+	border-bottom: 1px solid #999;
+	padding: 12px 15px;
 	margin-left: -15px;
 	margin-right: -15px;
 }
 .presav-message-wrap:first-child{
-	border-top: none;
+	border-top: 1px solid #999;
 }
 .presav-message-wrap:after{
 	content: '';
 	clear: both;
 }
-.incoming-message{}
 .presav-timestamp{
 	float: right;
 	color: #999;
@@ -639,9 +628,15 @@ div.presav-w-50:last-child{
 }
 .presav-messager{
 	font-size: 111%;
+	font-weight: 700;
 }
+.sent .presav-messager{
+	color: #39b3d7;
+}
+
 .presav-message{
 	padding-top: 10px;
 	clear: both;
 }
+
 

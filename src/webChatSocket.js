@@ -346,10 +346,11 @@ var chatSocket = {
         var messages = webChat.getCurrentTranscript();
         for (var i = 0; i < messages.length; i++) {
             transcript.push({ 
-				textContent : messages[i].textContext, 
+				textContent : messages[i].textContent, 
 				className: messages[i].className,
-				/* Added for embedded divs where textContext alone will not work */
-				innerHTML: messages[i].innerHTML
+				/* Added for embedded divs where textContent alone will not work */
+				innerHTML: messages[i].innerHTML,
+				tagName: messages[i].tagName
 			});
         }
         avayaGlobal.setSessionStorage('transcript', JSON.stringify(transcript));
@@ -361,12 +362,18 @@ var chatSocket = {
     loadTranscript: function(){
         'use strict';
         var transcript = JSON.parse(avayaGlobal.getSessionStorage('transcript'));
-
+		var tag = '', str = '', message;
         for (var i = 0; i < transcript.length; i++) {
-            var message = transcript[i];
-            var text = message.textContent;
-            var className = message.className;
-            webChat.writeResponse(text, className);
+            message = transcript[i];
+			if(message.innerHTML){
+				tag = (message.tagName ? message.tagName.toLowerCase() : 'div');
+				str = '<' + tag + ' class="' + (message.className ? message.className : '') + '">' + 
+				message.innerHTML + 
+				'</' + tag + '>';
+				webChat.writeHtmlResponse(str);
+			}else{
+				webChat.writeResponse(message.textContent, message.className);
+			}
         }
         
     },

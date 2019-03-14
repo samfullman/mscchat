@@ -213,7 +213,7 @@ var webChat = {
                     customData: webChat.customData
                 }
             };
-            webChat.writeResponse('Sending Login Details', chatConfig.writeResponseClassSystem);
+            webChat.writeMessageBlock('Sending Login Details', chatConfig.writeResponseClassSystem);
         } else {
             msg = {
                 'apiVersion' : '1.0',
@@ -297,6 +297,7 @@ var webChat = {
         } else if (method === chatConfig.jsonMethodRequestIsTyping) {
             webChat.notifyIsTyping(body);
         } else if (method === chatConfig.jsonMethodRequestNewMessage) {
+			//most common one - notify of new agent message
             webChat.notifyNewMessage(body);
         } else if (method === chatConfig.jsonMethodRequestCloseConversation) {
             webChat.notifyCloseConversation();
@@ -419,11 +420,18 @@ var webChat = {
         }
     },
 
-	writeStandardBlock : function(body){
+	writeMessageBlock : function(body, chatMessageClass, settings){
 		'use strict';
-		var chatMessageClass = (body.displayName === webChat.chatBotName ? chatConfig.writeResponseClassChatbot : chatConfig.writeResponseClassResponse);
-		
-		console.log(body);
+		settings = settings || {};
+		if(typeof body === 'string'){
+			//for versatility convert string message to object
+			body = {
+				message: body,
+				displayName: (settings.displayName ? settings.displayName : 'System'),
+				timestamp: (new Date()).getTime()
+			}
+		}
+		//parse date, 
 		var ampm = 'AM', date = new Date(body.timestamp), dateStr = '';
 		var hours = parseInt(date.getHours());
 		var minutes = date.getMinutes().toString();
@@ -431,9 +439,9 @@ var webChat = {
 			ampm = 'PM';
 			hours -= 12;
 		}
-		dateStr = hours + ':' + (minutes.length === 1 ? '0' : '') + minutes + ampm;
+		dateStr = hours + ':' + (minutes.length === 1 ? '0' : '') + minutes + '&nbsp;' + ampm;
 		
-		var message = '<div class="presav-message-wrap incoming-message presav-' + chatMessageClass + '">' + 
+		var message = '<div class="presav-message-wrap ' + (chatMessageClass ? chatMessageClass : '') + '">' + 
 		'<div class="presav-timestamp" data-timestamp="' + body.timestamp + '">' + dateStr + '</div>' + 
 		'<div class="presav-messager">' + (body.displayName ? body.displayName : 'Agent') + '</div>' + 
 		'<div class="presav-message">' + body.message + '</div>' + 
@@ -451,14 +459,19 @@ var webChat = {
      */
     notifyNewMessage : function(body) {
         'use strict';
-		// this method is now only for widgets
+		var chatMessageClass;
+		// this method notifyNewMessage() is now only for widgets
 		if(body.type !== 'widget'){
-			//hand off to writeStandardBlock
-			webChat.writeStandardBlock(body);
+			if(body.displayName === webChat.chatBotName){
+				chatMessageClass = chatConfig.writeResponseClassChatbot;
+			}else{
+				chatMessageClass = chatConfig.writeResponseClassResponse;
+			}
+			webChat.writeMessageBlock(body, chatMessageClass);
 			return;
 		}
 		
-        var chatMessageClass, date = new Date(body.timestamp);
+        var date = new Date(body.timestamp);
         var dateMessage = body.displayName + ' (' + date.toLocaleTimeString() + ')';
         webChat.writeResponse(dateMessage, chatConfig.writeResponseClassAgentDate);
 
@@ -565,7 +578,7 @@ var webChat = {
 
         // if notifications are allowed/required, display them
         if (announceBot || announceObserve || announceBarge || role === 'active_participant') {
-            webChat.writeResponse('An agent has joined the chat', chatConfig.writeResponseClassSystem);
+            webChat.writeMessageBlock('An agent has joined the chat', chatConfig.writeResponseClassSystem);
         }
         var agents = body.participants;
         webChat.updateUsers(agents);
@@ -656,7 +669,7 @@ var webChat = {
         // if the customer has already been connected, don't play the on
         // hold messages
         if (!chatConfig.previouslyConnected) {
-            webChat.writeResponse('Login request received and approved', chatConfig.writeResponseClassSystem);
+            webChat.writeMessageBlock('Login request received and approved', chatConfig.writeResponseClassSystem);
             chatConfig.previouslyConnected = true;
             
             if (!body.isEmailValid) {
@@ -796,34 +809,32 @@ var webChat = {
      * Sends a chat message to the server. If the message box is empty, nothing
      * is sent.
      */
-    sendChatMessage : function(text) {
+    sendChatMessage : function(message) {
         'use strict';
-        var text = text || webChat.outMessage.value;
+        var message = message || webChat.outMessage.value;
 
-        if (!avayaGlobal.isStringEmpty(text)) {
+        if (avayaGlobal.isStringEmpty(message)) return;
+		
+		webChat.writeMessageBlock({
+			timestamp: (new Date()).getTime(),
+			displayName: webChat.g_user,
+			message: message
+		}, chatConfig.writeResponseClassSent);
 
-            // add the timestamp message, then the chat.
-            var timestamp = new Date().toLocaleTimeString();
-            var dateMessage = webChat.g_user + ' (' + timestamp + ')';
-            webChat.writeResponse(dateMessage, chatConfig.writeResponseClassDate);
-            webChat.writeResponse(text, chatConfig.writeResponseClassSent);
-
-            var message = {
-                'apiVersion' : '1.0',
-                'type' : 'request',
-                'body' : {
-                    'method' : 'newMessage',
-                    'message' : text,
-                    'type': 'text',
-                    'data': {
-                        'message': text
-                    },
-                    'customData': webChat.customData
-                }
-            };
-            webChat.outMessage.value = '';
-            chatSocket.sendMessage(message);
-        }
+		webChat.outMessage.value = '';
+		chatSocket.sendMessage({
+			apiVersion : '1.0',
+			type : 'request',
+			body : {
+				method : 'newMessage',
+				message : message,
+				type: 'text',
+				data: {
+					message: message
+				},
+				customData: webChat.customData
+			}
+		});
     },
 	
     /**
@@ -1066,16 +1077,10 @@ var webChat = {
      * 
      * @param text
      * @param msgClass
-	 * @param useBlockMethod 
-	 * @param direction
      */
-    writeResponse : function(text, msgClass, useBlockMethod, type) {
+    writeResponse : function(text, msgClass) {
         'use strict';
-		
-		if(useBlockMethod){
-			
-		}
-		
+				
         var paragraph = document.createElement('p');
         paragraph.className = msgClass;
 
@@ -1093,7 +1098,7 @@ var webChat = {
 
                 webChat.appendLink(textArray[i], 'blank', false, span);
             }
-            //if http(s) appears without a qualifing '://', it will be displayed as normal text
+            //if http(s) appears without a qualifying '://', it will be displayed as normal text
             else {
                 span.textContent = textArray[i];
             }
@@ -1104,6 +1109,12 @@ var webChat = {
         webChat.messages.scrollTop = webChat.messages.scrollHeight;
 
     },
+	
+	writeHtmlResponse : function(html, settings){
+		$(webChat.messages).append(html);
+		webChat.messages.scrollTop = webChat.messages.scrollHeight;
+		return;
+	},
 	
     /* This function is used to plot widgets */
     createWidgets: function (data) {
