@@ -19,7 +19,7 @@ var chatUI = {
      */
     hideChatPanel : function() {
         'use strict';
-        $('#liveChatLink').hide();
+        $('.bottom_chat_btn').fadeOut(400);
     },
 
     /**
@@ -27,7 +27,7 @@ var chatUI = {
      */
     showChatPanel : function() {
         'use strict';
-        $('#liveChatLink').show();
+        $('.bottom_chat_btn').fadeIn(400);
     },
 
     /**
@@ -45,7 +45,7 @@ var chatUI = {
      */
     addEwtToChatTab : function(waitTime) {
         'use strict';
-        $('#liveChatLink').attr('title',
+        $('.bottom_chat_btn').attr('title',
                 'Click to chat with an agent! Wait time is approximately ' + waitTime + ' minutes');
     },
 
@@ -77,7 +77,7 @@ var chatUI = {
 			});
 		}
         $('#chatForm').fadeOut(400);
-        $('#chatInterface').delay(400).fadeIn(400);
+        $('#chatInterfaceWrap').delay(400).fadeIn(400);
         
         $('#chatPanel').dialog('widget').attr('id', 'chatPanelHidden');    
     },
@@ -87,7 +87,7 @@ var chatUI = {
      */
     changeToLoginMode : function() {
         'use strict';
-        $('#chatInterface').hide();
+        $('#chatInterfaceWrap').hide();
         $('#chatForm').show();
         $('#chatPanel').dialog({
             width : 400,
@@ -197,40 +197,6 @@ var chatUI = {
 			}
 		}
 
-        // set up the link for liveChat - this is what the user clicks to open the chat
-		/*
-		// 2019-02-21 sfullman@presidio.com: taken care of in initChat()
-        $('#liveChatLink').click(function(event) {
-            event.preventDefault();
-            $('#liveChatLink').hide();
-            $('#chatPanel').dialog({
-                width : 400,
-                height : 'auto',
-                dialogClass : 'fixedPosition',
-            }).on('dialogclose', function(event) {
-                if (webSocket !== undefined ) {
-                    chatUI.closePanel(event);    
-                }
-            });
-        });
-		*/
-
-        // gives the liveChatLink a fancier tooltip
-		try{
-			$('#liveChatLink').tooltip();
-		}catch(e) { }
-
-        /* unused
-		$('#configLink').click(function(event) {
-            $('#configPanel').dialog({
-                width : 450,
-                resize : 'auto',
-                dialogClass : 'fixedPosition'
-            });
-            event.preventDefault();
-        });
-		*/
-
         $('#showCoBrowseLink').click(function(event) {
             if (!coBrowseUI.checkDialogOpen(coBrowseUI.proactiveJoinDialogId)) {
                 coBrowseUI.createProactiveJoinDialog(true);
@@ -266,7 +232,78 @@ var chatUI = {
         console.log("Reloading chat panel");
         chatUI.changeToChatMode();
         
-        // I honestly don't know WHY this line is required, but it's the only thing that works.
-        $("#liveChatLink").click();
-    }
+    },
+	
+	printTranscript : function(){
+		// https://stackoverflow.com/questions/2255291/print-the-contents-of-a-div
+		var win = window.open('', 'PRINT', 'height=400,width=600');
+
+		win.document.write('<html><head><title>Chat Transcript</title>');
+		
+		win.document.write('<link rel="stylesheet" type="text/stylesheet" href="' + webChat.cdnLocation + 'presidio-avaya/chat-main-1.0.css" />');
+		
+		win.document.write('</head><body >');
+		win.document.write('<h1>Chat Transcript</h1>');
+		win.document.write(document.getElementById('messages').innerHTML);
+		win.document.write('</body></html>');
+		win.document.close(); // necessary for IE >= 10
+		win.focus(); // necessary for IE >= 10*/
+		win.print();
+		win.close();
+		return true;
+	},
+	
+	copyTranscript : function(){
+		// https://stackoverflow.com/questions/34191780/javascript-copy-string-to-clipboard-as-text-html
+
+		// This function expects an HTML string and copies it as rich text.
+
+		// Create container for the HTML
+		// [1]
+		var container = document.createElement('div')
+		container.innerHTML = '<style>body{ background-color: transparent !important; }</style>' + document.getElementById('messages').innerHTML;
+		console.log(container.innerHTML.length);
+		// Hide element
+		// [2]
+		container.style.position = 'fixed'
+		container.style.pointerEvents = 'none'
+		container.style.opacity = 0
+
+		// Detect all style sheets of the page
+		var activeSheets = Array.prototype.slice.call(document.styleSheets)
+		.filter(function (sheet) {
+		  return !sheet.disabled
+		});
+
+		// Mount the container to the DOM to make `contentWindow` available
+		// [3]
+		document.body.appendChild(container);
+
+		// Copy to clipboard
+		// [4]
+		window.getSelection().removeAllRanges();
+
+		var range = document.createRange();
+		
+		range.selectNode(container);
+		
+		window.getSelection().addRange(range);
+
+		// [5.1]
+		document.execCommand('copy');
+
+		// [5.2]
+		//for (var i = 0; i < activeSheets.length; i++) activeSheets[i].disabled = true;
+
+		// [5.3]
+		//document.execCommand('copy');
+
+		// [5.4]
+		//for (var i = 0; i < activeSheets.length; i++) activeSheets[i].disabled = false
+
+		// Remove the container
+		// [6]
+		document.body.removeChild(container)
+	}
+
 };

@@ -44,33 +44,61 @@
 #chatForm {
     display: block;
 }
+
+#chatInterfaceWrap{
+	/* initial state */
+	display: none;
+}
+
 #chatInterface {
-    display: none;
-	position: relative;
+    display: flex;
+    flex-direction: column;
 	height: 100%;
+	margin-left: -15px;
+	margin-right: -15px;
+
 }
-/*
- *  The messages in the chat are posted inside this div.
- *  The overflow setting, when combined with a maximum height,
- *  gives the div a scrollbar.
- */
-#messages {
-    border-bottom: 1px solid #ccc;
-	position: absolute;
-	top: 0px;
-	left: -15px;
-	right: -15px;
-	padding: 0px 15px;
-    height: 70%;
-    word-wrap: break-word;
+
+#chatInterfaceHeader {
+	height: 41px;
+    flex-shrink: 0;
+
+	/* show the msc logo at top */
+	background-image: url("/global/application-content/images/header/logo.png");
+	background-repeat: no-repeat;
+	padding-left: 310px;
+	padding-right: 15px;
+	
+	text-align: right;
+}
+#chatInterfaceHeader button{
+	border: 1px solid #ccc;
+	border-right: 0px;
+	border-radius: 0px;
+	padding: 7px;
+	background-color: transparent;
+	font-size: 87%;
+	cursor: pointer;
+}
+#chatInterfaceHeader button:first-child{
+	border-radius: 7px 0px 0px 7px;
+}
+#chatInterfaceHeader button:last-child{
+	border-right: 1px solid #ccc;
+	border-radius: 0px 7px 7px 0px;
+}
+#messages{
     overflow-y: auto;
-    white-space: pre-wrap;
+    height: 100%;
 }
-#otherThanMessages{
-	position: absolute;
-	bottom: -15px;
-	height: 30%;
-	width: 100%;
+
+#otherThanMessages {
+    flex-shrink: 0;
+}
+
+#usersDiv{
+	min-height: 45px;
+	padding: 10px 15px;
 }
 
 /*
@@ -79,6 +107,11 @@
 #messages a {
     color: black;
     text-decoration: underline;
+}
+#messages p {
+	padding: 5px 15px;
+	margin-bottom: 0px !important;
+	border-bottom: 1px solid #eee;
 }
 #participants {
     padding-top: 4px;
@@ -95,12 +128,6 @@
 	vertical-align: baseline;
 	margin-bottom: -2px;
 	padding-right: 5px;
-}
-
-
-
-#usersDiv {
-    height: 45px;
 }
 
 .bigtext {
@@ -138,7 +165,6 @@
 .formField {
     width: 100%;
     padding-bottom: 2px;
-    text-align: left;
 }
 .formField input:invalid {
     background: red;
@@ -190,8 +216,7 @@
  * System messages are left-aligned in blue italics.
  */
 p.system {
-    color: darkblue;
-    text-align: left;
+    color: #999;
 }
 
 /*
@@ -586,8 +611,6 @@ div.presav-w-50:last-child{
 	background-size: auto 20px !important;
 }
 #controls {
-	position: absolute;
-	bottom: 0px;
 	left: -15px;
 	right: -15px;
 	padding: 7px 15px;
@@ -602,7 +625,8 @@ div.presav-w-50:last-child{
 #controls .controls-user-submit{
 	width: 25%;
 }
-// let's just use our own clearing div
+// let's just use our own clearing divs
+#usersDiv:after,
 #controls:after{
 	content: '';
 	clear: both;
@@ -611,8 +635,6 @@ div.presav-w-50:last-child{
 .presav-message-wrap{
 	border-bottom: 1px solid #999;
 	padding: 12px 15px;
-	margin-left: -15px;
-	margin-right: -15px;
 }
 .presav-message-wrap:first-child{
 	border-top: 1px solid #999;

@@ -67,10 +67,16 @@ This JS string is source of truth for the chat panel HTML and console etc.
         <div class="presav-chatPostInstructions"> 
             Chat is available Monday through Friday from 8:00AM - 8:00PM EST.  International Customers: For prompt service please call our dedicated International Customer Care team at 1-888-880-2048Call: 1-888-880-2048 (within the United States) or 001-248-200-4420 (outside the United States).  Thank you. 
         </div> 
-    </div> 
+    </div>
+	<!-- #chatInterface is display: flex so we need this to hide/show it -->
+	<span id="chatInterfaceWrap">
     <!-- The chat interface, or what the user actually uses to chat with an agent --> 
     <div id="chatInterface"> 
-        <!-- messages --> 
+        <!-- messages -->
+		<div id="chatInterfaceHeader"> 
+			<button type="button" class="chat-interface-print" onclick="chatUI.printTranscript()" tabindex="-1" title="Print a transcript of the chat">Print</button>
+			<button type="button" class="chat-interface-copy" onclick="chatUI.copyTranscript()" tabindex="-1" title="Copy the chat transcript to clipboard">Copy</button>
+		</div>
         <div id="messages"></div> 
 		<div id="otherThanMessages">
         <!-- participants --> 
@@ -99,7 +105,8 @@ This JS string is source of truth for the chat panel HTML and console etc.
             <button type="button" id="closebutton-chat" onclick="webChat.quitChat()" class="button">Close</button> 
 		</span>
 		</div>
-    </div> 
+    </div>
+	</div>
 </div> 
 <!-- Generic div for a jQuery alert dialog --> 
 <div id="alertDialog"></div> 

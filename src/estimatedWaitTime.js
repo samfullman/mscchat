@@ -63,7 +63,7 @@
 				}
 
                 chatUI.hideChatPanel();
-				$('.bottom_chat_btn').hide();
+				$('.bottom_chat_btn').fadeOut(400);
             }
         }
     };

@@ -1442,6 +1442,7 @@ var webChat = {
         };
 
 		window.onunload = function() {
+			return true; //ignore cobrowse
 			if (coBrowse !== 'undefined') {
 				coBrowse.stopSession();
 				return "Ending session";
@@ -1469,7 +1470,7 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 	avayaGlobal.client.phonePrefix = phone[1] ? phone[1] : '';
 	avayaGlobal.client.phoneBody = phone[2] ? phone[2] : '';
 
-	$('#liveChatLink').hide();
+	$('.bottom_chat_btn').fadeOut(400);
 	$('#chatPanel').dialog({
 		width : 475,
 		dialogClass : 'fixedPosition presav-chatPanel',
@@ -1493,7 +1494,7 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 			if (webSocket !== undefined ) {
 				chatUI.closePanel(event);    
 			}
-			$('#liveChatLink').show();
+			$('.bottom_chat_btn').fadeIn(400);
 		},
 	});	
 	

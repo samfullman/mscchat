@@ -308,7 +308,9 @@ var oceanaCoreData = {
         };
         
         var contextRequest = new XMLHttpRequest();
+		try{
         contextRequest.timeout = 10000;
+		} catch(e){}
         contextRequest.open('POST', links.getOceanaCoreDataServicesUrl() + 'context/schema?journeyElement=' +
                 customerJourneyCommon.pageTouchpoint);
         contextRequest.setRequestHeader('Content-Type', 'application/json');
