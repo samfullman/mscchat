@@ -19,7 +19,7 @@ var chatUI = {
      */
     hideChatPanel : function() {
         'use strict';
-        $('.bottom_chat_btn').fadeOut(400);
+        $('.presav-chatPanel').fadeOut(400);
     },
 
     /**
@@ -27,7 +27,7 @@ var chatUI = {
      */
     showChatPanel : function() {
         'use strict';
-        $('.bottom_chat_btn').fadeIn(400);
+        $('.presav-chatPanel').fadeIn(400);
     },
 
     /**

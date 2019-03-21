@@ -63,7 +63,8 @@
 				}
 
                 chatUI.hideChatPanel();
-				$('.bottom_chat_btn').fadeOut(400);
+				// Removed till we work out the conflict with MSC Direct - they also have an API call and they conflict
+				// $('.bottom_chat_btn').fadeOut(400);
             }
         }
     };

@@ -16,8 +16,10 @@ var chatLogon = {
     /**
     * The attributes for the chat. There is a known issue where Work Assignment does not accept any contact
     * whose contextId has more than 10 attributes associated with it. Those attributes include this array *AND*
+	* 
+	* Removed the attributes - it must be passed in the `reason` field, or in webChat.settings.reasonIfBlank
     */
-    attributes : [ 'InteractionType.Avaya_APS' ],
+    attributes : [],
 
     // workaround for ED having issues with more than 10 attributes per context ID.
     attributeCount : 1,
@@ -74,11 +76,10 @@ var chatLogon = {
         var l_user = avayaGlobal.getEl('user-chat').value, l_user_last = avayaGlobal.getEl("user-chat-last").value, l_email = avayaGlobal.getEl('email-chat').value;
 	
 		// gather custom fields
-		// var customFieldTitle = avayaGlobal.getEl("customFieldTitle").value;
-		// var customFieldValue = avayaGlobal.getEl("customFieldValue").value;
 		var reason = avayaGlobal.getEl("reason").value;
-		var customFieldTitle = "title";
-		var customFieldValue = "titlevalue";
+		if(!reason && webChat.settings.reasonIfBlank){
+			reason = webChat.settings.reasonIfBlank;
+		}
 
         var errors = '';
         
@@ -107,29 +108,20 @@ var chatLogon = {
             errors += "You must provide a first name and last name\n";
         }
         
-        if (customFieldTitle.length > 50) {
-            errors += "Custom Fields titles must be less than 50 characters\n";
+        if (!reason) {
+            errors += "Please select what you need help with\n";
         }
-        if (customFieldValue.length > 255) {
-            errors += "Custom Fields values must be less than 255 characters\n";
-        }
-        if (isStringEmpty(customFieldTitle) && ! isStringEmpty(customFieldValue)) {
-            errors += "A custom field cannot have an empty title\n";
-        }
-		
-		// Modified by Sam, simplified
-		chatLogon.reason = reason;
-		chatLogon.mscattribute = reason;
-		
+				
         if (errors === '') {
+			// Modified by Sam, simplified
+			chatLogon.reason = reason;
+			chatLogon.mscattribute = reason;
+
             var phoneCountryVal = avayaGlobal.getEl("phone-country").value;
             var phoneAreaVal = avayaGlobal.getEl("phone-area").value;
             var phoneVal = avayaGlobal.getEl('phone-chat').value;
             
-            // do not add empty custom fields
-            if (!isStringEmpty(customFieldTitle)) {
-                webChat.addCustomFields(reason);    
-            }
+			webChat.addCustomFields(reason);    
 			
 			if(_MSCGlobal_.userType === 'R'){
 				webChat.addCustomFields('sessionId', 'abc123def987');
@@ -167,7 +159,9 @@ var chatLogon = {
 		var phoneCountry = avayaGlobal.getEl("phone-country").value;
         var phoneArea = avayaGlobal.getEl("phone-area").value;
         var phone = avayaGlobal.getEl('phone-chat').value;
-		var comments = avayaGlobal.getEl('pageTopic').value;
+		// Removed
+		// var comments = avayaGlobal.getEl('pageTopic').value;
+		var comments = '';
 		
 		
 		

@@ -176,11 +176,11 @@ var chatSocket = {
 
         // HTTP 503 means "service unavailable" - which is a perfect description for shutting down
         if (code === 503) {
-            webChat.writeResponse('Contact centre is shutting down for maintenance. Please try again later',
+            webChat.writeResponse('We apologize, but the chat service appears to be unresponsive or down for maintenance. Please try again later',
                     chatConfig.writeResponseClassSystem);
         } else {
-            webChat.writeResponse('An error occurred ' + error.code + ' (' + error.errorMessage + ')',
-                    chatSocket.writeResponseClassSystem);
+            webChat.writeResponse('We\'re sorry, an error occurred (Error ' + error.code + ': ' + error.errorMessage + ')  Please try again, or if necessary close this chat window and re-open.',
+                    chatConfig.writeResponseClassError);
         }
         // allow the user to clear the page
         chatSocket.clearRefresh();

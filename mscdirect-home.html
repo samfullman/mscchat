@@ -80,22 +80,6 @@ media="all">
 <!-- Step 2: include the Presidio vendor css -->
 <link rel="stylesheet" href="vendor/presidio-avaya/chat-main-1.0.css" />
 
-<!-- Step 2: include chat-main file -->
-<script src="vendor/presidio-avaya/chat-main-1.0.js"></script>
-
-<!-- Step 3: initialize Web Chat
-Note: must be called once the page is ready.
-You can start this manually by simply commenting out and entering webChat.setupWebChat(_MSCGlobal_) in the console.
-All _MSCGlobal_ attributes are initialized to webChat.settings
--->
-<script>
-$(document).ready(function(){
-	webChat.setupWebChat(typeof _MSCGlobal_ !== 'undefined' ? _MSCGlobal_ : {});
-});
-</script>
-
-
-
 
 </HEAD>   
 <BODY>
@@ -182,6 +166,8 @@ var _MSCGlobal_ = {
 	email: 'atester@gmail.com',
 	phoneNumber: '512|555|0001',
 	
+    cdnLocation: 'file:///C:/Users/fullmans/Desktop/mscchat-3501-2/',
+	
 	//hook values may be a defined or anonymous function.
 	hookStartChatError: null,
 	hookStartChatDataChanged: null,
@@ -204,7 +190,9 @@ var _MSCGlobal_ = {
 		['InteractionType.Avaya_APS', 'Status of an order'],
 		['InteractionType.CC_ProductTech', 'Technical product info'],
 		['InteractionType.Avaya_APS', 'Other'],
-	]
+	],
+	
+	reasonIfBlank: 'InteractionType.Presidio_Test',
 };
 
 </SCRIPT>			 
@@ -2590,7 +2578,21 @@ function sendPrintCmiCartTags(){
 </SCRIPT>
 
 
+<!-- Step 3: include chat-main file -->
+<script src="vendor/presidio-avaya/chat-main-1.0.js"></script>
+
+<!-- Step 4: initialize Web Chat
+Note: must be inside document ready.
+You can start this manually by simply commenting out and entering webChat.setupWebChat(_MSCGlobal_) in the console.
+All _MSCGlobal_ attributes are initialized to webChat.settings
+-->
+<script>
+$(document).ready(function(){
+	webChat.setupWebChat(typeof _MSCGlobal_ !== 'undefined' ? _MSCGlobal_ : {});
+});
+</script>
 
 
 
-   </BODY></HTML>
+
+</BODY></HTML>

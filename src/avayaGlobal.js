@@ -18,10 +18,6 @@
 var avayaGlobal = {
 
 	/* \\\\\\\\\\\\\\\\\\\\\ SF added these \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
-	initialAttributes : [ 'InteractionType.Avaya_APS' ],
-	
-	/* By default, user must wait to chat (other than first message on the init form) till an agent replies */
-	disableUserChatInitially : true,
 	
 	/* Based on requirements we populate these the first time the user calls initChat via Live Chat 
 	   Since MSC Direct hard reloads for login/out, these can persist for the duration of the page */

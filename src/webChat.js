@@ -161,7 +161,9 @@ var webChat = {
 
         'use strict';
         var wantsEmail = avayaGlobal.getEl('transcript-chat').checked;
-        var pageTopic = avayaGlobal.getEl("pageTopic").value;
+        // Removed as it cannot function as a comment
+		// var pageTopic = avayaGlobal.getEl("pageTopic").value;
+		var pageTopic = '';
         var leaseTime = chatConfig.leaseTime;
         avayaGlobal.log.debug('WebChat: Chat attributes are ' + JSON.stringify(chatLogon.attributes));
 
@@ -1434,15 +1436,13 @@ var webChat = {
         // Can't override default message due to security restrictions
         // so the value returned here doesn't really matter.
         window.onbeforeunload = function() {
-            
-            if (webChat.initCalled) {
+            if (webChat.initCalled && document.getElementById('outmessage').value.length) {
                 chatSocket.setupRefresh();
-                return "You're about to end your session, are you sure?";
+                return "You will lose the message you are typing to the agent if you leave now.  Continue?";
             }
         };
 
 		window.onunload = function() {
-			return true; //ignore cobrowse
 			if (coBrowse !== 'undefined') {
 				coBrowse.stopSession();
 				return "Ending session";

@@ -88,6 +88,7 @@ var chatConfig = {
     writeResponseClassResponse : 'response',
     writeResponseClassSent : 'sent',
     writeResponseClassSystem : 'system',
+    writeResponseClassError : 'presav-chat-error',
     writeResponseClassDate : 'date',
     writeResponseClassAgentDate : 'agentDate',
     writeResponseClassChatbot : 'chatbot',

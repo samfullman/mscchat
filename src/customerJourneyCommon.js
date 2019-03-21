@@ -226,6 +226,9 @@ var customerJourneyCommon = {
      */
     getPageTopic: function() {
         'use strict';
+		/* Removed for now as it doesn't work as a comment
+		*/
+		return '';
         return avayaGlobal.getEl("pageTopic").value.replace(/[ #~?@$\s]/g, "");
     }
 

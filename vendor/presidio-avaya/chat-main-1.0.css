@@ -90,6 +90,7 @@
 #messages{
     overflow-y: auto;
     height: 100%;
+	max-height: 350px;
 }
 
 #otherThanMessages {
@@ -308,7 +309,7 @@ p.chatbot {
 */
 
 
-.button-widget {
+.presav-chatPanel .button-widget {
     border: none;
     color: white;
     padding: 4px 6px;
@@ -320,7 +321,7 @@ p.chatbot {
     cursor: pointer;
 }
 
-.radio-widget {
+.presav-chatPanel .radio-widget {
     border: none;
     color: white;
     padding: 4px 6px;
@@ -438,65 +439,63 @@ p.chatbot {
 /*---------------------------------------------------------*/
 /*---------------------[Presidio CSS]----------------------*/
 /*---------------------------------------------------------*/
-.ui-widget {
+.presav-chatPanel.ui-widget {
 	color: #333; 
 	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
 }
 
-.ui-widget-content.ui-widget {
+.presav-chatPanel.ui-widget-content.ui-widget {
 	border-color: rgb(0,0,0);
 }
 
-.ui-widget-content a {
+.presav-chatPanel.ui-widget-content a {
 	color: #006FBA !important;
 }
 
-.ui-corner-all {
+.presav-chatPanel .ui-corner-all,
+.presav-chatPanel.ui-corner-all {
 	border-radius: 0;
 }
 
-.ui-dialog {
+.presav-chatPanel.ui-dialog {
 	padding: 0;
 }
 
-.ui-widget-header {
+.presav-chatPanel .ui-widget-header {
 	background: #006FBA !important; 
 	border: none; 
 	font-weight: normal;
 }
 
-.ui-dialog .ui-dialog-content {
+.presav-chatPanel.ui-dialog .ui-dialog-content {
 	padding: 15px;
 	overflow: hidden;
 }
 
-.ui-dialog .ui-dialog-button {
+.presav-chatPanel.ui-dialog .ui-dialog-button {
 	padding: 0 15px 10px 15px; outline: none
 }
 
-.ui-dialog .ui-dialog-buttonpane {
+.presav-chatPanel.ui-dialog .ui-dialog-buttonpane {
 	border: none; margin: 0; padding: 0 15px 15px 15px;
 }
 
-.ui-dialog .ui-dialog-buttonpane button {
+.presav-chatPanel.ui-dialog .ui-dialog-buttonpane button {
 	margin: 0; outline: none;
 }
 
-.ui-widget-content {
+.presav-chatPanel .ui-widget-content {
 	border: none;
 }
 
-.agentDate {
-}
-
-.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+.presav-chatPanel.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
 	float: none;
 }
 
-.ui-dialog .ui-dialog-titlebar-close,
-.ui-dialog .ui-dialog-titlebar-close:hover,
-.ui-dialog .ui-dialog-titlebar-close:active,
-.ui-dialog .ui-dialog-titlebar-close:focus {
+.presav-chatPanel.ui-dialog .ui-dialog-titlebar-close,
+.presav-chatPanel.ui-dialog .ui-dialog-titlebar-close:hover,
+.presav-chatPanel.ui-dialog .ui-dialog-titlebar-close:active,
+.presav-chatPanel.ui-dialog .ui-dialog-titlebar-close:focus {
 	border-radius: 0; 
 	outline: none;
 	background: transparent; 
@@ -509,10 +508,10 @@ p.chatbot {
     padding: 0 !important;
 }
 
-.ui-button,
-.ui-button:hover,
-.ui-button:active,
-.ui-button:focus {
+.presav-chatPanel .ui-button,
+.presav-chatPanel .ui-button:hover,
+.presav-chatPanel .ui-button:active,
+.presav-chatPanel .ui-button:focus {
     width: 100% !important; 
 	border: none !important; 
 	color: #fff !important; 
@@ -524,8 +523,8 @@ p.chatbot {
 
 }
 
-.ui-widget input, 
-.formField input {
+.presav-chatPanel.ui-widget input, 
+.presav-chatPanel .formField input {
     border: 1px solid #ccc; 
 	padding: 5px 10px; 
 	color: #555; 
@@ -534,7 +533,7 @@ p.chatbot {
 	box-sizing: border-box; 
 }
 
-.formField input {
+.presav-chatPanel .formField input {
 	border: 1px solid #ccc; 
 	padding: 5px 10px; 
 	color: #555; 
@@ -659,6 +658,9 @@ div.presav-w-50:last-child{
 .presav-message{
 	padding-top: 10px;
 	clear: both;
+}
+.presav-chat-error{
+	color: darkred;
 }
 
 
