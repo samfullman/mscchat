@@ -95,7 +95,11 @@ webChat.writeMessageBlock = function(body, chatMessageClass, settings){
 	var message = '<div class="presav-message-wrap ' + (chatMessageClass ? chatMessageClass : '') + '">' +
 		'<div class="presav-timestamp" data-timestamp="' + body.timestamp + '">' + dateStr + '</div>' +
 		'<div class="presav-messager">' + (body.displayName ? body.displayName : 'Agent') + '</div>' +
-		'<div class="presav-message">' + body.message + '</div>' +
+		'<div class="presav-message">' + body.message +
+		(widgetStr ? '<span class="presav-widgets">' : '') +
+			widgetStr + 
+		(widgetStr ? '</span>' : '') +
+		'</div>' +
 		'</div>';
 	var chat = webChat.messages.innerHTML;
 	webChat.messages.innerHTML = chat + message;
