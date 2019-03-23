@@ -7,13 +7,16 @@ var MSCChatWidgets = {
 	Represent a part from a part number
 	 */
 	partNumber: function(str){
-		str = str.replace(/^@pn/i, '');
-		return '<div style="border: 1px solid darkred; margin: 10px; padding: 10px;">' + str + '</div>';
+		var pn = str.replace(/^@pn/i, '');
+		//the call function is named after the global function and calls it after converting pn to a pseudo-DOM element
+		return '<div style="border: 1px solid darkred; margin: 10px; padding: 10px;" onclick="MSCChatWidgets.recommendationQuickView(\'' + pn + '\')">' + pn + '</div>';
 	},
 	recommendationQuickView: function(pn){
+		console.log('in passthrough');
 		var div = document.createElement('div');
 		div.addAttribute('data-itemNumber', pn);
 		div.addAttribute('data-link', '/EnhancedItemQuickViewModal?storeId=10054&langId=-1&catalogId=10001&itemId=1111111&searchterm=' + pn + '&from=horiCertona&cartLoc=undefined');
+		console.log(div);
 		window.recommendationQuickView(div);
 		/*
 		 <div class="ui mini gray button v4-recs-quickview-button" onclick="recommendationQuickView(this)"
@@ -35,7 +38,12 @@ var MSCChatWidgets = {
 webChat.widgetKeyword = function(str){
 	//customized for MSC Direct
 	//uses @[a-z]{2}
-	if(str.match(/@PN[0-9]+/)) return MSCChatWidgets.partNumber;
+	switch(true){
+		case str.match(/@PN[0-9]+/i):
+			console.log('passed value matches');
+			return MSCChatWidgets.partNumber;
+		break;
+	}
 	return false;
 }
 
