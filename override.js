@@ -9,13 +9,13 @@ var MSCChatWidgets = {
 	partNumber: function(str){
 		var pn = str.replace(/^@pn/i, '');
 		//the call function is named after the global function and calls it after converting pn to a pseudo-DOM element
-		return '<div style="border: 1px solid darkred; margin: 10px; padding: 10px;" onclick="MSCChatWidgets.recommendationQuickView(\'' + pn + '\')">' + pn + '</div>';
+		return '<div class="partNumber recommendationQuickView" style="cursor: pointer; border: 1px solid darkred; margin: 10px; padding: 10px;" onclick="MSCChatWidgets.recommendationQuickView(\'' + pn + '\')">' + pn + '</div>';
 	},
 	recommendationQuickView: function(pn){
 		console.log('in passthrough');
 		var div = document.createElement('div');
-		div.addAttribute('data-itemNumber', pn);
-		div.addAttribute('data-link', '/EnhancedItemQuickViewModal?storeId=10054&langId=-1&catalogId=10001&itemId=1111111&searchterm=' + pn + '&from=horiCertona&cartLoc=undefined');
+		div.setAttribute('data-itemNumber', pn);
+		div.setAttribute('data-link', '/EnhancedItemQuickViewModal?storeId=10054&langId=-1&catalogId=10001&itemId=1111111&searchterm=' + pn + '&from=horiCertona&cartLoc=undefined');
 		console.log(div);
 		window.recommendationQuickView(div);
 		/*
@@ -97,7 +97,7 @@ webChat.writeMessageBlock = function(body, chatMessageClass, settings){
 		'<div class="presav-messager">' + (body.displayName ? body.displayName : 'Agent') + '</div>' +
 		'<div class="presav-message">' + body.message +
 		(widgetStr ? '<span class="presav-widgets">' : '') +
-			widgetStr + 
+			widgetStr +
 		(widgetStr ? '</span>' : '') +
 		'</div>' +
 		'</div>';
