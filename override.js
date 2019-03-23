@@ -38,11 +38,8 @@ var MSCChatWidgets = {
 webChat.widgetKeyword = function(str){
 	//customized for MSC Direct
 	//uses @[a-z]{2}
-	switch(true){
-		case str.match(/@PN[0-9]+/i):
-			console.log('passed value matches');
-			return MSCChatWidgets.partNumber;
-		break;
+	if(str.match(/@PN[0-9]+/i)){
+		return MSCChatWidgets.partNumber;
 	}
 	return false;
 }
