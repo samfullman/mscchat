@@ -21,11 +21,13 @@ webChat.writeMessageBlock = function(body, chatMessageClass, settings){
 	var a = body.message.split(/(\s)+/);
 	for(var i in a){
 		if(a[i].match(/^((www\.[-a-z0-9]+)|(http:\/\/)|(https:\/\/))/)){
-			a[i] = '<a target="_blank" href="' + a[i] + '">' + a[i] + '</a>';
+			//note we assume that www's go to http vs. https
+			//a good website will handle insecure redirects, but a non-existent cert would cause a failure
+			a[i] = '<a target="_blank" href="' + (a[i].match(/^www/) ? 'http://' : '') + a[i] + '">' + a[i] + '</a>';
 		}
 	}
 	body.message = a.join(' ');
-	
+
 	dateStr = hours + ':' + (minutes.length === 1 ? '0' : '') + minutes + '&nbsp;' + ampm;
 
 	var message = '<div class="presav-message-wrap ' + (chatMessageClass ? chatMessageClass : '') + '">' +
