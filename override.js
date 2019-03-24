@@ -15,8 +15,7 @@ var MSCChatWidgets = {
 		console.log('in passthrough');
 		var div = document.createElement('div');
 		div.setAttribute('data-itemNumber', pn);
-		div.setAttribute('data-link', '/EnhancedItemQuickViewModal?storeId=10054&langId=-1&catalogId=10001&itemId=1111111&searchterm=' + pn + '&from=horiCertona&cartLoc=undefined');
-		console.log(div);
+		div.setAttribute('data-link', 'https://www.mscdirect.com/EnhancedItemQuickViewModal?storeId=10054&langId=-1&catalogId=10001&itemId=1021597&searchterm=' + pn + '&from=horiCertona&cartLoc=undefined');
 		window.recommendationQuickView(div);
 		/*
 		 <div class="ui mini gray button v4-recs-quickview-button" onclick="recommendationQuickView(this)"
