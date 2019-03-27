@@ -212,7 +212,7 @@ var chatUI = {
 
 
         // Set jQuery UI button
-        $('.button').button();
+        //$('.button').button();
 
         // hide the alert header and shake the chat tab
         $('#chatJavaScriptAlertHeader').hide();

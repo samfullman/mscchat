@@ -60,7 +60,8 @@ note that jQuery UI will build HTML "around" a div that is specified as a dialog
         </div> 
 		-->
         <div class="presav-w-50"> 
-            <button id="openbutton-chat" onclick="chatLogon.gatherDetails()" class="button">Chat Now</button> 
+            <!-- <button id="openbutton-chat" onclick="chatLogon.gatherDetails()" class="button">Chat Now</button> -->	
+			<button id="openbutton-chat" onclick="chatLogon.gatherDetails()" class="button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Chat Now</span></button>
         </div> 
         <div class="presav-w-50" style="margin-top: 12px;"> 
             <label class="presav-checkbox-label"><input type="checkbox" id="transcript-chat"> Email me the chat transcript</label> 
@@ -101,7 +102,8 @@ note that jQuery UI will build HTML "around" a div that is specified as a dialog
 				<input type="text" id="outmessage" class="chatField" placeholder="Type your message here"> 
 			</div>
 			<div class="controls-user-submit presav-w-50">
-				<button type="button" id="sendbutton-chat" onclick="webChat.sendChatMessage()" class="button">Send</button> 
+				<!-- <button type="button" id="sendbutton-chat" onclick="webChat.sendChatMessage()" class="button">Send</button> -->
+				<button type="button" id="sendbutton-chat" onclick="webChat.sendChatMessage()" class="button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" disabled=""><span class="ui-button-text">Send</span></button>
 			</div>
         </div> 
 		<span>
