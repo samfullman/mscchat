@@ -204,7 +204,7 @@ var chatLogon = {
 		//avayaGlobal.log.info('CustomerJourney: Context ID  for upsert ' + avayaGlobal.getSessionStorage('contextId');
 		
 		console.log('CustomerJourney: Context ID  for upsert ' + avayaGlobal.getSessionStorage('contextId'));
-		xhr.open("PUT", "https://oce-stf-p-cc1-node-vip.mscpla.local/services/ContextStoreRest/cs/contexts/upsert/" + avayaGlobal.getSessionStorage('contextId') + "?touchpoint=WEB");
+		xhr.open("PUT", (links.secureAllConnections ? 'https://' : 'http://') + links.contextStoreHost + "/services/ContextStoreRest/cs/contexts/upsert/" + avayaGlobal.getSessionStorage('contextId') + "?touchpoint=WEB");
 		xhr.setRequestHeader("content-type", "application/json");
 		xhr.send(data);
 		

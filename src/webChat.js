@@ -797,16 +797,19 @@ var webChat = {
         chatSocket.manualClose = true;
         webChat.clearAllTimeouts();
         if (webSocket !== null && webSocket.readyState === webSocket.OPEN) {
-            var closeRequest = {
-                'apiVersion' : '1.0',
-                'type' : 'request',
-                'body' : {
-                    'method' : 'closeConversation'
-                }
-            };
-            webChat.writeResponse('Close request sent', chatConfig.writeResponseClassSent);
-            chatSocket.sendMessage(closeRequest);
-        }
+			console.log('Original logic block for calling close');
+        }else{
+			console.log('Criteria for close not met! Calling anyway');
+		}
+		var closeRequest = {
+			apiVersion : '1.0',
+			type : 'request',
+			body : {
+				method : 'closeConversation'
+			}
+		};
+		webChat.writeResponse('Close request sent', chatConfig.writeResponseClassSent);
+		chatSocket.sendMessage(closeRequest);
     },
 
     /**
@@ -1438,14 +1441,16 @@ var webChat = {
         // Can't override default message due to security restrictions
         // so the value returned here doesn't really matter.
         window.onbeforeunload = function() {
-            if (webChat.initCalled && document.getElementById('outmessage').value.length) {
+            if (webChat.initCalled) {
                 chatSocket.setupRefresh();
-                return "You will lose the message you are typing to the agent if you leave now.  Continue?";
+				if(document.getElementById('outmessage').value.length){
+					return "You will lose the message you are typing to the agent if you leave now.  Continue?";
+				}
             }
         };
 
 		window.onunload = function() {
-			if (coBrowse !== 'undefined') {
+			if (typeof coBrowse === 'undefined') {
 				coBrowse.stopSession();
 				return "Ending session";
 			}
@@ -1487,13 +1492,14 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 				(avayaGlobal.client.phonePrefix && avayaGlobal.client.phoneBody ? '-' : '') + 
 				avayaGlobal.client.phoneBody;
 				
-			//we want the actual chat dialog to remain at least the same height as the chat entry form; no change in bottom location.  Tried using min-height and it failed/was reset
+			//we want the actual chat dialog to remain at least the same height as the chat entry form; no change in bottom location.  Tried using min-height and it failed/was reset by jQuery UI
 			chatUI.panelStartingHeight = document.getElementById('chatPanel').offsetHeight;
 			
 		},
 		close: function(event, ui){
 			console.log('dialog closed');
 			if (webSocket !== undefined ) {
+				console.log('calling closePanel (1)');
 				chatUI.closePanel(event);    
 			}
 			$('.bottom_chat_btn').fadeIn(400);

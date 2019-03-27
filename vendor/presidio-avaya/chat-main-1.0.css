@@ -60,7 +60,7 @@
 }
 
 #chatInterfaceHeader {
-	height: 41px;
+	height: 48px;
     flex-shrink: 0;
 
 	/* show the msc logo at top */
@@ -147,43 +147,40 @@
 /**
  * Login form
  */
-.formTable {
+.presav-chatPanel .formTable {
     width: 100%;
     border-collapse: collapse;
     border-spacing: 0px;
     padding: 0px;
 }
-.formTable td {
+.presav-chatPanel .formTable td {
     padding-left: 3px;
     padding-right: 3px;
 }
-.formLabel {
+.presav-chatPanel .formLabel {
     padding-top: 5px;
 	font-weight: 700;
 }
 
 
-.formField {
+.presav-chatPanel .formField {
     width: 100%;
     padding-bottom: 2px;
 }
-.formField input:invalid {
+.presav-chatPanel .formField input:invalid {
     background: red;
     color: white;
     font-weight: bold;
 }
-.formField input,select {
+.presav-chatPanel .formField input, .presav-chatPanel .formField select {
     width: 100%;
     border: 1px solid #cccccc;
     padding: 3px;
     background-color: inherit;
     font-size: 14px;
 }
-.formField select {
-    width: 100%;
-}
 
-.formCheckbox {
+.presav-chatPanel .formCheckbox {
     padding-right: 172px;
     text-align: right;
 }

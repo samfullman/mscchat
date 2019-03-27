@@ -375,6 +375,12 @@ var chatSocket = {
 				webChat.writeResponse(message.textContent, message.className);
 			}
         }
+		// one last scrolldown
+		setTimeout(function(){
+			console.log(webChat.messsages);
+			var messages = document.getElementById('messages');
+			messages.scrollTop = messages.scrollHeight;
+		}, 1000);
         
     },
     

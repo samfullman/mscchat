@@ -61,7 +61,6 @@ var chatUI = {
 		}else{
 			$('#chatPanel').dialog({
 				width : 475,
-				'resize' : 'auto',
 				dialogClass : 'fixedPosition presav-chatPanel',
 				open: function(event, ui){
 					console.log('dialog re-opened');
@@ -69,7 +68,7 @@ var chatUI = {
 				close: function(event, ui){
 					console.log('dialog closed after page nav');
 					if (webSocket !== undefined ) {
-						console.log('closePanel');
+						console.log('calling closePanel (2)');
 						chatUI.closePanel(event);    
 					}
 					$('#liveChatLink').show();
@@ -87,21 +86,28 @@ var chatUI = {
      */
     changeToLoginMode : function() {
         'use strict';
-        $('#chatInterfaceWrap').hide();
-        $('#chatForm').show();
+        $('#chatInterfaceWrap').fadeOut(400);
+        $('#chatForm').delay(400).fadeIn(400);
+		// SF: 2019-03-21 this is suspicious, will the open and close bindings be there or be overridden?
         $('#chatPanel').dialog({
-            width : 400,
-            'resize' : 'auto',
-            dialogClass : 'fixedPosition'
+            width : 475,
+			dialogClass : 'fixedPosition presav-chatPanel',
         });
     },
 
     resetChatUI : function() {
         'use strict';
         chatUI.changeToLoginMode();
+		// here is where after 5-6 hops we finally close the actual HTML UI..
         $('#chatPanel').dialog('close');
-        $('#liveChatLink').show();
+		chatUI.showLiveChat();
     },
+	
+	showLiveChat : function(){
+		// SF: 2019-03-21 we want to show this only if it is appropriate to show it.  If we close the chat panel and chat has since become unavailable, the chatPanel is not designed to notify of this fact.  This is a demarcation that should be on the Live Chat button itself (showing and detecting if chat is available and if not popping up a I'm sorry we missed you message).  This is poorly demarcated between the v4-chat.js API and what Presidio did on the reference client
+		// @todo: improve the logic on this
+		$('.bottom_chat_btn').fadeIn(400);
+	},
 
     resizeConfigPanel : function() {
         'use strict';
@@ -170,15 +176,17 @@ var chatUI = {
     closePanel : function(event) {
         'use strict';
         event.preventDefault();
+		console.log('step 1');
         avayaGlobal.log.debug("WebChat: closing chat panel");
 
         // when the chat dialog is closed, reset things
-        $('#liveChatLink').show();
+        // $('#liveChatLink').show();
         chatSocket.clearRefresh();
         chatSocket.manualClose = true;
         clearTimeout(chatSocket.closeTimer);
+		console.log('webSocket.readyState = ' + webSocket.readyState);
         if (webSocket.readyState !== 2) {
-            chatConfig.dontRetryConnection = true;
+			console.log('quitting chat');
             webChat.quitChat();
         }
     },
