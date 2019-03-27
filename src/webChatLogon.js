@@ -98,19 +98,23 @@ var chatLogon = {
         }
 		
         // check if the name is too long
+		var firstlasterror = false;
         if (l_user.length > 50) {
             errors += 'Your name is too long. It must be less than 50 characters\n';
         }
         else if (chatConfig.requireFirstName && isStringEmpty(l_user)) {
-            errors += "You must provide a first name and last name\n";
+			firstlasterror = true;
         }
         
         if (l_user_last.length > 100) {
             errors += 'Your surname is too long. It must be less than 100 characters\n';
         }
         else if (chatConfig.requireLastName && isStringEmpty(l_user_last)) {
-            errors += "You must provide a first name and last name\n";
+			firstlasterror = true;
         }
+		if(firstlasterror){
+            errors += "You must provide a first name and last name\n";
+		}
         
         if (!reason) {
             errors += "Please select what you need help with\n";

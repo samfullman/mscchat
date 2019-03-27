@@ -13,6 +13,8 @@
 var chatUI = {
 	
 	panelStartingHeight : null,
+	requirementsSet : false,
+	reasonOptionsSet : false,
 
     /**
      * Hide the chat panel.
@@ -197,7 +199,8 @@ var chatUI = {
     setup : function() {
         'use strict';
 		
-		if(webChat.settings.reasonOptions){
+		if(!chatUI.reasonOptionsSet && webChat.settings.reasonOptions){
+			chatUI.reasonOptionsSet = true;
 			console.log('Appending reason field options');
 			for(var i in webChat.settings.reasonOptions){
 				var a = webChat.settings.reasonOptions[i];
@@ -226,10 +229,13 @@ var chatUI = {
         $('#chatJavaScriptAlertHeader').hide();
         chatUI.shakeChatTab();
         
-        chatUI.markElAsRequired("#firstNameLabel", chatConfig.requireFirstName);
-		chatUI.markElAsRequired("#lastNameLabel", chatConfig.requireLastName);
-        chatUI.markElAsRequired("#emailLabel", chatConfig.requireEmail);
-        chatUI.markElAsRequired("#phoneLabel", chatConfig.requirePhone);
+		if(!chatUI.requirementsSet){
+			chatUI.requirementsSet = true;
+			chatUI.markElAsRequired("#firstNameLabel", chatConfig.requireFirstName);
+			chatUI.markElAsRequired("#lastNameLabel", chatConfig.requireLastName);
+			chatUI.markElAsRequired("#emailLabel", chatConfig.requireEmail);
+			chatUI.markElAsRequired("#phoneLabel", chatConfig.requirePhone);
+		}
     },
     
     /**
@@ -248,7 +254,7 @@ var chatUI = {
 
 		win.document.write('<html><head><title>Chat Transcript</title>');
 		
-		win.document.write('<link rel="stylesheet" type="text/stylesheet" href="' + webChat.cdnLocation + 'presidio-avaya/chat-main-1.0.css" />');
+		win.document.write('<link rel="stylesheet" type="text/stylesheet" href="' + webChat.cdnLocation + 'global/presidio-avaya/chat-main-1.0.css" />');
 		
 		win.document.write('</head><body >');
 		win.document.write('<h1>Chat Transcript</h1>');
