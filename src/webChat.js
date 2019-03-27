@@ -374,6 +374,8 @@ var webChat = {
         'use strict';
         avayaGlobal.log.info('WebChat: Resetting chat');
         avayaGlobal.detachChildren(webChat.messages);
+		// 2019-03-26 SF: attributes need to be cleared or a second chat before page load will result in multiple attributes
+		chatLogon.clearAttributes();
         chatUI.resetChatUI();
         webChat.updateUsers();
         webChat.clearAllTimeouts();

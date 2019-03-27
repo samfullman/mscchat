@@ -27,6 +27,10 @@ var chatLogon = {
 
     contactTypeMenu : null,
     openChatButton : null,
+	
+	clearAttributes : function(){
+		chatLogon.attributes = [];
+	},
 
     /**
      * Logs the customer into the chat.
@@ -162,10 +166,7 @@ var chatLogon = {
 		// Removed
 		// var comments = avayaGlobal.getEl('pageTopic').value;
 		var comments = '';
-		
-		
-		
-		
+
 		var data = JSON.stringify({
 				"groupId" : customerJourneyCommon.customerId,
                 "persistToEDM" : true,
