@@ -1,0 +1,162 @@
+#SearchTypeAhead {
+	background: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204); border-image: none; position: absolute; box-shadow: 0px 6px 12px rgba(0,0,0,0.176);
+}
+#typeahead-close {
+	background: rgb(51, 51, 51); padding: 3px; text-align: center; color: rgb(255, 255, 255); font-size: 0.85em;
+}
+#SearchTypeAhead .suggestionList > div {
+	overflow: hidden; display: flex;
+}
+#typeahead-box {
+	overflow: hidden; display: flex;
+}
+#typeahead-footer {
+	overflow: hidden; display: flex;
+}
+.typeahead-column {
+	padding: 5px 10px; flex:1 1 0px; width: 32.8%; vertical-align: top; border-left-color: rgb(236, 236, 236); border-left-width: 1px; border-left-style: solid; display: inline-block;
+}
+#typeahead-footer {
+	background: rgba(0, 0, 50, 0.02); border-top-color: rgb(204, 204, 204); border-top-width: 1px; border-top-style: solid;
+}
+#typeahead-footer .typeahead-column {
+	color: rgb(119, 119, 119); font-size: 0.85em; font-weight: bold;
+}
+:first-child.typeahead-column {
+	border-left-color: currentColor; border-left-width: medium; border-left-style: none;
+}
+.typeahead-links {
+	list-style: none; margin: 0px; padding: 0px;
+}
+.typeahead-links li {
+	margin: 6px auto;
+}
+.typeahead-links a {
+	color: rgb(51, 51, 51);
+}
+.typeahead-links a strong {
+	color: rgb(51, 51, 51);
+}
+.typeahead-header {
+	color: rgb(119, 119, 119); font-size: 0.85em;
+}
+.typeahead-header-mobile {
+	color: rgb(153, 153, 153); font-size: 0.85em; display: none;
+}
+.typeahead-column-recommendations {
+	background: rgba(0, 0, 50, 0.04);
+}
+.typeahead-recommendation-box {
+	overflow: hidden; font-size: 11px; cursor: pointer;
+}
+.typeahead-recommendation-box:hover {
+	background: rgb(236, 236, 236);
+}
+.typeahead-recommendation-image {
+	padding: 0px 5px; width: 16%; text-align: center; float: left;
+}
+.typeahead-recommendation-image img {
+	max-height: 50px; max-width: 100%;
+}
+.typeahead-recommendation-content {
+	width: 84%; color: rgb(51, 51, 51); float: right; display: inline-block;
+}
+.typeahead-recommendation-itemnum {
+	color: rgb(0, 107, 250);
+}
+.typeahead-recommendation-pp {
+	color: green; font-size: 11px; font-style: italic;
+}
+:first-child.typeahead-column .typeahead-recommendation-image {
+	width: 10%;
+}
+:first-child.typeahead-column .typeahead-recommendation-content {
+	width: 89%;
+}
+.typeAheadDisplay#SearchTypeAhead dl dt {
+	color: rgb(119, 119, 119); font-size: 0.85em; margin-bottom: 1em;
+}
+#SearchTypeAhead .suggestionList {
+	padding: 0px !important; overflow: auto !important; max-height: 400px !important;
+}
+#SearchTypeAhead dl {
+	margin: 0px; padding: 10px 5px; flex:1 1 0px; width: 50%; vertical-align: top; border-left-color: rgb(236, 236, 236); border-left-width: 1px; border-left-style: solid; display: inline-block;
+}
+#SearchTypeAhead .rec {
+	background: rgb(245, 245, 247);
+}
+.onlyRec .typeahead-recommendation-image {
+	width: 10%;
+}
+.onlyRec .typeahead-recommendation-content {
+	width: 89%;
+}
+div#SearchTypeAhead * {
+	box-sizing: border-box;
+}
+#SearchTypeAhead ul {
+	margin: 0px !important;
+}
+#SearchTypeAhead .typeahead-recommendation-content p {
+	margin: 0px 0px 1em; line-height: inherit; font-size: inherit;
+}
+.typeAheadDisplay#SearchTypeAhead li:hover {
+	background: rgb(236, 236, 236) !important; color: rgb(51, 51, 51);
+}
+.typeAheadDisplay#SearchTypeAhead .typeAheadMatch {
+	font-weight: bold !important;
+}
+.typeAheadDisplay#SearchTypeAhead ul {
+	padding: 0px 0px 15px !important;
+}
+#SearchTypeAhead .closeButton {
+	padding: 2px !important; color: rgb(236, 236, 236) !important;
+}
+@media screen and (max-width:767px)
+{
+#typeahead-footer {
+	display: none;
+}
+.typeahead-header-mobile {
+	display: block;
+}
+#SearchTypeAhead {
+	width: 100% !important;
+}
+.typeahead-column {
+	width: 100%; display: block;
+}
+#SearchTypeAhead dl {
+	width: 100%; display: block;
+}
+#typeahead-box {
+	display: block; -ms-overflow-y: auto; max-height: 300px;
+}
+#SearchTypeAhead .suggestionList > div {
+	display: block; -ms-overflow-y: auto; max-height: 300px;
+}
+.typeAheadDisplay#SearchTypeAhead dl dt {
+	width: 100%;
+}
+.typeAheadDisplay#SearchTypeAhead dd {
+	width: 100%;
+}
+.typeahead-recommendation-image {
+	width: 10%;
+}
+.typeahead-recommendation-content {
+	width: 89%;
+}
+#SearchTypeAhead .suggestionList > div {
+	display: block;
+}
+#typeahead-box {
+	display: block;
+}
+}
+span.descTitle {
+	line-height: 16px; overflow: hidden; display: -ms-flexbox; -ms-text-overflow: ellipsis; max-height: 32px; -ms-hyphenate-limit-lines: 2; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
+}
+.onlyRec .rec {
+	background: rgb(255, 255, 255) !important;
+}

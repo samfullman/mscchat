@@ -1,0 +1,159 @@
+#igFlag {
+	vertical-align: top; display: inline-block; position: relative;
+}
+#igFlag img {
+	margin-right: 5px; margin-left: 5px; display: inline-block; cursor: pointer; max-width: 40px;
+}
+#igSplashElement {
+	padding: 10px; transition:0.3s; left: 50%; top: 350px !important; width: 100%; color: rgba(0, 0, 0, 0.87); font-family: "Roboto",Helvetica,Arial,sans-serif; font-size: 16px; margin-left: 0px !important; position: fixed; z-index: 2001; max-width: 500px; box-shadow: 0px 0px 60px 0px rgba(0,0,0,0.5); transform: translateY(-50%) translateX(-50%); background-color: rgb(255, 255, 255); -webkit-transition: all .3s; -webkit-transform: translateY(-50%) translateX(-50%); -moz-transform: translateY(-50%) translateX(-50%); -webkit-box-shadow: 0 0 60px 0 rgba(0, 0, 0, 0.5); -moz-transition: all .3s;
+}
+.close_welcome_mat_popup i {
+	font-size: 1.5em; font-style: normal; font-weight: 700; cursor: pointer;
+}
+.close_welcome_mat_popup {
+	text-align: right; float: right; display: inline-block;
+}
+.igModalHeader {
+	text-align: center; color: rgba(0, 0, 0, 0.87); box-sizing: border-box; background-color: rgb(255, 255, 255);
+}
+.logoWrapper {
+	padding: 10px 0px; width: 100%; text-align: center; float: none; box-sizing: border-box;
+}
+.messageWrapper {
+	padding: 30px 15px; width: 100%; box-sizing: border-box;
+}
+.modalLogo {
+	width: 75px; vertical-align: top;
+}
+.igModalHeader img.headerFlag {
+	left: 5px; top: 5px; position: absolute; max-width: 50px;
+}
+.headerZero {
+	font-size: 30px; font-weight: 600; margin-top: 0px; margin-bottom: 8px;
+}
+.headerOne {
+	text-transform: uppercase; padding-left: 0.5em; font-size: 30px; font-weight: 600;
+}
+.headerTwo {
+	color: rgb(153, 153, 153); font-size: 12px; margin-top: 7px;
+}
+.countryP {
+	font-size: 16px;
+}
+.igModalBody {
+	width: 100%; background-color: rgb(255, 255, 255);
+}
+.countryDropDownWrapper {
+	margin: 0px auto; padding: 0px; border-radius: 2px; border: 0px currentColor; border-image: none; width: 100%; position: relative; cursor: pointer; min-height: 25px; -webkit-border-radius: 2px;
+}
+.countryDropDownWrapper i {
+	top: 10px; right: 10px; color: rgba(0, 0, 0, 0.3); position: absolute;
+}
+#countrySelect {
+	background: none !important; border-color: rgb(236, 236, 236); margin: 0px; padding: 10px 15px 10px 65px; width: 100%; height: 44px; color: rgb(51, 51, 51) !important; line-height: 14px; overflow: hidden; font-size: 14px; position: relative; cursor: pointer; box-shadow: 0px 0px 0px; -ms-user-select: none; -webkit-user-select: none; -moz-user-select: none; user-select: none; -o-user-select: none;
+}
+ul.featureList {
+	margin: 20px 0px 30px; padding: 30px; display: none !important; background-color: rgb(238, 238, 238);
+}
+ul.featureList li {
+	padding: 5px 0px; list-style-type: none;
+}
+ul.featureList li i {
+	top: 6px; position: relative;
+}
+.igWelcomeCTAButton {
+	padding: 15px; text-align: center; box-sizing: border-box;
+}
+.igWelcomeCTAButton button {
+	margin: 0px auto; padding: 10px 20px; border-radius: 4px; border: currentColor; border-image: none; text-align: center; color: rgb(255, 255, 255); font-size: 16px; font-weight: bold; float: none; opacity: 1; text-shadow: none; background-color: rgb(33, 133, 208); -webkit-border-radius: 2px;
+}
+.igWelcomeCTAButton button:hover {
+	color: rgb(255, 255, 255); opacity: 1; background-color: rgb(13, 113, 187);
+}
+.modal-open {
+	animation-name: igFadeInDown; animation-duration: 1s; animation-fill-mode: both; -webkit-animation-duration: 1s; -webkit-animation-fill-mode: both; -webkit-animation-name: igFadeInDown;
+}
+@media screen and (max-width:600px)
+{
+#igSplashElement {
+	width: 95%;
+}
+.igModalHeader {
+	width: 100%;
+}
+.messageWrapper {
+	clear: both;
+}
+}
+.ig_we_offer p {
+	margin: 5px 0px 10px; line-height: 20px; font-size: 15px;
+}
+.welcomemaptooltip {
+	background: rgb(255, 255, 255); padding: 10px; border-radius: 4px; border: 1px solid rgba(34, 36, 38, 0.15); border-image: none; left: auto; top: auto; width: 280px; text-align: center; margin-top: 5px; margin-left: -8.5em; display: none; position: absolute; z-index: 10; box-shadow: 0px 2px 4px 0px rgba(34,36,38,0.12), 0px 2px 10px 0px rgba(34,36,38,0.15);
+}
+.welcomemaptooltip::after {
+	border: solid transparent; border-image: none; left: 55%; width: 0px; height: 0px; bottom: 100%; position: absolute; content: " "; pointer-events: none;
+}
+.welcomemaptooltip::before {
+	border: solid transparent; border-image: none; left: 55%; width: 0px; height: 0px; bottom: 100%; position: absolute; content: " "; pointer-events: none;
+}
+.welcomemaptooltip::before {
+	border-width: 9px; border-color: rgba(194, 225, 245, 0) rgba(194, 225, 245, 0) rgba(34, 36, 38, 0.15); margin-left: -32px;
+}
+.welcomemaptooltip::after {
+	border-width: 8px; border-color: rgba(136, 183, 213, 0) rgba(136, 183, 213, 0) rgb(255, 255, 255); margin-left: -30px;
+}
+#main-account > div {
+	padding-left: 0px !important;
+}
+#main-account-onestop > div {
+	padding-left: 0px !important;
+}
+#main-account-logged-in {
+	display: inline-block;
+}
+#main-account-logged-out {
+	display: inline-block;
+}
+.igSelectCountry {
+	text-align: center; border-top-color: rgb(238, 238, 238); border-top-width: 1px; border-top-style: solid; box-sizing: border-box;
+}
+.igCountryFlag_hdr {
+	width: 50px; height: 30px; margin-right: 5px; vertical-align: top; display: inline-block;
+}
+.igCountryName_hdr {
+	font-size: 24px; font-weight: 700; display: inline-block;
+}
+.ig_msc_services {
+	margin: 15px 30px; padding: 15px; border-radius: 4px; border: 1px solid rgb(236, 236, 236); border-image: none;
+}
+.ig_msc_services p {
+	margin: 0px 0px 0.5em !important;
+}
+.ig_we_offer {
+	text-align: center;
+}
+.welcomefeatureList {
+	margin: 0px; padding: 0px;
+}
+.CountryLabel {
+	margin: 10px 0px; text-align: center;
+}
+.logoWrapper h4 {
+	margin: 0px; font-weight: 700;
+}
+.ig_prepay_duties {
+	text-align: left; padding-left: 35px; margin-left: 1.5em; vertical-align: top; display: inline-block; min-height: 25px; background-image: url("//cdn.mscdirect.com/global/application-content/images/welcome_mat_file_option.png"); background-repeat: no-repeat;
+}
+.ig_multiship {
+	text-align: left; padding-left: 35px; margin-left: 1.5em; vertical-align: top; display: inline-block; min-height: 25px; background-image: url("//cdn.mscdirect.com/global/application-content/images/welcome_mat_truck.png"); background-repeat: no-repeat;
+}
+.igWelcomeCTAButton #price-tag {
+	color: gray; font-family: Lato; font-style: italic; margin-top: 15px;
+}
+@media screen and (max-width:767px)
+{
+#igSplashElement {
+	width: 95%; height: 70%; overflow: auto;
+}
+}

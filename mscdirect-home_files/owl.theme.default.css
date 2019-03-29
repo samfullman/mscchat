@@ -1,0 +1,42 @@
+.owl-theme .owl-nav {
+	text-align: center; margin-top: 10px; -webkit-tap-highlight-color: transparent;
+}
+.owl-theme .owl-nav [class*='owl-'] {
+	background: rgb(214, 214, 214); margin: 5px; padding: 4px 7px; border-radius: 3px; color: rgb(255, 255, 255); font-size: 14px; display: inline-block; cursor: pointer;
+}
+.owl-theme .owl-nav [class*='owl-']:hover {
+	background: rgb(134, 151, 145); color: rgb(255, 255, 255); text-decoration: none;
+}
+.owl-theme .owl-nav .disabled {
+	cursor: default; opacity: 0.5;
+}
+.owl-theme .disabled.owl-nav + .owl-dots {
+	left: 10%; bottom: 7%; margin-top: 10px; display: inline-block; position: absolute;
+}
+.owl-theme .owl-dots {
+	text-align: center; -webkit-tap-highlight-color: transparent;
+}
+.owl-theme .owl-dots .owl-dot {
+	display: inline-block; -ms-zoom: 1;
+}
+.owl-theme .owl-dots .owl-dot span {
+	background: rgb(214, 214, 214); margin: 5px 2px; border-radius: 0px; border: 1px solid rgb(153, 153, 153); transition:opacity 200ms; border-image: none; width: 14px; height: 14px; display: block; -webkit-backface-visibility: visible;
+}
+.owl-theme .owl-dots .active.owl-dot span {
+	background: rgb(0, 162, 224);
+}
+.owl-theme .owl-dots .owl-dot:hover span {
+	
+}
+#v4-homepage-slider-box {
+	position: relative;
+}
+.v4-slider-prev-next {
+	border: 0px currentColor; border-image: none; top: 45%; width: 30px; height: 30px; text-indent: -9999px; display: none; position: absolute; z-index: 50; cursor: pointer;
+}
+#v4-slider-previous {
+	left: 10px;
+}
+#v4-slider-next {
+	background-position: -30px 0px; right: 10px;
+}

@@ -1,0 +1,24 @@
+.popover {
+	display: none !important;
+}
+.popover .arrow {
+	display: none !important;
+}
+.popover-inner {
+	display: none !important;
+}
+.printPopup {
+	display: none !important;
+}
+.no_print {
+	display: none !important;
+}
+#alternative {
+	display: none !important;
+}
+.mz-hint {
+	display: none !important;
+}
+.stickynav {
+	position: relative !important;
+}

@@ -1,0 +1,963 @@
+body {
+	background: rgb(27, 28, 29); margin: 0px; padding: 0px; line-height: inherit; font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif"; font-size: 14px;
+}
+a {
+	color: rgb(0, 111, 186); text-decoration: none;
+}
+#main-header {
+	background: rgb(255, 255, 255); padding-right: 10px; padding-bottom: 10px; padding-left: 10px;
+}
+#main-nav {
+	background: rgb(0, 111, 186); font-size: 16px !important;
+}
+#main-nav-sub > div {
+	display: inline-block;
+}
+.dropdown-parent {
+	padding: 6px 10px; color: rgb(255, 255, 255); font-weight: normal; display: inline-block; cursor: pointer;
+}
+#main-nav-qop {
+	padding: 6px 10px; color: rgb(255, 255, 255); font-weight: normal; display: inline-block; cursor: pointer;
+}
+#main-nav-mro {
+	padding: 6px 10px; color: rgb(255, 255, 255); font-weight: normal; display: inline-block; cursor: pointer;
+}
+.dropdown-parent:hover {
+	background: rgb(0, 162, 224);
+}
+:first-child.dropdown-parent {
+	margin-left: -10px;
+}
+#main-nav-qop {
+	background: rgb(0, 162, 224); float: right;
+}
+#searchForm {
+	padding-top: 0px !important;
+}
+#main-search {
+	padding: 5px 10px; border: 1px solid rgb(204, 204, 204); border-image: none; width: 468px; color: rgb(119, 119, 119); font-size: 15px;
+}
+#footer button {
+	background: url("https://cdn.mscdirect.com/global/img/search-icon.png") no-repeat 0% 0% / 5px auto; height: 25px;
+}
+#search-button {
+	margin: 0px 0px 0px 5px; width: 20px;
+}
+#main-account {
+	width: 30%; font-size: 14px; margin-top: 0px; float: right; display: inline-block;
+}
+#main-account-onestop {
+	width: 30%; font-size: 14px; margin-top: 0px; float: right; display: inline-block;
+}
+#main-account > div {
+	padding-left: 20px; display: inline-block;
+}
+#main-account-onestop > div {
+	padding-left: 20px; display: inline-block;
+}
+.main-account-welcome {
+	clear: both; display: inline-block;
+}
+#main-account-signin span {
+	font-size: 12px; font-weight: normal;
+}
+#main-account-logged-in {
+	
+}
+#main-account-logged-out {
+	
+}
+#main-account-logged-in span {
+	font-size: 11px;
+}
+#main-account-dropdown {
+	background: url("https://cdn.mscdirect.com/global/img/dropdown-caret-black-small.png") no-repeat 95% 50%; padding-right: 19px !important; display: inline-block;
+}
+#main-account-punchout {
+	padding-right: 19px !important; display: inline-block;
+}
+#main-account-alert-badge {
+	background: rgb(255, 51, 51); padding: 3px; border-radius: 50%; color: rgb(255, 255, 255); font-size: 9px; font-weight: bold; display: inline-block;
+}
+#main-account-cart {
+	float: right;
+}
+#UpdateCartItemNum {
+	float: right;
+}
+#UpdateCartItemNum a {
+	background: url("https://cdn.mscdirect.com/global/application-content/images/global/cartIcon-v3.png") no-repeat left; color: rgb(51, 51, 51); padding-left: 30px; text-decoration: none;
+}
+#UpdateCartItemNum a:hover {
+	background: url("https://cdn.mscdirect.com/global/application-content/images/global/cartIcon-v3.png") no-repeat left; color: rgb(51, 51, 51); padding-left: 30px; text-decoration: none;
+}
+#main-account-logout a {
+	color: rgb(119, 119, 119);
+}
+#main-account-exit a {
+	color: rgb(119, 119, 119);
+}
+#main-header-sub {
+	margin: auto; min-width: 758px; max-width: 1097px;
+}
+#main-nav-sub {
+	margin: auto; min-width: 758px; max-width: 1097px;
+}
+#main-content-sub {
+	margin: auto; min-width: 758px; max-width: 1097px;
+}
+#main-header-sub {
+	overflow: hidden; vertical-align: bottom;
+}
+#footer-sub {
+	margin: 25px auto 0px; text-align: left; display: inline-block;
+}
+#main-content {
+	background: rgb(255, 255, 255); padding: 15px 0px;
+}
+#footer {
+	background: rgb(27, 28, 29) !important; width: auto !important; text-align: center; color: rgb(255, 255, 255); clear: both; font-size: 12px; margin-top: 0px !important;
+}
+#footer-copyright {
+	background: rgb(27, 28, 29) !important; width: auto !important; text-align: center; color: rgb(255, 255, 255); clear: both; font-size: 12px; margin-top: 0px !important;
+}
+#footer a {
+	color: rgb(236, 236, 236) !important;
+}
+#footer-copyright a {
+	color: rgb(236, 236, 236) !important;
+}
+.footer-small {
+	width: 175px; height: 160px; margin-right: 50px; border-right-color: rgb(85, 85, 85); border-right-width: 1px; border-right-style: solid; float: left;
+}
+.footer-large {
+	width: 300px; text-align: center; float: left;
+}
+#footer-policies {
+	text-align: center; padding-top: 25px; margin-top: 25px; border-top-color: rgb(85, 85, 85); border-top-width: 1px; border-top-style: solid;
+}
+#footer-policies > div {
+	font-size: 11px; margin-top: 5px;
+}
+#footer-logo {
+	width: 75px; margin-bottom: 10px;
+}
+#footer-copyright {
+	margin: 0px; padding-top: 0px !important; padding-bottom: 25px;
+}
+#footer {
+	padding: 0px;
+}
+.footer-small p a {
+	font-size: 12px; font-weight: normal;
+}
+.dropdown-parent {
+	background: url("https://cdn.mscdirect.com/global/img/dropdown-caret-dark-blue-small.png") no-repeat 95% 50%; padding-right: 19px !important;
+}
+.dropdown-parent:hover {
+	background: url("https://cdn.mscdirect.com/global/img/dropdown-caret-light-blue-small.png") no-repeat 95% 50% rgb(0, 170, 231) !important;
+}
+#main-header .dropdown {
+	display: none; position: absolute; z-index: 500;
+}
+#main-nav .dropdown {
+	display: none; position: absolute; z-index: 500;
+}
+#main-nav .dropdown {
+	background: rgb(255, 255, 255); margin: 6px 0px 0px -11px; color: rgb(51, 51, 51); font-size: 14px; border-right-color: rgb(51, 51, 51); border-bottom-color: rgb(51, 51, 51); border-left-color: rgb(51, 51, 51); border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; box-shadow: 0px 6px 12px rgba(0,0,0,0.176);
+}
+#main-nav .dropdown ul {
+	list-style: none; margin: 0px; padding: 9px 20px 14px; color: rgb(51, 51, 51);
+}
+#main-nav .dropdown li {
+	margin-bottom: 10px;
+}
+#main-nav .dropdown li:last-child {
+	margin-bottom: 0px;
+}
+#main-nav .dropdown a {
+	color: rgb(51, 51, 51);
+}
+#main-nav .dropdown a:hover {
+	color: rgb(0, 111, 186);
+}
+#main-nav .dropdown-feature a {
+	
+}
+#main-nav .dropdown-feature-a {
+	text-decoration: none;
+}
+#main-nav .dropdown-feature-a:hover {
+	text-decoration: none;
+}
+#main-nav .dropdown-feature-a:active {
+	text-decoration: none;
+}
+#main-nav .dropdown-feature span {
+	color: rgb(119, 119, 119); font-size: 11px;
+}
+#mail-widget {
+	
+}
+#mail-widget input[type=text] {
+	padding: 2px 6px; border: 1px solid rgb(204, 204, 204); border-image: none; width: 196px; color: rgb(119, 119, 119); font-size: 13px;
+}
+#mail-widget button {
+	background: 0px 0px rgb(119, 119, 119); border-radius: 3px; border: currentColor; border-image: none; color: rgb(255, 255, 255); font-size: 13px; vertical-align: bottom;
+}
+#mail-widget-disclaimer {
+	color: rgb(204, 204, 204); line-height: inherit; font-size: 10px !important; margin-top: 10px;
+}
+#mail-widget-title {
+	font-size: 14px;
+}
+#footer-social img {
+	margin: 20px 5px 0px; height: 30px;
+}
+#myacct-dropdown-box {
+	margin-left: -105px; position: absolute; z-index: 502;
+}
+#myacct-dropdown {
+	background: rgb(255, 255, 255); width: 225px; color: rgb(51, 51, 51); overflow: hidden; border-right-color: rgb(51, 51, 51); border-bottom-color: rgb(51, 51, 51); border-left-color: rgb(51, 51, 51); border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; box-shadow: 0px 6px 12px rgba(0,0,0,0.176);
+}
+#myacct-cap {
+	background: url("https://cdn.mscdirect.com/global/img/dropdown-bg-arrow-gray.png") repeat-x 5px 0px; padding-top: 9px;
+}
+#myacct-dropdown-left {
+	background: rgb(236, 236, 236); padding: 10px; width: 175px; height: 100%; border-left-color: rgb(153, 153, 153); border-left-width: 1px; border-left-style: dotted; float: right; display: none;
+}
+#myacct-dropdown-right {
+	padding: 10px; width: 160px; float: left;
+}
+.myacct-minidashboard-box {
+	padding-bottom: 10px; margin-bottom: 10px; border-bottom-color: rgb(153, 153, 153); border-bottom-width: 1px; border-bottom-style: dotted;
+}
+:last-child.myacct-minidashboard-box {
+	padding-bottom: 5px; margin-bottom: 0px; border-bottom-color: currentColor; border-bottom-width: medium; border-bottom-style: none;
+}
+.myacct-minidashboard-box a {
+	color: rgb(0, 111, 186); font-size: 12px; text-decoration: none;
+}
+#myacct-header-icon {
+	background: rgb(51, 51, 51); padding: 5px; border-radius: 3px; color: rgb(236, 236, 236); font-size: 15px; margin-right: 10px; float: left; display: inline-block;
+}
+#myacct-header-text {
+	font-size: 11px;
+}
+#myacct-header-text strong {
+	font-size: 12px;
+}
+#myacct-links {
+	list-style: none; margin: 25px 0px 0px; padding: 0px;
+}
+#myacct-links li {
+	margin-bottom: 10px;
+}
+#myacct-links a {
+	color: rgb(51, 51, 51);
+}
+#myacct-links a:hover {
+	color: rgb(0, 111, 186);
+}
+#main-account-login-box {
+	margin-left: -50px; display: none; position: absolute; z-index: 500;
+}
+#main-account-login-form {
+	background: rgb(255, 255, 255); padding: 15px; border-right-color: rgb(51, 51, 51); border-bottom-color: rgb(51, 51, 51); border-left-color: rgb(51, 51, 51); border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-right-style: solid; border-bottom-style: solid; border-left-style: solid;
+}
+#main-account-login-dropdown {
+	background: rgb(255, 255, 255); width: 380px; color: rgb(51, 51, 51); overflow: hidden; border-right-color: rgb(51, 51, 51); border-bottom-color: rgb(51, 51, 51); border-left-color: rgb(51, 51, 51); border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; box-shadow: 0px 6px 12px rgba(0,0,0,0.176);
+}
+#main-account-login-cap {
+	background: url("https://cdn.mscdirect.com/global/img/dropdown-bg-arrow-gray.png") repeat-x -130px 0px; width: 250px; padding-top: 9px;
+}
+.main-account-login-row {
+	color: rgb(51, 51, 51); font-size: 12px; margin-bottom: 15px;
+}
+#products-dropdown-all {
+	background: url("https://cdn.mscdirect.com/global/img/icn-products.png") no-repeat; margin: 10px 20px; padding: 14px 0px 0px 50px; height: 44px; color: rgb(51, 51, 51); font-weight: bold; border-bottom-color: rgb(153, 153, 153); border-bottom-width: 1px; border-bottom-style: dotted; box-sizing: content-box;
+}
+#products-left {
+	float: left;
+}
+#products-right {
+	float: right;
+}
+#products-table {
+	
+}
+#products-table tr {
+	
+}
+#products-table td {
+	margin: 10px; vertical-align: top;
+}
+.dropdown-header {
+	padding: 0px; color: rgb(153, 153, 153); font-size: 11px; margin-top: 5px; margin-left: 15px; cursor: default;
+}
+#catalogs-dropdown-bigbook {
+	background: url("https://cdn.mscdirect.com/global/img/icn-bigbook.png") no-repeat; margin: 10px 20px; padding: 14px 0px 0px 47px; height: 47px; color: rgb(51, 51, 51); font-weight: bold; border-bottom-color: rgb(153, 153, 153); border-bottom-width: 1px; border-bottom-style: dotted; box-sizing: content-box;
+}
+#catalogs-dropdown-bigbook a {
+	color: rgb(0, 111, 186) !important;
+}
+#solutions-dropdown-im {
+	background: url("https://cdn.mscdirect.com/global/img/icn-im.png") no-repeat; margin: 10px 20px; padding: 14px 0px 0px 31px; height: 44px; color: rgb(51, 51, 51); font-weight: bold; border-bottom-color: rgb(153, 153, 153); border-bottom-width: 1px; border-bottom-style: dotted; box-sizing: content-box;
+}
+#resources-dropdown-basicsof {
+	background: url("https://cdn.mscdirect.com/global/img/icn-basicsof.png") no-repeat; margin: 10px 20px; padding: 2px 0px 0px 51px; height: 47px; color: rgb(51, 51, 51); font-weight: bold; border-bottom-color: rgb(153, 153, 153); border-bottom-width: 1px; border-bottom-style: dotted; box-sizing: content-box;
+}
+#special-offers-dropdown-sales {
+	background: url("https://cdn.mscdirect.com/global/img/icn-sales.png") no-repeat 0px 0px rgba(0, 0, 0, 0); margin: 10px 20px; padding: 14px 0px 0px 46px; height: 38px; color: rgb(51, 51, 51); font-weight: bold; border-bottom-color: rgb(153, 153, 153); border-bottom-width: 1px; border-bottom-style: dotted; box-sizing: content-box;
+}
+#nav-lightbox-background {
+	background: rgb(0, 0, 0); width: 100%; height: 100%; display: none; position: absolute; z-index: 499; opacity: 0.4;
+}
+#qop {
+	padding: 15px; width: 270px; margin-left: -140px !important; display: none; box-sizing: border-box;
+}
+#HeaderQuickOrder {
+	padding: 15px; width: 270px; margin-left: -140px !important; display: none; box-sizing: border-box;
+}
+#qop a {
+	color: rgb(0, 111, 186) !important; font-size: 11px;
+}
+#HeaderQuickOrder a {
+	color: rgb(0, 111, 186) !important; font-size: 11px;
+}
+.qop-row {
+	margin-bottom: 10px;
+}
+.qop-input {
+	padding: 5px 10px; border: 1px solid rgb(204, 204, 204); border-image: none; color: rgb(119, 119, 119); font-size: 15px; display: inline-block;
+}
+.qop-item-number {
+	width: 78%; box-sizing: border-box;
+}
+.qop-item-qty {
+	width: 20% !important; float: right; box-sizing: border-box;
+}
+#qop-add-cart {
+	text-align: center;
+}
+#qop-button {
+	background: rgb(0, 111, 186); margin: 20px 0px 5px; padding: 8px 10px; border-radius: 3px; border: 1px solid rgb(0, 111, 186); border-image: none; width: 100%; color: rgb(255, 255, 255);
+}
+#icon_clear {
+	font: bold 14px/normal sans-serif; top: 10px; width: 14px !important; right: 35px !important; color: rgb(56, 70, 143); margin-top: 0px; margin-right: 0px !important; display: none; position: absolute; cursor: pointer; font-size-adjust: none; font-stretch: normal; background-image: url("https://cdn.mscdirect.com/global/framework/images/search-refine-clear-bttn.png"); background-repeat: no-repeat;
+}
+.typeAheadDisplay {
+	left: auto !important; top: auto !important;
+}
+#main-account-login {
+	background: rgb(255, 255, 255); border-width: 0px 1px 1px; border-style: none solid solid; border-color: currentColor rgb(51, 51, 51) rgb(51, 51, 51); padding: 15px; border-image: none; width: 250px; box-sizing: border-box; box-shadow: 0px 6px 12px rgba(0,0,0,0.176);
+}
+#main-account-login input[type='text'] {
+	padding: 5px 10px; border: 1px solid rgb(204, 204, 204); border-image: none; width: 100%; color: rgb(119, 119, 119); font-size: 15px; display: inline-block; box-sizing: border-box;
+}
+#main-account-login input[type='password'] {
+	padding: 5px 10px; border: 1px solid rgb(204, 204, 204); border-image: none; width: 100%; color: rgb(119, 119, 119); font-size: 15px; display: inline-block; box-sizing: border-box;
+}
+#main-account-login-row {
+	margin-bottom: 5px;
+}
+#main-account-login button {
+	background: rgb(57, 179, 215); margin: 5px 0px; padding: 8px 10px; border-radius: 3px; border: currentColor; border-image: none; width: 100%; color: rgb(255, 255, 255);
+}
+#siteSearchInput {
+	border-radius: 2px; border: 1px solid rgb(204, 204, 204); border-image: none; width: 100%; height: 34px !important; color: rgb(51, 51, 51); display: inline-block; box-sizing: border-box; box-shadow: inset 0px 1px 1px rgba(0,0,0,0.075); -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+#siteSearchInput:focus {
+	border-radius: 2px; border: 1px solid rgb(204, 204, 204); border-image: none; width: 100%; height: 34px !important; color: rgb(51, 51, 51); display: inline-block; box-sizing: border-box; box-shadow: inset 0px 1px 1px rgba(0,0,0,0.075); -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+.siteSearchInput-onestop {
+	border-radius: 2px; border: 1px solid rgb(204, 204, 204); border-image: none; width: 100%; height: 34px !important; color: rgb(51, 51, 51); display: inline-block; box-sizing: border-box; box-shadow: inset 0px 1px 1px rgba(0,0,0,0.075); -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+.siteSearchInput-onestop:focus {
+	border-radius: 2px; border: 1px solid rgb(204, 204, 204); border-image: none; width: 100%; height: 34px !important; color: rgb(51, 51, 51); display: inline-block; box-sizing: border-box; box-shadow: inset 0px 1px 1px rgba(0,0,0,0.075); -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+#siteSearchInput:focus {
+	color: rgb(51, 51, 51);
+}
+.siteSearchInput-onestop:focus {
+	color: rgb(51, 51, 51);
+}
+.form-control.watermarkedPresent {
+	color: rgb(170, 170, 170);
+}
+#header-container #SearchTypeAhead {
+	width: 330px;
+}
+#header-container #phoneNum {
+	background: none !important; height: auto !important; font-size: 12px !important; position: static !important;
+}
+#searchForm {
+	margin-bottom: 0px; position: relative;
+}
+.global {
+	margin-top: 0px !important;
+}
+#main-content #v3-cart-box #verticalBarPos {
+	top: 110px !important;
+}
+#main-content div#verticalBarPos {
+	top: 110px !important;
+}
+#certonaSection {
+	font-size: 14px;
+}
+.typeAheadDisplay li.suggestion {
+	font-size: 13px;
+}
+.checkoutHeader .hPhoneNumber {
+	left: auto; top: auto; margin-left: 10px; position: relative;
+}
+#checkout-footer {
+	margin: 0px auto; width: 960px; font-size: 12px;
+}
+.checkout-copyright {
+	margin: 0px auto; width: 960px; font-size: 12px;
+}
+.checkout-navigation {
+	margin: 0px auto; width: 960px;
+}
+#checkout-footer {
+	padding-bottom: 10px;
+}
+#main-content::before {
+	display: table; content: " ";
+}
+#main-content::after {
+	display: table; content: " ";
+}
+#main-content::after {
+	clear: both;
+}
+#pdp-content #verticalBarPos {
+	margin-left: 990px !important;
+}
+#sub-promo {
+	margin-bottom: 10px !important;
+}
+.google-pixel-content {
+	bottom: 0px; display: inline; position: absolute;
+}
+#main-account-logged-out > div {
+	display: inline-block;
+}
+.dropdown-parent > a {
+	color: rgb(255, 255, 255) !important; text-decoration: none;
+}
+.dropdown-parent > a:hover {
+	color: rgb(255, 255, 255) !important; text-decoration: none;
+}
+.rec-prod-img-container {
+	box-sizing: content-box;
+}
+.bjqs-controls-1 {
+	z-index: 100 !important;
+}
+.hidden {
+	display: none;
+}
+.notification-badge {
+	font-size: 14px !important;
+}
+#main-account-dropdown > a {
+	color: rgb(0, 111, 186);
+}
+#main-account-logged-out a {
+	color: rgb(0, 111, 186);
+}
+#main-account-logged-out a:visited {
+	color: rgb(0, 111, 186);
+}
+#main-account-logged-out a :hover {
+	color: rgb(0, 111, 186);
+}
+a#betterMroTab {
+	background: none;
+}
+a.bettermro:hover {
+	background: none;
+}
+.footer-small strong a {
+	font-weight: bold !important;
+}
+#QuickOrderPadAddItemsErrorDiv {
+	color: rgb(219, 64, 59); font-size: 11px; font-weight: bold;
+}
+#QuickOrderPadAddItemsQtyErrorPara {
+	color: rgb(219, 64, 59); font-size: 11px; font-weight: bold;
+}
+#cart-v3-feature-slideshow .product-box-v p {
+	font-size: 14px;
+}
+.stickynav {
+	width: 960px;
+}
+.quickOrderTypeAheadDisplay {
+	margin: 0px !important; width: 70%;
+}
+.largeOrderTypeAheadDisplay.typeAheadDisplay {
+	left: 85px !important; top: 36px !important;
+}
+#doc {
+	width: auto;
+}
+.suggestionList > dl > dt {
+	cursor: default;
+}
+.val-col-icon {
+	margin-top: 5px; margin-right: 15px; float: left; display: inline-block;
+}
+.val-col-icon img {
+	width: 100px; display: inline-block;
+}
+.vc-icon-small {
+	width: 30px; margin-top: -10px; vertical-align: top; display: inline-block;
+}
+.vc-icon-small-ty {
+	margin-top: -5px;
+}
+.atc-item-holder .vc-icon-small {
+	margin-top: -10px;
+}
+.product-box-h .vc-icon-small {
+	margin-top: 0px;
+}
+.product-box-v .vc-icon-small {
+	margin-top: 0px;
+}
+#overlay_window_atc {
+	top: 40px !important;
+}
+@media only screen and (max-device-width:1024px) and (min-device-width:768px)
+{
+#header-container #SearchTypeAhead {
+	width: 310px;
+}
+.footer-small {
+	width: 170px; margin-right: 40px;
+}
+.footer-large {
+	width: 240px;
+}
+#mail-widget input[type=text] {
+	width: 156px;
+}
+#qop {
+	padding: 15px; width: 270px; margin-left: -140px !important; display: none; box-sizing: border-box;
+}
+#HeaderQuickOrder {
+	padding: 15px; width: 270px; margin-left: -140px !important; display: none; box-sizing: border-box;
+}
+}
+@media print
+{
+#main-nav {
+	display: none !important;
+}
+#main-top-nav {
+	display: none !important;
+}
+#main-search-box {
+	display: none !important;
+}
+#main-account {
+	display: none !important;
+}
+#main-account-onestop {
+	display: none !important;
+}
+#pla-cta {
+	display: none !important;
+}
+#verticalBarPos {
+	display: none !important;
+}
+#footer {
+	display: none !important;
+}
+#footer-copyright {
+	display: none !important;
+}
+#v3-cart-controls {
+	display: none !important;
+}
+#v3-cart-tabs {
+	display: none !important;
+}
+.ty-wrap-div {
+	display: none !important;
+}
+#ty-order-print {
+	display: none !important;
+}
+#downloadCurrentCart {
+	display: none !important;
+}
+#sub-promo {
+	display: none !important;
+}
+#cart-v3-spot-box {
+	display: none !important;
+}
+#main-search-box {
+	display: none !important;
+}
+.visuallyhidden {
+	display: none !important;
+}
+.no_print {
+	display: none !important;
+}
+.whatsThis {
+	display: none !important;
+}
+.no_print {
+	display: none !important;
+}
+.order-approval {
+	width: 75%; margin-left: 0px !important;
+}
+button {
+	visibility: hidden;
+}
+input[type=text] {
+	border: currentColor; border-image: none;
+}
+.itemdesc td:nth-child(2) {
+	width: 200px;
+}
+.quickviewclass img {
+	min-width: 60px;
+}
+.itemdesc td {
+	font-size: 12px;
+}
+thead {
+	display: table-row-group !important;
+}
+.cartTable td.print_td {
+	padding-right: 15px !important;
+}
+.carttable.punchin-total-order .type {
+	width: 48% !important; display: inline-block;
+}
+.carttable .value {
+	width: 48% !important; display: inline-block;
+}
+.carttable.punchin-total-order .segment {
+	width: 220px !important; margin-bottom: 2px;
+}
+.carttable.punchin-total-order .subtotal {
+	color: rgb(255, 255, 255) !important; font-weight: bold; background-color: rgb(51, 51, 51) !important;
+}
+.carttable.punchin-total-order #basketVal {
+	color: rgb(255, 255, 255) !important;
+}
+.print_td {
+	position: relative;
+}
+.print_td .vc-icon-small-ty {
+	top: 0px; position: absolute;
+}
+table.print_punchin_table {
+	display: block;
+}
+.ty-punchin-container .vc-icon-small-ty {
+	padding-right: 10px !important;
+}
+}
+#main-account-dropdown .onestop-one {
+	color: rgb(0, 0, 0); font-size: 14px !important;
+}
+#main-account-dropdown .onestop-stop {
+	color: rgb(33, 90, 169); font-size: 14px !important; font-weight: bold;
+}
+#main-account-dropdown .onestop-sm {
+	color: rgb(33, 90, 169);
+}
+#v4-header-top {
+	overflow: hidden; margin-top: 15px;
+}
+#v4-header-bottom {
+	overflow: hidden; margin-top: 15px;
+}
+#msc-logo {
+	height: 34px;
+}
+#main-image-box {
+	float: left; display: inline-block;
+}
+#main-top-nav {
+	padding: 4px 0px; text-align: right; font-size: 12px; float: right; display: inline-block;
+}
+#main-top-nav > div {
+	padding: 0px 8px 0px 5px; border-right-color: rgb(153, 153, 153); border-right-width: 1px; border-right-style: solid; display: inline-block;
+}
+#main-top-nav > div:last-child {
+	padding-right: 0px; border-right-color: currentColor; border-right-width: medium; border-right-style: none;
+}
+#main-top-nav a {
+	color: rgb(51, 51, 51);
+}
+#main-search-bg {
+	border-radius: 4px; width: 89%; float: left;
+}
+#main-search-bg-label {
+	background: rgb(232, 232, 232); padding: 0.65em 0.3em; height: 34px; font-size: 1em; float: left; display: inline-block; box-sizing: border-box;
+}
+#main-search-box {
+	padding: 0px; width: 70%; margin-top: 0px; display: inline-block; position: static;
+}
+#siteSearchInput {
+	width: 100%; padding-right: 25px; padding-left: 10px; border-top-right-radius: 4px; border-bottom-right-radius: 4px;
+}
+#main-search-button {
+	border: currentColor; border-image: none; top: 3px; width: 22px; height: 20px; right: 4px; margin-top: 5px; margin-left: 2px; vertical-align: top; display: inline-block; position: absolute; background-image: url("https://cdn.mscdirect.com/global/img/search-icon.png") !important; background-repeat: no-repeat; background-size: contain; background-color: rgb(255, 255, 255);
+}
+#goButton {
+	border: currentColor; border-image: none; top: 3px; width: 22px; height: 20px; right: 4px; margin-top: 5px; margin-left: 2px; vertical-align: top; display: inline-block; position: absolute; background-image: url("https://cdn.mscdirect.com/global/img/search-icon.png") !important; background-repeat: no-repeat; background-size: contain; background-color: rgb(255, 255, 255);
+}
+.ns-p #searchForm #goButton {
+	top: auto !important; right: auto !important; position: relative !important;
+}
+@media screen and (max-width:933px)
+{
+#main-search-bg-label {
+	display: none;
+}
+#main-header {
+	padding: 0px 10px;
+}
+#siteSearchInput {
+	border-radius: 4px;
+}
+#main-search-box {
+	width: 65%;
+}
+#main-search-bg {
+	width: 100%;
+}
+#main-account {
+	width: 35%;
+}
+}
+@media screen and (max-width:767px)
+{
+.ns-p #searchForm #goButton {
+	background-position: 2px 1px !important; width: 33px !important;
+}
+#header-container #icon_clear {
+	margin-right: 8% !important;
+}
+#main-search-button {
+	background-position: 4px 3px !important; border-radius: 3px !important; top: 0px; width: 33px !important; height: 33px !important; margin-top: 0px !important; margin-left: 2px !important; background-size: 76% !important;
+}
+#goButton {
+	background-position: 4px 3px !important; border-radius: 3px !important; top: 0px; width: 33px !important; height: 33px !important; margin-top: 0px !important; margin-left: 2px !important; background-size: 76% !important;
+}
+.footer-small {
+	border-right-color: currentColor !important; border-right-width: medium !important; border-right-style: none !important;
+}
+.footer-large {
+	width: 100% !important;
+}
+#footer {
+	padding: 25px 32px 0px !important;
+}
+}
+@media screen and (max-width:320px)
+{
+#siteSearchInput {
+	width: 86% !important;
+}
+}
+@media only screen and (orientation:portrait) and (max-device-width:1024px) and (min-device-width:768px)
+{
+.footer-small {
+	width: 128px; margin-right: 13px;
+}
+#main-nav-sub > div {
+	font-size: 0.75em; display: inline-block;
+}
+#main-header-sub {
+	margin: auto; padding: 0px 5px; width: auto; max-width: 1127px;
+}
+#main-nav-sub {
+	margin: auto; padding: 0px 5px; width: auto; max-width: 1127px;
+}
+#main-content-sub {
+	margin: auto; padding: 0px 5px; width: auto; max-width: 1127px;
+}
+#main-image-box img {
+	width: 200px !important;
+}
+#qop {
+	padding: 15px; width: 270px; margin-left: -170px !important; display: none; box-sizing: border-box;
+}
+#HeaderQuickOrder {
+	padding: 15px; width: 270px; margin-left: -170px !important; display: none; box-sizing: border-box;
+}
+}
+@media only screen and (orientation:landscape) and (max-device-width:1024px) and (min-device-width:768px)
+{
+#qop {
+	padding: 15px; width: 270px; margin-left: -140px !important; display: none; box-sizing: border-box;
+}
+#HeaderQuickOrder {
+	padding: 15px; width: 270px; margin-left: -140px !important; display: none; box-sizing: border-box;
+}
+}
+#status-content {
+	width: 1097px !important;
+}
+#customer-name {
+	font-size: 1em !important;
+}
+#SearchTypeAhead .closeButton {
+	font-size: 10px;
+}
+#header-container #SearchTypeAhead .suggestionList {
+	max-width: 100% !important;
+}
+.ns-sub-heading {
+	font-weight: bold; margin-bottom: 5px;
+}
+#msdsError .error {
+	margin: 1em 0px; padding: 1em 1.5em; border-radius: 0.28rem; border: 1px solid rgb(224, 180, 180); border-image: none; color: rgb(159, 58, 56); line-height: 1.42em; position: relative; min-height: 1em; background-color: rgb(255, 246, 246);
+}
+.new-signin-label {
+	font-size: 20px !important; font-weight: bold !important;
+}
+.new-makeown-label {
+	font-weight: bold !important;
+}
+#main-account-login .newlogonpush {
+	background: rgb(33, 133, 208); padding: 10px 20px; width: auto; font-family: Lato,"Helvetica Neue",Arial,Helvetica,sans-serif; font-weight: bold;
+}
+#main-account-login .newlogonpush:hover {
+	cursor: pointer; background-color: rgb(22, 120, 194);
+}
+.mar-bottom {
+	margin-bottom: 5px;
+}
+.marginTZero {
+	margin-top: 0px !important;
+}
+.cmitable td {
+	-ms-word-break: break-all;
+}
+body.pushable {
+	background: rgb(27, 28, 29) !important;
+}
+@media only screen and (max-width:1024px)
+{
+.computer_only {
+	display: none !important;
+}
+}
+@media only screen and (max-width:767px)
+{
+.computer_tablet_only {
+	display: none !important;
+}
+}
+@media only screen and (min-width:1025px)
+{
+.mobile_tablet_only {
+	display: none !important;
+}
+}
+@media only screen and (min-width:768px)
+{
+.mobile_only {
+	display: none !important;
+}
+}
+.btn_gplease {
+	padding: 0.78em 1.5em; outline: 0px; border-radius: 4px; border: currentColor; border-image: none; color: rgb(255, 255, 255) !important; font-size: 16px; font-weight: bold; text-decoration: none; display: inline-block; cursor: pointer; min-height: 1em; text-shadow: none; background-image: none; background-color: rgb(33, 133, 208);
+}
+.btn_gplease:hover {
+	text-decoration: none; background-color: rgb(22, 120, 194);
+}
+.errHighlight {
+	border: 1px solid red !important; border-image: none !important;
+}
+.tn_title_container.grid.ui {
+	margin-top: 1em;
+}
+#v4-tn-view-icons .item {
+	font-size: 0.9rem;
+}
+.bottom_chat_btn {
+	background: url("live_chat_icon.png") no-repeat 4px 5px rgb(19, 54, 124) !important; padding: 10px 10px 10px 40px; border-radius: 4px; border: currentColor; border-image: none; height: auto !important; right: 5px; bottom: 5px; color: rgb(255, 255, 255); text-transform: uppercase; font-size: 16px !important; font-weight: bold; display: none; position: fixed; z-index: 999; cursor: pointer;
+}
+#chat-modal-overlay {
+	background: rgba(0, 0, 0, 0.3); left: 0px; top: 0px; width: 100%; height: 100%; display: none; position: fixed; z-index: 1100;
+}
+#chat-modal-overlay-content {
+	background: rgb(255, 255, 255); margin: 50px auto 5px; padding: 10px; border: 1px solid rgb(51, 51, 51); border-image: none; width: 713px; overflow: hidden; font-size: 14px; box-sizing: border-box;
+}
+#chat-modal-overlay-content h3 {
+	margin: 25px 0px 14px; font-size: 18px; font-weight: bold;
+}
+#chat-modal-overlay-content p {
+	font-size: 14px;
+}
+.text-center {
+	text-align: center;
+}
+.warning-msg {
+	background: rgb(255, 250, 243) !important; padding: 20px !important; color: rgb(87, 58, 8);
+}
+#chat-overlay {
+	background: rgba(0, 0, 0, 0.3); left: 0px; top: 0px; width: 100%; height: 100%; display: none; position: fixed; z-index: 1100;
+}
+#chat-overlay-content {
+	background: rgb(255, 255, 255); margin: 50px auto 5px; padding: 10px; border: 1px solid rgb(51, 51, 51); border-image: none; width: 713px; line-height: 23px; overflow: hidden; font-size: 16px;
+}
+#chat-overlay-content p {
+	margin-top: 0px;
+}
+#chat-overlay-content strong {
+	font-size: 21px;
+}
+#chat-overlay-left {
+	padding: 0px 5px 0px 0px; width: 60%; border-right-color: rgb(153, 153, 153); border-right-width: 1px; border-right-style: dotted; float: left;
+}
+#chat-overlay-right {
+	width: 35%; float: right;
+}
+.chat-login-button-container {
+	margin: 0px 0px 15px;
+}
+.btnchat-lg {
+	padding: 10px 16px; border-radius: 6px; line-height: 1.33; font-size: 18px;
+}
+.btnchat-group-lg > .btnchat {
+	padding: 10px 16px; border-radius: 6px; line-height: 1.33; font-size: 18px;
+}
+.btnchat-primary {
+	border-color: rgb(46, 109, 164); color: rgb(255, 255, 255); background-color: rgb(51, 122, 183);
+}
+.btnchat {
+	padding: 6px 12px; border-radius: 4px; border: 1px solid transparent; border-image: none; text-align: center; line-height: 1.4285; font-size: 15px; font-weight: 400; margin-bottom: 0px; vertical-align: middle; display: inline-block; white-space: nowrap; cursor: pointer; background-image: none; -moz-user-select: none;
+}
+@media screen and (max-width:767px)
+{
+#chat-modal-overlay-content {
+	width: 90% !important;
+}
+#chat-overlay-content {
+	width: 90% !important;
+}
+#chat-overlay-left {
+	border: currentColor !important; border-image: none !important; width: 100% !important;
+}
+#chat-overlay-right {
+	border: currentColor !important; border-image: none !important; width: 100% !important;
+}
+}
