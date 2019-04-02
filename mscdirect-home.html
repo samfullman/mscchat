@@ -78,7 +78,7 @@ media="all">
 <link rel="stylesheet" href="src/libs/jquery-ui/jquery-ui.min.css" />
 
 <!-- Step 2: include the Presidio vendor css -->
-<link rel="stylesheet" href="vendor/presidio-avaya/chat-main-1.0.css" />
+<link rel="stylesheet" href="global/vendor/presidio-avaya/chat-main-1.0.css" />
 
 
 </HEAD>   
@@ -186,10 +186,11 @@ var _MSCGlobal_ = {
 	
 	reasonOptions: [							//required			These are very likely to change fluidly
 		['InteractionType.CC_Sale', 'Placing an order or quote'],
-		['InteractionType.CC_Ecomm', 'The website'],
-		['InteractionType.Avaya_APS', 'Status of an order'],
-		['InteractionType.CC_ProductTech', 'Technical product info'],
-		['InteractionType.Avaya_APS', 'Other'],
+		['InteractionType.CC_Website', 'The website'],
+		['InteractionType.CC_Service', 'Status of an order'],
+		['InteractionType.CC_ProductInfo', 'Technical product info'],
+		['InteractionType.CC_Other', 'Other'],
+		['InteractionType.X_Sam_Fullman', 'Test Sam Fullman'],
 	],
 	
 	reasonIfBlank: 'InteractionType.Presidio_Test',

@@ -215,7 +215,7 @@ var webChat = {
                     customData: webChat.customData
                 }
             };
-            webChat.writeMessageBlock('Sending Login Details', chatConfig.writeResponseClassSystem);
+            webChat.writeMessageBlock('Sending chat request.', chatConfig.writeResponseClassSystem);
         } else {
             msg = {
                 'apiVersion' : '1.0',
@@ -673,7 +673,7 @@ var webChat = {
         // if the customer has already been connected, don't play the on
         // hold messages
         if (!chatConfig.previouslyConnected) {
-            webChat.writeMessageBlock('Login request received and approved', chatConfig.writeResponseClassSystem);
+            webChat.writeMessageBlock('Chat request approved.  Please wait while we connect you with the next available associate.', chatConfig.writeResponseClassSystem);
             chatConfig.previouslyConnected = true;
             
             if (!body.isEmailValid) {
@@ -1450,7 +1450,7 @@ var webChat = {
         };
 
 		window.onunload = function() {
-			if (typeof coBrowse === 'undefined') {
+			if (typeof coBrowse !== 'undefined') {
 				coBrowse.stopSession();
 				return "Ending session";
 			}
