@@ -15,7 +15,8 @@ var chatUI = {
 	panelStartingHeight : null,
 	requirementsSet : false,
 	reasonOptionsSet : false,
-
+	chatPostInstructionsSet : false,
+	
     /**
      * Hide the chat panel.
      */
@@ -199,6 +200,11 @@ var chatUI = {
     setup : function() {
         'use strict';
 		
+		if(!chatUI.chatPostInstructionsSet && webChat.settings.chatPostInstructions){
+			chatUI.chatPostInstructionsSet = true;
+			$('#chatPostInstructions').html(webChat.settings.chatPostInstructions);
+		}
+		
 		if(!chatUI.reasonOptionsSet && webChat.settings.reasonOptions){
 			chatUI.reasonOptionsSet = true;
 			console.log('Appending reason field options');
@@ -235,6 +241,7 @@ var chatUI = {
 			chatUI.markElAsRequired("#lastNameLabel", chatConfig.requireLastName);
 			chatUI.markElAsRequired("#emailLabel", chatConfig.requireEmail);
 			chatUI.markElAsRequired("#phoneLabel", chatConfig.requirePhone);
+			chatUI.markElAsRequired('#reasonLabel', chatConfig.requireReason);
 		}
     },
     

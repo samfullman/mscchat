@@ -109,6 +109,7 @@ var chatConfig = {
     requireLastName: true,
     requireEmail: true,
     requirePhone: true,
+	requireReason: true,
    
     // how long should we hold session data after closing/leaving the page
     // this should mtch the refresh/idle timeout in the Administration Utility
