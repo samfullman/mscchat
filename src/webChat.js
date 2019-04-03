@@ -215,6 +215,8 @@ var webChat = {
                     customData: webChat.customData
                 }
             };
+			// 2019-04-03 The way separation of concerns were originally coded with this chat client allowed for remnants of the previous chat(s) to remain such as Close Request Sent - this is always the start of the chat so we clear everything else.
+			$('#messages').empty();
             webChat.writeMessageBlock('Sending chat request.', chatConfig.writeResponseClassSystem);
         } else {
             msg = {
@@ -711,15 +713,19 @@ var webChat = {
         var timestamp = new Date().toLocaleString();
         var message = chatConfig.fileTransferMessageText;
 		
+		/*
 		var dateMessage = agentname + ' (' + timestamp + ')';
 		webChat.writeResponse(dateMessage, chatConfig.writeResponseClassAgentDate);
+		*/
         
 		url = webChat.replaceFileTransferHost(url);
 		message = message.replace('{0}', agentname);
         message = message.replace('{1}', filename);
         message = message.replace('{2}', timestamp);
         message = message.replace('{3}', url);
-        webChat.writeResponse(message, chatConfig.writeResponseClassResponse);
+		
+		webChat.writeMessageBlock(message, chatConfig.writeResponseClassResponse);
+        // webChat.writeResponse(message, chatConfig.writeResponseClassResponse);
     },
 
     /**
@@ -728,7 +734,7 @@ var webChat = {
     replaceFileTransferHost : function(url) {
         'use strict';
         var ocpHost = links.webChatHost;
-        url = url.replace(/:\/\/[\d\w\.]+/, '://' + ocpHost);
+        url = url.replace(/:\/\/[^\/]+/, '://' + ocpHost);
         return url;
     },
 
@@ -808,6 +814,8 @@ var webChat = {
 				method : 'closeConversation'
 			}
 		};
+		
+		// 2019-04-03 SF - note that session remnants of this can be in the #messages div or session storage
 		webChat.writeResponse('Close request sent', chatConfig.writeResponseClassSent);
 		chatSocket.sendMessage(closeRequest);
     },
