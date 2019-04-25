@@ -1472,7 +1472,56 @@ var webChat = {
     getCurrentTranscript: function() {
         'use strict';
         return avayaGlobal.getEl("messages").children;
-    }
+    },
+	
+	chatPanelConfigureMinimize: function(){
+		//build the minimize button if not already built
+		if(!$('.presav-chatPanel .ui-dialog-titlebar .ui-dialog-titlebar-minimize').length){
+			$('.ui-dialog-titlebar').append('<a href="#" style="right:40px;" class="ui-dialog-titlebar-minimize ui-corner-all" role="button"><span class="ui-icon ui-icon-minusthick">minimize</span></a>');
+			$('.presav-chatPanel .ui-dialog-titlebar .ui-dialog-titlebar-minimize').on('click', function(){
+				var panel = $('.presav-chatPanel');
+				var style = panel.attr('style');
+				if(panel.hasClass('presav-minimize')){
+					//maximize the panel
+					panel
+						.removeClass('presav-minimize')
+						.attr('style', chatUI.panelStyleMaximized);
+					$('.presav-chatPanel .ui-dialog-titlebar-minimize span')
+						.removeClass('ui-icon-plusthick')
+						.addClass('ui-icon-minusthick');
+					//reposition for any new messages received
+					webChat.messages.scrollTop = webChat.messages.scrollHeight;
+				}else{
+					//minimize the panel
+					chatUI.panelStyleMaximized = style;
+					
+					panel
+						.addClass('presav-minimize')
+						.attr('style', 'width: 200px; z-index: 1015; bottom: 0px; right: 20px; top: inherit; left: inherit;');
+					$('.presav-chatPanel .ui-dialog-titlebar-minimize span')
+						.removeClass('ui-icon-minusthick')
+						.addClass('ui-icon-plusthick');
+				}
+				return false;
+			});
+		}
+	},
+	
+	chatPanelMaximize: function(){
+		var panel = $('.presav-chatPanel');
+		if(panel.hasClass('presav-minimize')){
+			//maximize the panel
+			panel
+				.removeClass('presav-minimize')
+				.attr('style', chatUI.panelStyleMaximized);
+			$('.presav-chatPanel .ui-dialog-titlebar-minimize span')
+				.removeClass('ui-icon-plusthick')
+				.addClass('ui-icon-minusthick');
+			//reposition for any new messages received
+			webChat.messages.scrollTop = webChat.messages.scrollHeight;
+
+		}
+	}
 };
 
 function initChat(regState, firstName, lastName, email, parsedPhone){
@@ -1491,6 +1540,10 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 		dialogClass : 'fixedPosition presav-chatPanel',
 		open: function(event, ui){
 			console.log('dialog opened');
+
+			webChat.chatPanelMaximize();
+			webChat.chatPanelConfigureMinimize();
+			
 			document.getElementById('user-chat').value = avayaGlobal.client.firstName;
 			document.getElementById('user-chat-last').value = avayaGlobal.client.lastName;
 			document.getElementById('email-chat').value = avayaGlobal.client.email;

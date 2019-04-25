@@ -13,6 +13,7 @@
 var chatUI = {
 	
 	panelStartingHeight : null,
+	panelStyleMaximized : '',
 	requirementsSet : false,
 	reasonOptionsSet : false,
 	chatPostInstructionsSet : false,
@@ -67,6 +68,8 @@ var chatUI = {
 				dialogClass : 'fixedPosition presav-chatPanel',
 				open: function(event, ui){
 					console.log('dialog re-opened');
+					webChat.chatPanelMaximize();
+					webChat.chatPanelConfigureMinimize();
 				},
 				close: function(event, ui){
 					console.log('dialog closed after page nav');
