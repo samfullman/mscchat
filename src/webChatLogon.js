@@ -88,7 +88,7 @@ var chatLogon = {
         var errors = '';
         
         if (chatConfig.requireEmail) {
-            if (isStringEmpty(l_email)) {
+            if (isStringEmpty(l_email) || !l_email.match('@') || !l_email.match('.')) {
                 errors += "A valid email address is required\n";    
             }
         }
@@ -163,10 +163,10 @@ var chatLogon = {
 		
 		// get the users details here. Note: there is probably a simpler way to do this, but this works.
 		
-		var l_user = avayaGlobal.getEl('user-chat').value, l_user_last = avayaGlobal.getEl("user-chat-last").value, l_email = avayaGlobal.getEl('email-chat').value;
-		var phoneCountry = avayaGlobal.getEl("phone-country").value;
-        var phoneArea = avayaGlobal.getEl("phone-area").value;
-        var phone = avayaGlobal.getEl('phone-chat').value;
+		var l_user = $.trim(avayaGlobal.getEl('user-chat').value), l_user_last = $.trim(avayaGlobal.getEl("user-chat-last").value), l_email = $.trim(avayaGlobal.getEl('email-chat').value);
+		var phoneCountry = $.trim(avayaGlobal.getEl("phone-country").value);
+        var phoneArea = $.trim(avayaGlobal.getEl("phone-area").value);
+        var phone = $.trim(avayaGlobal.getEl('phone-chat').value);
 		// Removed
 		// var comments = avayaGlobal.getEl('pageTopic').value;
 		var comments = '';

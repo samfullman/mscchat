@@ -890,9 +890,11 @@ id="homepage_feature_3_3_mobile"></DIV><!-- // end mobile only -->
 <DIV class="sixteen wide column" id="categoryCarousal">
 <DIV>
 <DIV class="ui fluid secondary menu">
+<!--
 <DIV class="bottom aligned item">
 <H3 class="ui header v4-recs-title">					CATEGORIES THAT MIGHT INTEREST YOU
 				 </H3></DIV>
+				 -->
 <DIV class="bottom aligned item v4-recs-dots-box" id="owl-carousel-static-dots-box"></DIV>
 <DIV class="right aligned computer only tablet only item"><A class="ui button primary" 
 id="allCategories" href="https://quality.mscdirect.com/ProductsHomeView?storeId=10054&amp;catalogId=10001"> 
@@ -2582,8 +2584,9 @@ function sendPrintCmiCartTags(){
 
 
 <!-- Step 3: include chat-main file -->
-<script src="vendor/presidio-avaya/chat-main-1.0.js"></script>
+<script src="global/vendor/presidio-avaya/chat-main-1.0.min.js"></script>
 
+<!-- Step 3: overriding script -->
 <!-- Step 4: initialize Web Chat
 Note: must be inside document ready.
 You can start this manually by simply commenting out and entering webChat.setupWebChat(_MSCGlobal_) in the console.

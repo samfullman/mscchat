@@ -32,14 +32,14 @@ note that jQuery UI will build HTML "around" a div that is specified as a dialog
  
         <div class="formLabel" id="phoneLabel">Phone</div> 
         <div class="formField"> 
-            <div class="presav-w-50" style="width: 25%;"> 
-                <input type="text" id="phone-country" placeholder="e.g. +1" maxLength="10" pattern="[-+0-9]+"> 
+            <div class="presav-w-50 phone-country-tip" style="width: 25%;"> 
+                <input type="text" id="phone-country" placeholder="e.g. +1" maxLength="10" title="Country Code.\nFor example +1" pattern="[-+0-9]+"> 
             </div> 
-            <div class="presav-w-50" style="width: 33%;"> 
-                <input type="text" id="phone-area" placeholder="e.g. 904" maxLength="10" title="Area code. Numbers only" pattern="[0-9]+"> 
+            <div class="presav-w-50 phone-area-tip" style="width: 33%;"> 
+                <input type="text" id="phone-area" placeholder="e.g. 904" maxLength="10" title="Area code. Numbers only.\nFor example 907" pattern="[0-9]+"> 
             </div> 
-            <div class="presav-w-50" style="width: 42%;"> 
-                <input type="text" id="phone-chat" placeholder="e.g. 207-2231" maxLength="32" title="Phone number. Numbers only" pattern="[-0-9]+"> 
+            <div class="presav-w-50 phone-chat-tip" style="width: 42%;"> 
+                <input type="text" id="phone-chat" placeholder="e.g. 207-2231" maxLength="32" title="Phone number. Numbers only.\nFor example 555-1234" pattern="[-0-9]+"> 
             </div> 
         </div> 
         <!-- The Chat API requires this field. It will be used in a future release --> 
@@ -78,8 +78,8 @@ note that jQuery UI will build HTML "around" a div that is specified as a dialog
     <div id="chatInterface"> 
         <!-- messages -->
 		<div id="chatInterfaceHeader"> 
-			<button type="button" class="chat-interface-print" onclick="chatUI.printTranscript()" tabindex="-1" title="Print a transcript of the chat">Print</button>
-			<button type="button" class="chat-interface-copy" onclick="chatUI.copyTranscript()" tabindex="-1" title="Copy the chat transcript to clipboard">Copy</button>
+			<button type="button" class="chat-interface-print" onclick="chatUI.printTranscript()" tabindex="-1" title="Print a transcript of the chat"><span class="presav-base-icon presav-print"> </span>Print</button>
+			<button type="button" class="chat-interface-copy" onclick="chatUI.copyTranscript()" tabindex="-1" title="Copy the chat transcript to clipboard"><span class="presav-base-icon presav-copy"> </span>Copy</button>
 		</div>
         <div id="messages"></div> 
 		<div id="otherThanMessages">
@@ -99,7 +99,7 @@ note that jQuery UI will build HTML "around" a div that is specified as a dialog
         </div> 
         <div id="controls"> 
 			<div class="controls-user-message presav-w-50">
-				<input type="text" id="outmessage" class="chatField" placeholder="Type your message here"> 
+				<input type="text" id="outmessage" class="chatField" placeholder="Type your message here" maxlength="8000"> 
 			</div>
 			<div class="controls-user-submit presav-w-50">
 				<!-- <button type="button" id="sendbutton-chat" onclick="webChat.sendChatMessage()" class="button">Send</button> -->

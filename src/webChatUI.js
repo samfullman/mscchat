@@ -56,18 +56,31 @@ var chatUI = {
     /**
      * Changes the chat panel to chat mode.
      */
-    changeToChatMode : function() {
+    changeToChatMode : function(formNotNeeded) {
         'use strict';
+		
+		if(formNotNeeded){
+			//we don't need a fade-in, hard set the condition
+			console.log('called!');
+			$('#chatForm').hide();
+			$('#chatInterfaceWrap').show();
+		}
 		
 		if(chatUI.panelStartingHeight){
 			console.log('maintaining panel height');
 			console.log(document.getElementById('chatPanel').style.height = chatUI.panelStartingHeight + 'px');
 		}else{
+			var width = Math.min( 475, $(window).width() - 20 );
 			$('#chatPanel').dialog({
-				width : 475,
+				width : width,
 				dialogClass : 'fixedPosition presav-chatPanel',
 				open: function(event, ui){
 					console.log('dialog re-opened');
+					
+					//2019-04-29
+					if(typeof localStorage !== 'undefined' && localStorage.panelStartingTop){
+						$('#chatPanel').parent().css('top', localStorage.panelStartingTop);
+					}
 					webChat.chatPanelMaximize();
 					webChat.chatPanelConfigureMinimize();
 				},
@@ -84,7 +97,8 @@ var chatUI = {
         $('#chatForm').fadeOut(400);
         $('#chatInterfaceWrap').delay(400).fadeIn(400);
         
-        $('#chatPanel').dialog('widget').attr('id', 'chatPanelHidden');    
+        //we do not Cobrowse, this has been commented out - besides you can only have one id
+		//$('#chatPanel').dialog('widget').attr('id', 'chatPanelHidden');    
     },
 
     /**
@@ -95,8 +109,9 @@ var chatUI = {
         $('#chatInterfaceWrap').fadeOut(400);
         $('#chatForm').delay(400).fadeIn(400);
 		// SF: 2019-03-21 this is suspicious, will the open and close bindings be there or be overridden?
+		var width = Math.min( 475, $(window).width() - 20 );
         $('#chatPanel').dialog({
-            width : 475,
+            width : width,
 			dialogClass : 'fixedPosition presav-chatPanel',
         });
     },
@@ -254,7 +269,7 @@ var chatUI = {
     reloadChatPanel: function() {
         'use strict';
         console.log("Reloading chat panel");
-        chatUI.changeToChatMode();
+        chatUI.changeToChatMode(true);
         
     },
 	
