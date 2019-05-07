@@ -8,8 +8,13 @@ var MSCChatWidgets = {
 	 */
 	partNumber: function(str){
 		var pn = str.replace(/^@pn/i, '');
-		//the call function is named after the global function and calls it after converting pn to a pseudo-DOM element
-		return '<div class="partNumber recommendationQuickView" style="cursor: pointer; border: 1px solid darkred; margin: 10px; padding: 10px;" onclick="MSCChatWidgets.recommendationQuickView(\'' + pn + '\')">' + pn + '</div>';
+		//the call function is named after the global function and calls it after converting pn to a pseudo-DOM element\
+		var div = document.createElement('div');
+		div.setAttribute('class', 'presav-widgets partNumber recommendationQuickView');
+		div.setAttribute('style', 'cursor: pointer; border: 1px solid darkred; margin: 10px; padding: 10px;');
+		div.onclick = 'MSCChatWidgets.recommendationQuickView(\'' + pn + '\');';
+		div.appendChild(document.createTextNode(pn));
+		return div;
 	},
 	recommendationQuickView: function(pn){
 		console.log('in passthrough');
@@ -43,6 +48,7 @@ webChat.widgetKeyword = function(str){
 	return false;
 }
 
+//as currently from customer version
 webChat.writeMessageBlock = function(body, chatMessageClass, settings){
 	'use strict';
 	settings = settings || {};
@@ -54,7 +60,7 @@ webChat.writeMessageBlock = function(body, chatMessageClass, settings){
 			timestamp: (new Date()).getTime()
 		}
 	}
-	//parse date,
+	//parse date
 	var ampm = 'AM', date = new Date(body.timestamp), dateStr = '';
 	var hours = parseInt(date.getHours());
 	var minutes = date.getMinutes().toString();
@@ -62,45 +68,59 @@ webChat.writeMessageBlock = function(body, chatMessageClass, settings){
 		ampm = 'PM';
 		hours -= 12;
 	}
+	dateStr = hours + ':' + (minutes.length === 1 ? '0' : '') + minutes + ' ' + ampm;
 
 	//todo this needs to go into settings
 	var channelUrl = 'mscdirect.com';
 	var widget, widgets = [], widgetStr = '';
 	var i, a = body.message.split(/(\s)+/), newtab;
+	var href, span = document.createElement('span');
 	for(i in a){
 		//first handle any recognized URLs
 		if(a[i].match(/^((www\.[-a-z0-9]+)|(http:\/\/)|(https:\/\/))/)){
 			//note we assume that www's go to http vs. https
 			//a good website will handle insecure redirects, but a non-existent cert would cause a failure
 			//we want to remain in-tab for MSC Direct URLs
-			newtab = a[i].toLowerCase().match(channelUrl) ? '' : 'target="_blank"';
-			a[i] = '<a ' + newtab + ' href="' + (a[i].match(/^www/) ? 'http://' : '') + a[i] + '">' + a[i] + '</a>';
-		}else if(widget = webChat.widgetKeyword(a[i])){
-			widgets.push([
-				widget,
-				a[i]
-			]);
+			href = document.createElement('a');
+			if(!a[i].toLowerCase().match(channelUrl)) href.target = '_blank';
+			href.href = (a[i].match(/^www/) ? 'http://' : '') + a[i];
+			href.appendChild(document.createTextNode(a[i]));
+			span.appendChild(href);
 		}else{
 			//2019-03-23: all other HTML is escaped; alas we'd like the agent to be able to send bold or underlined text but we're not ready for this yet
-			a[i] = htmlEntities(a[i]);
+			span.appendChild(document.createTextNode(a[i]));
+			if(widget = webChat.widgetKeyword(a[i])){
+				widgets.push([
+					widget,
+					a[i]
+				]);
+			}
+		}
+		span.appendChild(document.createTextNode(' '));
+	}
+
+	var presavMessageWrap = document.createElement('div');
+	presavMessageWrap.setAttribute('class', 'presav-message-wrap' + (chatMessageClass ? ' ' + chatMessageClass : ''));
+	var presavTimestamp = document.createElement('div');
+	presavTimestamp.setAttribute('class', 'presav-timestamp');
+	presavTimestamp.setAttribute('data-timestamp', htmlEntities(body.timestamp));
+	presavTimestamp.append(document.createTextNode(dateStr));
+	presavMessageWrap.appendChild(presavTimestamp);
+	var presavMessager = document.createElement('div');
+	presavMessager.setAttribute('class', 'presav-messager');
+	presavMessager.appendChild(document.createTextNode(htmlEntities(body.displayName ? body.displayName : 'Agent')));
+	presavMessageWrap.appendChild(presavMessager);
+	var presavMessage = document.createElement('div');
+	presavMessage.setAttribute('class', 'presav-message');
+	presavMessageWrap.appendChild(span);
+
+	webChat.messages.appendChild(presavMessageWrap);
+
+	//add widgets
+	if(widgets){
+		for(i in widgets){
+			presavMessageWrap.appendChild(widgets[i][0]);
 		}
 	}
-	body.message = a.join(' ');
-
-	dateStr = hours + ':' + (minutes.length === 1 ? '0' : '') + minutes + '&nbsp;' + ampm;
-	for(i in widgets){
-		widgetStr += widgets[i][0](widgets[i][1])
-	}
-	var message = '<div class="presav-message-wrap ' + (chatMessageClass ? chatMessageClass : '') + '">' +
-		'<div class="presav-timestamp" data-timestamp="' + body.timestamp + '">' + dateStr + '</div>' +
-		'<div class="presav-messager">' + (body.displayName ? body.displayName : 'Agent') + '</div>' +
-		'<div class="presav-message">' + body.message +
-		(widgetStr ? '<span class="presav-widgets">' : '') +
-			widgetStr +
-		(widgetStr ? '</span>' : '') +
-		'</div>' +
-		'</div>';
-	var chat = webChat.messages.innerHTML;
-	webChat.messages.innerHTML = chat + message;
 	webChat.messages.scrollTop = webChat.messages.scrollHeight;
 }
