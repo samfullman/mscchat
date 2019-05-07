@@ -51,6 +51,7 @@ webChat.widgetKeyword = function(str){
 //as currently from customer version
 webChat.writeMessageBlock = function(body, chatMessageClass, settings){
 	'use strict';
+	console.log('in custom');
 	settings = settings || {};
 	if(typeof body === 'string'){
 		//for versatility convert string message to object
@@ -90,6 +91,7 @@ webChat.writeMessageBlock = function(body, chatMessageClass, settings){
 			//2019-03-23: all other HTML is escaped; alas we'd like the agent to be able to send bold or underlined text but we're not ready for this yet
 			span.appendChild(document.createTextNode(a[i]));
 			if(widget = webChat.widgetKeyword(a[i])){
+				console.log('have widget');
 				widgets.push([
 					widget,
 					a[i]
@@ -119,6 +121,7 @@ webChat.writeMessageBlock = function(body, chatMessageClass, settings){
 	//add widgets
 	if(widgets){
 		for(i in widgets){
+			console.log('widgets[i][0]', widgets[i][0]);
 			presavMessageWrap.appendChild(widgets[i][0]);
 		}
 	}
