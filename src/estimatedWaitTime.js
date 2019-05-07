@@ -50,6 +50,7 @@
                 // wish to use
                 var mapId = '1';
                 var json = JSON.parse(response);
+				console.log('ewt retrun JSON is: ', json);
                 ewt.parseServiceMap(json.serviceMetricsResponseMap, mapId);
             } else {
                 if (response === '') {
@@ -253,9 +254,9 @@
     /**
      * Request EWT.
      */
-    ewt.requestEwt = function (callback) {
+    ewt.requestEwt = function (callback, forceCheck) {
         var url = links.getEstimatedWaitTimeUrl();
-		var callbackReturn;
+		if(typeof forceCheck === 'undefined') forceCheck = false;
         
         // account for local testing
         if (url.indexOf('localhost') > -1 || url.indexOf("127.0.0.1") > -1) {
@@ -264,7 +265,8 @@
         }
         
         // no point in requesting EWT if reconnecting
-        if (chatConfig.previouslyConnected) {
+        if (chatConfig.previouslyConnected && !forceCheck) {
+			console.log('Reconnecting, no EWT requested');
             return;
         }
 
@@ -272,6 +274,7 @@
         var attributes = createAttributeMap();
         services["1"].attributes = attributes;
         services["1"].priority = priority;
+		console.log('Sending services to ewt with: ', services);
 
         // send the request
         var request = new XMLHttpRequest();
@@ -287,9 +290,6 @@
         request.send(JSON.stringify({
             'serviceMap' : services
         }));
-		
-		//void/undefined if no callback
-		return callbackReturn;
     };
 
     return ewt;

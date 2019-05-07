@@ -60,12 +60,13 @@
 }
 
 #chatInterfaceHeader {
-	height: 41px;
+	height: 48px;
     flex-shrink: 0;
 
 	/* show the msc logo at top */
 	background-image: url("/global/application-content/images/header/logo.png");
 	background-repeat: no-repeat;
+	background-position: 3px 0px;
 	padding-left: 310px;
 	padding-right: 15px;
 	
@@ -147,43 +148,40 @@
 /**
  * Login form
  */
-.formTable {
+.presav-chatPanel .formTable {
     width: 100%;
     border-collapse: collapse;
     border-spacing: 0px;
     padding: 0px;
 }
-.formTable td {
+.presav-chatPanel .formTable td {
     padding-left: 3px;
     padding-right: 3px;
 }
-.formLabel {
+.presav-chatPanel .formLabel {
     padding-top: 5px;
 	font-weight: 700;
 }
 
 
-.formField {
+.presav-chatPanel .formField {
     width: 100%;
     padding-bottom: 2px;
 }
-.formField input:invalid {
+.presav-chatPanel .formField input:invalid {
     background: red;
     color: white;
     font-weight: bold;
 }
-.formField input,select {
+.presav-chatPanel .formField input, .presav-chatPanel .formField select {
     width: 100%;
     border: 1px solid #cccccc;
     padding: 3px;
     background-color: inherit;
     font-size: 14px;
 }
-.formField select {
-    width: 100%;
-}
 
-.formCheckbox {
+.presav-chatPanel .formCheckbox {
     padding-right: 172px;
     text-align: right;
 }
@@ -499,14 +497,42 @@ p.chatbot {
 	border-radius: 0; 
 	outline: none;
 	background: transparent; 
-	right: 7px !important;
+	right: 9px !important;
     border: 1px solid #FFF;
     width: 20px !important;
     height: 20px !important;
     margin: inherit !important;
-	margin: -10px 0 0 !important;
+	top: inherit !important;
+	/* margin: -10px 0 0 !important; */
     padding: 0 !important;
+	text-align: center;
 }
+
+	.presav-chatPanel .ui-dialog-titlebar-minimize{
+		/* base taken from jquery-ui.min.css:
+		position: absolute;
+		right: 40px;
+		top: inherit;
+		width: 20px;
+		padding: 1px;
+		height: 20px; */
+		
+		position: absolute;
+		border-radius: 0;
+		outline: none;
+		background: transparent;
+		right: 38px !important;
+		border: 1px solid #FFF;
+		width: 20px !important;
+		height: 20px !important;
+		margin: inherit !important;
+		top: inherit !important;
+		/* margin: -10px 0 0 !important; */
+		padding: 0 !important;
+		text-align: center;
+
+	}
+
 
 .presav-chatPanel .ui-button,
 .presav-chatPanel .ui-button:hover,
@@ -548,6 +574,23 @@ p.chatbot {
 #email-chat, #address-chat, #reason, #outmessage {
 	margin: 5px 0 10px 0;
 }
+
+.phone-country-tip, .phone-area-tip, .phone-chat-tip{
+	position: relative;
+	padding-top: 20px !important;
+}
+.phone-country-tip:after, .phone-area-tip:after, .phone-chat-tip:after{
+	position: absolute;
+	top: 3px;
+	left:2px;
+	font-size: 92%;
+}
+.phone-country-tip:after{content: 'Country Code';} 
+.phone-area-tip:after{content: 'Area Code';} 
+.phone-chat-tip:after{content: 'Phone Number';}
+
+
+
 .presav-notice{
 	font-size: 85%;
 }
@@ -557,9 +600,16 @@ p.chatbot {
 }
 
 /* ---- SF Added --- */
-.ui-widget-header .ui-icon:hover {
+.presav-chatPanel .ui-widget-header .ui-icon:hover,
+.presav-chatPanel .ui-icon,
+.presav-chatPanel .ui-widget-content .ui-icon,
+.presav-chatPanel .ui-state-hover .ui-icon,
+.presav-chatPanel .ui-state-focus .ui-icon,
+.presav-chatPanel .ui-button:hover .ui-icon,
+.presav-chatPanel .ui-button:focus .ui-icon {
     background-image: url(libs/jquery-ui/images/ui-icons_ffffff_256x240.png) !important;
 }
+
 
 #chatPanel input[type=text]{
 	width: 100%;
@@ -600,14 +650,14 @@ div.presav-w-50:last-child{
 	background-image: url(./comments-solid.svg) !important;
 	background-repeat: no-repeat !important;
 	background-position: 10px 0px !important;
-	background-size: auto 20px !important;
+	background-size: 16px 16px !important;
 }
 #sendbutton-chat > span{
 	padding-left: 40px;
 	background-image: url(./paper-plane-solid.svg) !important;
 	background-repeat: no-repeat !important;
 	background-position: 10px 0px !important;
-	background-size: auto 20px !important;
+	background-size: 16px 16px !important;
 }
 #controls {
 	left: -15px;
@@ -663,4 +713,43 @@ div.presav-w-50:last-child{
 	color: darkred;
 }
 
+.presav-minimize #chatPanel{
+	display: none !important;
+	bottom: 0 !important;
+	right: 10px !important;
+}
+.presav-minimize .ui-dialog-titlebar{
+	cursor: default !important;
+}
+
+.presav-base-icon{
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	background-size: 16px 16px;
+	margin-right: 3px !important;
+	vertical-align: bottom;
+	opacity: .75; /* from black to slightly lighter color */
+}
+.presav-print{
+	background-image: url(./glyphicons-basic-16-print.svg);
+}
+.presav-copy{
+	background-image: url(./glyphicons-basic-30-clipboard.svg);
+}
+
+/* Very few media queries required */
+@media only screen and (max-width: 767px) {
+	.chat-interface-print, .chat-interface-copy{
+		display: none;
+	}
+	#openbutton-chat > span{
+		padding-left: 0 !important;
+		background: none !important;
+	}
+	#sendbutton-chat > span{
+		padding-left: 0 !important;
+		background: none !important;
+	}
+}
 

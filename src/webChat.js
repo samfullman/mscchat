@@ -11,6 +11,9 @@
  */
 
 var webChat = {
+	
+	// Presidio build number
+	build: '3b',
 
     // particular elements in the page
     sendButton : null,
@@ -215,7 +218,9 @@ var webChat = {
                     customData: webChat.customData
                 }
             };
-            webChat.writeMessageBlock('Sending Login Details', chatConfig.writeResponseClassSystem);
+			// 2019-04-03 The way separation of concerns were originally coded with this chat client allowed for remnants of the previous chat(s) to remain such as Close Request Sent - this is always the start of the chat so we clear everything else.
+			$('#messages').empty();
+            webChat.writeMessageBlock('Sending chat request.', chatConfig.writeResponseClassSystem);
         } else {
             msg = {
                 'apiVersion' : '1.0',
@@ -374,6 +379,8 @@ var webChat = {
         'use strict';
         avayaGlobal.log.info('WebChat: Resetting chat');
         avayaGlobal.detachChildren(webChat.messages);
+		// 2019-03-26 SF: attributes need to be cleared or a second chat before page load will result in multiple attributes
+		chatLogon.clearAttributes();
         chatUI.resetChatUI();
         webChat.updateUsers();
         webChat.clearAllTimeouts();
@@ -421,7 +428,7 @@ var webChat = {
             webChat.timeouts.push(agentTypeOut);
         }
     },
-
+	
 	writeMessageBlock : function(body, chatMessageClass, settings){
 		'use strict';
 		settings = settings || {};
@@ -433,7 +440,7 @@ var webChat = {
 				timestamp: (new Date()).getTime()
 			}
 		}
-		//parse date, 
+		//parse date
 		var ampm = 'AM', date = new Date(body.timestamp), dateStr = '';
 		var hours = parseInt(date.getHours());
 		var minutes = date.getMinutes().toString();
@@ -441,17 +448,79 @@ var webChat = {
 			ampm = 'PM';
 			hours -= 12;
 		}
-		dateStr = hours + ':' + (minutes.length === 1 ? '0' : '') + minutes + '&nbsp;' + ampm;
+		dateStr = hours + ':' + (minutes.length === 1 ? '0' : '') + minutes + ' ' + ampm;
+
+		//todo this needs to go into settings
+		var channelUrl = 'mscdirect.com';
+		var widget, widgets = [], widgetStr = '';
+		var i, a = body.message.split(/(\s)+/), newtab;
+		var href, span = document.createElement('span');
+		for(i in a){
+			//first handle any recognized URLs
+			if(a[i].match(/^((www\.[-a-z0-9]+)|(http:\/\/)|(https:\/\/))/)){
+				//note we assume that www's go to http vs. https
+				//a good website will handle insecure redirects, but a non-existent cert would cause a failure
+				//we want to remain in-tab for MSC Direct URLs
+				href = document.createElement('a');
+				if(!a[i].toLowerCase().match(channelUrl)) href.target = '_blank';
+				href.href = (a[i].match(/^www/) ? 'http://' : '') + a[i];
+				href.appendChild(document.createTextNode(a[i]));
+				span.appendChild(href);
+				
+				/*
+				newtab =  ? '' : 'target="_blank"';
+				a[i] = '<a ' + newtab + ' href="' + (a[i].match(/^www/) ? 'http://' : '') + a[i] + '">' + a[i] + '</a>';
+				*/
+			/* not used..
+			}else if(widget = webChat.widgetKeyword(a[i])){
+				widgets.push([
+					widget,
+					a[i]
+				]);
+			*/
+			}else{
+				//2019-03-23: all other HTML is escaped; alas we'd like the agent to be able to send bold or underlined text but we're not ready for this yet
+				//a[i] = htmlEntities(a[i]);
+				span.appendChild(document.createTextNode(a[i]));
+			}
+			span.appendChild(document.createTextNode(' '));
+		}
+		// body.message = a.join(' ');
+
+		var presavMessageWrap = document.createElement('div');
+		presavMessageWrap.setAttribute('class', 'presav-message-wrap' + (chatMessageClass ? ' ' + chatMessageClass : ''));
+		var presavTimestamp = document.createElement('div');
+		presavTimestamp.setAttribute('class', 'presav-timestamp');
+		presavTimestamp.setAttribute('data-timestamp', htmlEntities(body.timestamp));
+		presavTimestamp.append(document.createTextNode(dateStr));
+		presavMessageWrap.appendChild(presavTimestamp);
+		var presavMessager = document.createElement('div');
+		presavMessager.setAttribute('class', 'presav-messager');
+		presavMessager.appendChild(document.createTextNode(htmlEntities(body.displayName ? body.displayName : 'Agent')));
+		presavMessageWrap.appendChild(presavMessager);
+		var presavMessage = document.createElement('div');
+		presavMessage.setAttribute('class', 'presav-message');
+		presavMessageWrap.appendChild(span);
 		
-		var message = '<div class="presav-message-wrap ' + (chatMessageClass ? chatMessageClass : '') + '">' + 
-		'<div class="presav-timestamp" data-timestamp="' + body.timestamp + '">' + dateStr + '</div>' + 
-		'<div class="presav-messager">' + (body.displayName ? body.displayName : 'Agent') + '</div>' + 
-		'<div class="presav-message">' + body.message + '</div>' + 
-		'</div>';
+		webChat.messages.appendChild(presavMessageWrap);
+		webChat.messages.scrollTop = webChat.messages.scrollHeight;
+		
+		/*
+		for(i in widgets){
+			widgetStr += widgets[i][0](widgets[i][1])
+		}
+		var message = '<div class="presav-message-wrap ' + (chatMessageClass ? chatMessageClass : '') + '">' +
+			'<div class="presav-timestamp" data-timestamp="' + body.timestamp + '">' + dateStr + '</div>' +
+			'<div class="presav-messager">' + (body.displayName ? body.displayName : 'Agent') + '</div>' +
+			'<div class="presav-message">' + body.message +
+			(widgetStr ? '<span class="presav-widgets">' : '') +
+				widgetStr +
+			(widgetStr ? '</span>' : '') +
+			'</div>' +
+			'</div>';
 		var chat = webChat.messages.innerHTML;
 		webChat.messages.innerHTML = chat + message;
-		webChat.messages.scrollTop = webChat.messages.scrollHeight;
-
+		*/
 	},
 
     /**
@@ -671,7 +740,7 @@ var webChat = {
         // if the customer has already been connected, don't play the on
         // hold messages
         if (!chatConfig.previouslyConnected) {
-            webChat.writeMessageBlock('Login request received and approved', chatConfig.writeResponseClassSystem);
+            webChat.writeMessageBlock('Chat request approved.  Please wait while we connect you with the next available associate.', chatConfig.writeResponseClassSystem);
             chatConfig.previouslyConnected = true;
             
             if (!body.isEmailValid) {
@@ -683,7 +752,7 @@ var webChat = {
             webChat.webOnHoldURLs = body.webOnHoldURLs[0];
             webChat.startOnHoldMessages();
         } else {
-            webChat.writeResponse('Successfully reconnected', chatConfig.writeResponseClassSystem);
+            //webChat.writeResponse('Successfully reconnected', chatConfig.writeResponseClassSystem);
 			webChat.messages.scrollTop = webChat.messages.scrollHeight;
         }
     },
@@ -709,15 +778,19 @@ var webChat = {
         var timestamp = new Date().toLocaleString();
         var message = chatConfig.fileTransferMessageText;
 		
+		/*
 		var dateMessage = agentname + ' (' + timestamp + ')';
 		webChat.writeResponse(dateMessage, chatConfig.writeResponseClassAgentDate);
+		*/
         
 		url = webChat.replaceFileTransferHost(url);
 		message = message.replace('{0}', agentname);
         message = message.replace('{1}', filename);
         message = message.replace('{2}', timestamp);
         message = message.replace('{3}', url);
-        webChat.writeResponse(message, chatConfig.writeResponseClassResponse);
+		
+		webChat.writeMessageBlock(message, chatConfig.writeResponseClassResponse);
+        // webChat.writeResponse(message, chatConfig.writeResponseClassResponse);
     },
 
     /**
@@ -726,7 +799,7 @@ var webChat = {
     replaceFileTransferHost : function(url) {
         'use strict';
         var ocpHost = links.webChatHost;
-        url = url.replace(/:\/\/[\d\w\.]+/, '://' + ocpHost);
+        url = url.replace(/:\/\/[^\/]+/, '://' + ocpHost);
         return url;
     },
 
@@ -795,16 +868,21 @@ var webChat = {
         chatSocket.manualClose = true;
         webChat.clearAllTimeouts();
         if (webSocket !== null && webSocket.readyState === webSocket.OPEN) {
-            var closeRequest = {
-                'apiVersion' : '1.0',
-                'type' : 'request',
-                'body' : {
-                    'method' : 'closeConversation'
-                }
-            };
-            webChat.writeResponse('Close request sent', chatConfig.writeResponseClassSent);
-            chatSocket.sendMessage(closeRequest);
-        }
+			console.log('Original logic block for calling close');
+        }else{
+			console.log('Criteria for close not met! Calling anyway');
+		}
+		var closeRequest = {
+			apiVersion : '1.0',
+			type : 'request',
+			body : {
+				method : 'closeConversation'
+			}
+		};
+		
+		// 2019-04-03 SF - note that session remnants of this can be in the #messages div or session storage
+		webChat.writeResponse('Close request sent', chatConfig.writeResponseClassSent);
+		chatSocket.sendMessage(closeRequest);
     },
 
     /**
@@ -937,7 +1015,7 @@ var webChat = {
         var onHoldUrlsDefined = (webChat.webOnHoldURLs.urls.length > 0);
         var onHoldMessagesDefined = (webChat.webOnHoldComfortGroups.messages.length > 0);
 
-        if (!onHoldUrlsDefined && !onHoldMessagesDefined) {
+        if (!onHoldMessagesDefined && !onHoldUrlsDefined) {
             avayaGlobal.log.warn('WebChat: On Hold messages are not defined!');
         }
 
@@ -1436,14 +1514,16 @@ var webChat = {
         // Can't override default message due to security restrictions
         // so the value returned here doesn't really matter.
         window.onbeforeunload = function() {
-            if (webChat.initCalled && document.getElementById('outmessage').value.length) {
+            if (webChat.initCalled) {
                 chatSocket.setupRefresh();
-                return "You will lose the message you are typing to the agent if you leave now.  Continue?";
+				if(document.getElementById('outmessage').value.length){
+					return "You will lose the message you are typing to the agent if you leave now.  Continue?";
+				}
             }
         };
 
 		window.onunload = function() {
-			if (coBrowse !== 'undefined') {
+			if (typeof coBrowse !== 'undefined') {
 				coBrowse.stopSession();
 				return "Ending session";
 			}
@@ -1457,7 +1537,59 @@ var webChat = {
     getCurrentTranscript: function() {
         'use strict';
         return avayaGlobal.getEl("messages").children;
-    }
+    },
+	
+	chatPanelConfigureMinimize: function(){
+		//build the minimize button if not already built
+		if(!$('.presav-chatPanel .ui-dialog-titlebar .ui-dialog-titlebar-minimize').length){
+			$('.ui-dialog-titlebar').append('<a href="#" style="right:40px;" class="ui-dialog-titlebar-minimize ui-corner-all" role="button"><span class="ui-icon ui-icon-minusthick">minimize</span></a>');
+			//rolled back from jQuery on(), not present in ancient 1.4.2
+			if($('.presav-chatPanel .ui-dialog-titlebar .ui-dialog-titlebar-minimize')){
+				document.querySelector('.presav-chatPanel .ui-dialog-titlebar .ui-dialog-titlebar-minimize').addEventListener('click', function(){
+					var panel = $('.presav-chatPanel');
+					var style = panel.attr('style');
+					if(panel.hasClass('presav-minimize')){
+						//maximize the panel
+						panel
+							.removeClass('presav-minimize')
+							.attr('style', chatUI.panelStyleMaximized);
+						$('.presav-chatPanel .ui-dialog-titlebar-minimize span')
+							.removeClass('ui-icon-plusthick')
+							.addClass('ui-icon-minusthick');
+						//reposition for any new messages received
+						webChat.messages.scrollTop = webChat.messages.scrollHeight;
+					}else{
+						//minimize the panel
+						chatUI.panelStyleMaximized = style;
+						
+						panel
+							.addClass('presav-minimize')
+							.attr('style', 'width: 200px; z-index: 1015; bottom: 0px; right: 20px; top: inherit; left: inherit;');
+						$('.presav-chatPanel .ui-dialog-titlebar-minimize span')
+							.removeClass('ui-icon-minusthick')
+							.addClass('ui-icon-plusthick');
+					}
+					return false;
+				});
+			}
+		}
+	},
+	
+	chatPanelMaximize: function(){
+		var panel = $('.presav-chatPanel');
+		if(panel.hasClass('presav-minimize')){
+			//maximize the panel
+			panel
+				.removeClass('presav-minimize')
+				.attr('style', chatUI.panelStyleMaximized);
+			$('.presav-chatPanel .ui-dialog-titlebar-minimize span')
+				.removeClass('ui-icon-plusthick')
+				.addClass('ui-icon-minusthick');
+			//reposition for any new messages received
+			webChat.messages.scrollTop = webChat.messages.scrollHeight;
+
+		}
+	}
 };
 
 function initChat(regState, firstName, lastName, email, parsedPhone){
@@ -1471,11 +1603,17 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 	avayaGlobal.client.phoneBody = phone[2] ? phone[2] : '';
 
 	$('.bottom_chat_btn').fadeOut(400);
+	
+	var width = Math.min( 475, $(window).width() - 20 );
 	$('#chatPanel').dialog({
-		width : 475,
+		width : width,
 		dialogClass : 'fixedPosition presav-chatPanel',
 		open: function(event, ui){
 			console.log('dialog opened');
+
+			webChat.chatPanelMaximize();
+			webChat.chatPanelConfigureMinimize();
+			
 			document.getElementById('user-chat').value = avayaGlobal.client.firstName;
 			document.getElementById('user-chat-last').value = avayaGlobal.client.lastName;
 			document.getElementById('email-chat').value = avayaGlobal.client.email;
@@ -1485,13 +1623,18 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 				(avayaGlobal.client.phonePrefix && avayaGlobal.client.phoneBody ? '-' : '') + 
 				avayaGlobal.client.phoneBody;
 				
-			//we want the actual chat dialog to remain at least the same height as the chat entry form; no change in bottom location.  Tried using min-height and it failed/was reset
+			//we want the actual chat dialog to remain at least the same height as the chat entry form; no change in bottom location.  Tried using min-height and it failed/was reset by jQuery UI
 			chatUI.panelStartingHeight = document.getElementById('chatPanel').offsetHeight;
+			
+			//2019-04-29 - facing a bug where reloading the page, the panel opens in a different css top value.  Unable to solve, this attribute handles this.  You can remove it if you have a better understanding of why esp. jQuery dialog
+			//string value
+			localStorage.panelStartingTop = $('#chatPanel').parent().css('top');
 			
 		},
 		close: function(event, ui){
 			console.log('dialog closed');
 			if (webSocket !== undefined ) {
+				console.log('calling closePanel (1)');
 				chatUI.closePanel(event);    
 			}
 			$('.bottom_chat_btn').fadeIn(400);
@@ -1501,4 +1644,7 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 	return false;
 }
 
+function htmlEntities(str) {
+	return String(str).replace(/&/g, '&').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
 

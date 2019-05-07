@@ -27,6 +27,10 @@ var chatLogon = {
 
     contactTypeMenu : null,
     openChatButton : null,
+	
+	clearAttributes : function(){
+		chatLogon.attributes = [];
+	},
 
     /**
      * Logs the customer into the chat.
@@ -84,7 +88,7 @@ var chatLogon = {
         var errors = '';
         
         if (chatConfig.requireEmail) {
-            if (isStringEmpty(l_email)) {
+            if (isStringEmpty(l_email) || !l_email.match('@') || !l_email.match('.')) {
                 errors += "A valid email address is required\n";    
             }
         }
@@ -94,19 +98,23 @@ var chatLogon = {
         }
 		
         // check if the name is too long
+		var firstlasterror = false;
         if (l_user.length > 50) {
             errors += 'Your name is too long. It must be less than 50 characters\n';
         }
         else if (chatConfig.requireFirstName && isStringEmpty(l_user)) {
-            errors += "You must provide a first name and last name\n";
+			firstlasterror = true;
         }
         
         if (l_user_last.length > 100) {
             errors += 'Your surname is too long. It must be less than 100 characters\n';
         }
         else if (chatConfig.requireLastName && isStringEmpty(l_user_last)) {
-            errors += "You must provide a first name and last name\n";
+			firstlasterror = true;
         }
+		if(firstlasterror){
+            errors += "You must provide a first name and last name\n";
+		}
         
         if (!reason) {
             errors += "Please select what you need help with\n";
@@ -155,17 +163,14 @@ var chatLogon = {
 		
 		// get the users details here. Note: there is probably a simpler way to do this, but this works.
 		
-		var l_user = avayaGlobal.getEl('user-chat').value, l_user_last = avayaGlobal.getEl("user-chat-last").value, l_email = avayaGlobal.getEl('email-chat').value;
-		var phoneCountry = avayaGlobal.getEl("phone-country").value;
-        var phoneArea = avayaGlobal.getEl("phone-area").value;
-        var phone = avayaGlobal.getEl('phone-chat').value;
+		var l_user = $.trim(avayaGlobal.getEl('user-chat').value), l_user_last = $.trim(avayaGlobal.getEl("user-chat-last").value), l_email = $.trim(avayaGlobal.getEl('email-chat').value);
+		var phoneCountry = $.trim(avayaGlobal.getEl("phone-country").value);
+        var phoneArea = $.trim(avayaGlobal.getEl("phone-area").value);
+        var phone = $.trim(avayaGlobal.getEl('phone-chat').value);
 		// Removed
 		// var comments = avayaGlobal.getEl('pageTopic').value;
 		var comments = '';
-		
-		
-		
-		
+
 		var data = JSON.stringify({
 				"groupId" : customerJourneyCommon.customerId,
                 "persistToEDM" : true,
@@ -203,7 +208,7 @@ var chatLogon = {
 		//avayaGlobal.log.info('CustomerJourney: Context ID  for upsert ' + avayaGlobal.getSessionStorage('contextId');
 		
 		console.log('CustomerJourney: Context ID  for upsert ' + avayaGlobal.getSessionStorage('contextId'));
-		xhr.open("PUT", "https://oce-stf-p-cc1-node-vip.mscpla.local/services/ContextStoreRest/cs/contexts/upsert/" + avayaGlobal.getSessionStorage('contextId') + "?touchpoint=WEB");
+		xhr.open("PUT", (links.secureAllConnections ? 'https://' : 'http://') + links.contextStoreHost + "/services/ContextStoreRest/cs/contexts/upsert/" + avayaGlobal.getSessionStorage('contextId') + "?touchpoint=WEB");
 		xhr.setRequestHeader("content-type", "application/json");
 		xhr.send(data);
 		

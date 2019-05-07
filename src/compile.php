@@ -66,7 +66,7 @@ $start .= implode("\n    ", $files);
 $start .= "\n" . '*/' . "\n";
 
 $str = $start . $str . $end;
-$fp = fopen('../vendor/presidio-avaya/chat-main-1.0.js', 'w');
+$fp = fopen('../global/vendor/presidio-avaya/chat-main-1.0.js', 'w');
 fwrite($fp, $str);
 fclose($fp);
 print("\nFile write completed!");

@@ -13,7 +13,11 @@
 var chatUI = {
 	
 	panelStartingHeight : null,
-
+	panelStyleMaximized : '',
+	requirementsSet : false,
+	reasonOptionsSet : false,
+	chatPostInstructionsSet : false,
+	
     /**
      * Hide the chat panel.
      */
@@ -52,24 +56,38 @@ var chatUI = {
     /**
      * Changes the chat panel to chat mode.
      */
-    changeToChatMode : function() {
+    changeToChatMode : function(formNotNeeded) {
         'use strict';
+		
+		if(formNotNeeded){
+			//we don't need a fade-in, hard set the condition
+			console.log('called!');
+			$('#chatForm').hide();
+			$('#chatInterfaceWrap').show();
+		}
 		
 		if(chatUI.panelStartingHeight){
 			console.log('maintaining panel height');
 			console.log(document.getElementById('chatPanel').style.height = chatUI.panelStartingHeight + 'px');
 		}else{
+			var width = Math.min( 475, $(window).width() - 20 );
 			$('#chatPanel').dialog({
-				width : 475,
-				'resize' : 'auto',
+				width : width,
 				dialogClass : 'fixedPosition presav-chatPanel',
 				open: function(event, ui){
 					console.log('dialog re-opened');
+					
+					//2019-04-29
+					if(typeof localStorage !== 'undefined' && localStorage.panelStartingTop){
+						$('#chatPanel').parent().css('top', localStorage.panelStartingTop);
+					}
+					webChat.chatPanelMaximize();
+					webChat.chatPanelConfigureMinimize();
 				},
 				close: function(event, ui){
 					console.log('dialog closed after page nav');
 					if (webSocket !== undefined ) {
-						console.log('closePanel');
+						console.log('calling closePanel (2)');
 						chatUI.closePanel(event);    
 					}
 					$('#liveChatLink').show();
@@ -79,7 +97,8 @@ var chatUI = {
         $('#chatForm').fadeOut(400);
         $('#chatInterfaceWrap').delay(400).fadeIn(400);
         
-        $('#chatPanel').dialog('widget').attr('id', 'chatPanelHidden');    
+        //we do not Cobrowse, this has been commented out - besides you can only have one id
+		//$('#chatPanel').dialog('widget').attr('id', 'chatPanelHidden');    
     },
 
     /**
@@ -87,21 +106,29 @@ var chatUI = {
      */
     changeToLoginMode : function() {
         'use strict';
-        $('#chatInterfaceWrap').hide();
-        $('#chatForm').show();
+        $('#chatInterfaceWrap').fadeOut(400);
+        $('#chatForm').delay(400).fadeIn(400);
+		// SF: 2019-03-21 this is suspicious, will the open and close bindings be there or be overridden?
+		var width = Math.min( 475, $(window).width() - 20 );
         $('#chatPanel').dialog({
-            width : 400,
-            'resize' : 'auto',
-            dialogClass : 'fixedPosition'
+            width : width,
+			dialogClass : 'fixedPosition presav-chatPanel',
         });
     },
 
     resetChatUI : function() {
         'use strict';
         chatUI.changeToLoginMode();
+		// here is where after 5-6 hops we finally close the actual HTML UI..
         $('#chatPanel').dialog('close');
-        $('#liveChatLink').show();
+		chatUI.showLiveChat();
     },
+	
+	showLiveChat : function(){
+		// SF: 2019-03-21 we want to show this only if it is appropriate to show it.  If we close the chat panel and chat has since become unavailable, the chatPanel is not designed to notify of this fact.  This is a demarcation that should be on the Live Chat button itself (showing and detecting if chat is available and if not popping up a I'm sorry we missed you message).  This is poorly demarcated between the v4-chat.js API and what Presidio did on the reference client
+		// @todo: improve the logic on this
+		$('.bottom_chat_btn').fadeIn(400);
+	},
 
     resizeConfigPanel : function() {
         'use strict';
@@ -170,15 +197,17 @@ var chatUI = {
     closePanel : function(event) {
         'use strict';
         event.preventDefault();
+		console.log('step 1');
         avayaGlobal.log.debug("WebChat: closing chat panel");
 
         // when the chat dialog is closed, reset things
-        $('#liveChatLink').show();
+        // $('#liveChatLink').show();
         chatSocket.clearRefresh();
         chatSocket.manualClose = true;
         clearTimeout(chatSocket.closeTimer);
+		console.log('webSocket.readyState = ' + webSocket.readyState);
         if (webSocket.readyState !== 2) {
-            chatConfig.dontRetryConnection = true;
+			console.log('quitting chat');
             webChat.quitChat();
         }
     },
@@ -189,7 +218,13 @@ var chatUI = {
     setup : function() {
         'use strict';
 		
-		if(webChat.settings.reasonOptions){
+		if(!chatUI.chatPostInstructionsSet && webChat.settings.chatPostInstructions){
+			chatUI.chatPostInstructionsSet = true;
+			$('#chatPostInstructions').html(webChat.settings.chatPostInstructions);
+		}
+		
+		if(!chatUI.reasonOptionsSet && webChat.settings.reasonOptions){
+			chatUI.reasonOptionsSet = true;
 			console.log('Appending reason field options');
 			for(var i in webChat.settings.reasonOptions){
 				var a = webChat.settings.reasonOptions[i];
@@ -212,16 +247,20 @@ var chatUI = {
 
 
         // Set jQuery UI button
-        $('.button').button();
+        //$('.button').button();
 
         // hide the alert header and shake the chat tab
         $('#chatJavaScriptAlertHeader').hide();
         chatUI.shakeChatTab();
         
-        chatUI.markElAsRequired("#firstNameLabel", chatConfig.requireFirstName);
-		chatUI.markElAsRequired("#lastNameLabel", chatConfig.requireLastName);
-        chatUI.markElAsRequired("#emailLabel", chatConfig.requireEmail);
-        chatUI.markElAsRequired("#phoneLabel", chatConfig.requirePhone);
+		if(!chatUI.requirementsSet){
+			chatUI.requirementsSet = true;
+			chatUI.markElAsRequired("#firstNameLabel", chatConfig.requireFirstName);
+			chatUI.markElAsRequired("#lastNameLabel", chatConfig.requireLastName);
+			chatUI.markElAsRequired("#emailLabel", chatConfig.requireEmail);
+			chatUI.markElAsRequired("#phoneLabel", chatConfig.requirePhone);
+			chatUI.markElAsRequired('#reasonLabel', chatConfig.requireReason);
+		}
     },
     
     /**
@@ -230,7 +269,7 @@ var chatUI = {
     reloadChatPanel: function() {
         'use strict';
         console.log("Reloading chat panel");
-        chatUI.changeToChatMode();
+        chatUI.changeToChatMode(true);
         
     },
 	
@@ -240,7 +279,7 @@ var chatUI = {
 
 		win.document.write('<html><head><title>Chat Transcript</title>');
 		
-		win.document.write('<link rel="stylesheet" type="text/stylesheet" href="' + webChat.cdnLocation + 'presidio-avaya/chat-main-1.0.css" />');
+		win.document.write('<link rel="stylesheet" type="text/stylesheet" href="' + webChat.cdnLocation + 'global/presidio-avaya/chat-main-1.0.css" />');
 		
 		win.document.write('</head><body >');
 		win.document.write('<h1>Chat Transcript</h1>');

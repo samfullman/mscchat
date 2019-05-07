@@ -41,7 +41,7 @@ type="text/css" media="print">	 		 <!--[if IE 11]><link href="//qacdn.mscdirect.
 			<script src="//qacdn.mscdirect.com/global/framework/assets/js/respond.min.js?v=313"></script>
 		<![endif]-->
 	 
-<SCRIPT src="mscdirect-home_files/jquery-3.1.1.min.js"></SCRIPT>
+<SCRIPT src="src/jquery-3.1.1.js"></SCRIPT>
 <script>jQuery.migrateMute = true;</script>
 	 
 <SCRIPT src="mscdirect-home_files/jquery-migrate-3.js"></SCRIPT>
@@ -78,7 +78,7 @@ media="all">
 <link rel="stylesheet" href="src/libs/jquery-ui/jquery-ui.min.css" />
 
 <!-- Step 2: include the Presidio vendor css -->
-<link rel="stylesheet" href="vendor/presidio-avaya/chat-main-1.0.css" />
+<link rel="stylesheet" href="global/vendor/presidio-avaya/chat-main-1.0.css" />
 
 
 </HEAD>   
@@ -166,6 +166,8 @@ var _MSCGlobal_ = {
 	email: 'atester@gmail.com',
 	phoneNumber: '512|555|0001',
 	
+	chatPostInstructions: 'Chat is available Monday through Friday from 8:00AM - 8:00PM EST.  International Customers: For prompt service please call our dedicated International Customer Care team at 1-888-880-2048Call: 1-888-880-2048 (within the United States) or 001-248-200-4420 (outside the United States).  Thank you.',
+	
     cdnLocation: 'file:///C:/Users/fullmans/Desktop/mscchat-3501-2/',
 	
 	//hook values may be a defined or anonymous function.
@@ -186,10 +188,11 @@ var _MSCGlobal_ = {
 	
 	reasonOptions: [							//required			These are very likely to change fluidly
 		['InteractionType.CC_Sale', 'Placing an order or quote'],
-		['InteractionType.CC_Ecomm', 'The website'],
-		['InteractionType.Avaya_APS', 'Status of an order'],
-		['InteractionType.CC_ProductTech', 'Technical product info'],
-		['InteractionType.Avaya_APS', 'Other'],
+		['InteractionType.CC_Website', 'The website'],
+		['InteractionType.CC_Service', 'Status of an order'],
+		['InteractionType.CC_ProductInfo', 'Technical product info'],
+		['InteractionType.CC_Other', 'Other'],
+		['InteractionType.X_Sam_Fullman', 'Test Sam Fullman'],
 	],
 	
 	reasonIfBlank: 'InteractionType.Presidio_Test',
@@ -810,7 +813,7 @@ function isNumberKeyQOP(element,evt){
  
 </SCRIPT>
          
-<SCRIPT src="mscdirect-home_files/jquery-ui.1.9.2.min.js"></SCRIPT>
+<SCRIPT src="src/jquery-ui-1.9.2.js"></SCRIPT>
        
 <DIV id="main-content">
 <DIV class="ui container" id="main-container">
@@ -887,9 +890,11 @@ id="homepage_feature_3_3_mobile"></DIV><!-- // end mobile only -->
 <DIV class="sixteen wide column" id="categoryCarousal">
 <DIV>
 <DIV class="ui fluid secondary menu">
+<!--
 <DIV class="bottom aligned item">
 <H3 class="ui header v4-recs-title">					CATEGORIES THAT MIGHT INTEREST YOU
 				 </H3></DIV>
+				 -->
 <DIV class="bottom aligned item v4-recs-dots-box" id="owl-carousel-static-dots-box"></DIV>
 <DIV class="right aligned computer only tablet only item"><A class="ui button primary" 
 id="allCategories" href="https://quality.mscdirect.com/ProductsHomeView?storeId=10054&amp;catalogId=10001"> 
@@ -2579,8 +2584,9 @@ function sendPrintCmiCartTags(){
 
 
 <!-- Step 3: include chat-main file -->
-<script src="vendor/presidio-avaya/chat-main-1.0.js"></script>
+<script src="global/vendor/presidio-avaya/chat-main-1.0.min.js"></script>
 
+<!-- Step 3: overriding script -->
 <!-- Step 4: initialize Web Chat
 Note: must be inside document ready.
 You can start this manually by simply commenting out and entering webChat.setupWebChat(_MSCGlobal_) in the console.

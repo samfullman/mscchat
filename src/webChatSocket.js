@@ -279,16 +279,18 @@ var chatSocket = {
             chatConfig.previouslyConnected = true;
             webChat.guid = guid;
             webChat.ak = ak;
-            chatUI.reloadChatPanel();
             
             var email = avayaGlobal.getSessionStorage("email");
             var user = avayaGlobal.getSessionStorage("firstName");
             var user_last = avayaGlobal.getSessionStorage("lastName");
-            var phone = JSON.parse(avayaGlobal.getSessionStorage("phone"));
-            
+            var phone = JSON.parse(avayaGlobal.getSessionStorage("phone"));            
             var users = JSON.parse(avayaGlobal.getSessionStorage("users"));
+
             chatSocket.loadTranscript();
-            webChat.writeResponse("Opening chat after page refresh", chatConfig.writeResponseClassSystem);
+            chatUI.reloadChatPanel();
+			
+            // 2019-04-26 - better to add a place holder "you navigated to xyz page"
+			// webChat.writeResponse("Opening chat after page refresh", chatConfig.writeResponseClassSystem);
             webChat.initChat(false, user, user_last, email, phone.country, phone.area, phone.number);
             
             // account for a race condition caused by webChat.initChat calling disableControls(true)
@@ -375,6 +377,12 @@ var chatSocket = {
 				webChat.writeResponse(message.textContent, message.className);
 			}
         }
+		// one last scrolldown
+		setTimeout(function(){
+			console.log(webChat.messsages);
+			var messages = document.getElementById('messages');
+			messages.scrollTop = messages.scrollHeight;
+		}, 1000);
         
     },
     
