@@ -122,7 +122,7 @@ webChat.writeMessageBlock = function(body, chatMessageClass, settings){
 	if(widgets){
 		for(i in widgets){
 			console.log('widgets[i][0]', widgets[i][0]);
-			presavMessageWrap.appendChild(widgets[i][0]);
+			presavMessageWrap.appendChild(widgets[i][0](widgets[i][1]));
 		}
 	}
 	webChat.messages.scrollTop = webChat.messages.scrollHeight;
