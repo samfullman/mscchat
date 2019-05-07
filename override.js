@@ -12,7 +12,7 @@ var MSCChatWidgets = {
 		var div = document.createElement('div');
 		div.setAttribute('class', 'presav-widgets partNumber recommendationQuickView');
 		div.setAttribute('style', 'cursor: pointer; border: 1px solid darkred; margin: 10px; padding: 10px;');
-		div.onclick = 'MSCChatWidgets.recommendationQuickView(\'' + pn + '\');';
+		div.setAttribute('onclick', 'MSCChatWidgets.recommendationQuickView(\'' + pn + '\');');
 		div.appendChild(document.createTextNode(pn));
 		return div;
 	},
