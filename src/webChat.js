@@ -13,7 +13,7 @@
 var webChat = {
 	
 	// Presidio build number
-	build: '3b',
+	build: '3d',
 
     // particular elements in the page
     sendButton : null,
@@ -66,7 +66,6 @@ var webChat = {
     // CoBrowse related.
     coBrowseEnabled : true,
     coBrowseReady : false,
-    coBrowseIframe : null,
     coBrowseKey : '',
     isPagePushKey : false,
     coBrowseOceanaPath : 'cobrowse-oceana/js/',
@@ -575,7 +574,6 @@ var webChat = {
                     '.');
             webChat.coBrowseKey = sessionKey;
             webChat.isPagePushKey = true;
-            coBrowseUI.showCoBrowseIframe(url);
 
             // show the Co-Browsing notification
             dateMessage = 'System: (' + sentDate.toLocaleTimeString() + ')';
@@ -592,7 +590,6 @@ var webChat = {
     postCoBrowseDialogCleanUp : function() {
         'use strict';
 
-        var contentWindow = webChat.coBrowseIframe.contentWindow;
         var iFramedCoBrowse = contentWindow.coBrowse;
         var iFramedCoBrowseUI = contentWindow.coBrowseUI;
 
@@ -1112,8 +1109,8 @@ var webChat = {
                 div.className = 'user';
                 // find the first image in the div
                 var typingImage = div.getElementsByTagName('img')[0];
-                typingImage.src = (agent.type === 'supervisor_barge') ? chatConfig.supervisorImage
-                        : chatConfig.agentImage;
+                typingImage.src = this.cdnLocation + ((agent.type === 'supervisor_barge') ? chatConfig.supervisorImage
+                        : chatConfig.agentImage);
                 typingImage.className = '';
 
                 // should be the first TextNode in the div after the
@@ -1301,40 +1298,6 @@ var webChat = {
         webChat.messages = document.getElementById('messages');
         webChat.outMessage = document.getElementById('outmessage');
         webChat.participants = document.getElementById('participants');
-        webChat.coBrowseIframe = document.getElementById('cobrowse');
-    },
-
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Subscribed Co-Browse iFrame Events
-    ////////////////////////////////////////////////////////////////////////////
-
-    onLoadCoBrowseIframe : function() {
-        'use strict';
-
-        var contentWindow = webChat.coBrowseIframe.contentWindow;
-        var iFramedCoBrowse = contentWindow.coBrowse;
-        var iFramedCoBrowseUI = contentWindow.coBrowseUI;
-
-        if (iFramedCoBrowse !== undefined && iFramedCoBrowseUI !== undefined) {
-            iFramedCoBrowseUI.addListener(webChat);
-            iFramedCoBrowse.init(webChat.coBrowseSDKPath, avayaGlobal.log, [ webChat,
-                    iFramedCoBrowseUI ], links.coBrowseHost);
-
-            contentWindow.onbeforeunload = webChat.onBeforeUnloadCoBrowseIframe;
-        }
-    },
-
-    onBeforeUnloadCoBrowseIframe : function() {
-        'use strict';
-
-        var contentWindow = webChat.coBrowseIframe.contentWindow;
-        var iFramedCoBrowse = contentWindow.coBrowse;
-        var iFramedCoBrowseUI = contentWindow.coBrowseUI;
-
-        if (iFramedCoBrowse !== undefined && iFramedCoBrowseUI !== undefined) {
-            iFramedCoBrowseUI.closeHangingDialogs();
-        }
     },
 
     ////////////////////////////////////////////////////////////////////////////
@@ -1426,14 +1389,6 @@ var webChat = {
         // Hide join dialog for other CoBrowse on this page.
         coBrowseUI.closeDialog(coBrowseUI.proactiveJoinDialogId);
         coBrowseUI.hideCoBrowseLinkDiv();
-
-        var iFramedCoBrowse = webChat.coBrowseIframe.contentWindow.coBrowse;
-        if (iFramedCoBrowse) {
-            var hiddenElements = webChat.hideElements.concat(coBrowseUI.hiddenElements);
-            iFramedCoBrowse.joinSession(webChat.g_user, webChat.coBrowseKey, hiddenElements);
-        } else {
-            // TODO: Handle error.
-        }
     },
 
     joinKeyPushCoBrowse : function(coBrowseKey) {
@@ -1448,7 +1403,6 @@ var webChat = {
         'use strict';
 
         webChat.isPagePushKey = false;
-        coBrowseUI.hideCoBrowseIframe();
     },
     
     /**
@@ -1462,13 +1416,13 @@ var webChat = {
 				
 		//Presidio: get CDN location per requirements; note trailing slash
 		var host = window.location.host;
-		if(host.match(/quality\./)){
+		if(this.settings.cdnLocation){
+			// allow for a custom specified CDN location say for local testing
+			this.cdnLocation = this.settings.cdnLocation;
+		}else if(host.match(/quality\./)){
 			this.cdnLocation = '//qacdn.mscdirect.com/';
 		}else if(host.match(/dev\./)){
 			this.cdnLocation = '//devcdn.mscdirect.com/';
-		}else if(this.settings.cdnLocation){
-			// allow for a custom specified CDN location say for local testing
-			this.cdnLocation = this.settings.cdnLocation;
 		}else{
 			// production
 			this.cdnLocation = '//cdn.mscdirect.com/';
@@ -1494,15 +1448,6 @@ var webChat = {
         
         // set up the UI
         chatUI.setup();
-
-        if(this.settings.initCobrowse){
-			// Set Co-Browsing iFrame onLoad handler. Comment out if not using Co-Browsing.
-			webChat.coBrowseIframe.onload = webChat.onLoadCoBrowseIframe;
-
-			// Setup Co-Browsing instance on this page. Comment out if not using Co-Browsing
-			coBrowseUI.addListener(webChat);
-			webChat.initCoBrowse();
-		}
 		        
         // check if there was a chat in progress before reloading
         chatSocket.reloadAfterRefresh();
@@ -1513,16 +1458,14 @@ var webChat = {
         // If chat is in progress, prevent user from accidentally closing the page.
         // Can't override default message due to security restrictions
         // so the value returned here doesn't really matter.
-        window.onbeforeunload = function() {
-            if (webChat.initCalled) {
+        window.onunload = function() {
+            if (webChat.initCalled) {				
                 chatSocket.setupRefresh();
 				if(document.getElementById('outmessage').value.length){
 					return "You will lose the message you are typing to the agent if you leave now.  Continue?";
 				}
             }
-        };
 
-		window.onunload = function() {
 			if (typeof coBrowse !== 'undefined') {
 				coBrowse.stopSession();
 				return "Ending session";
@@ -1609,7 +1552,7 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 		width : width,
 		dialogClass : 'fixedPosition presav-chatPanel',
 		open: function(event, ui){
-			console.log('dialog opened');
+			console.log('dialog opened 1');
 
 			webChat.chatPanelMaximize();
 			webChat.chatPanelConfigureMinimize();
@@ -1626,10 +1569,18 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 			//we want the actual chat dialog to remain at least the same height as the chat entry form; no change in bottom location.  Tried using min-height and it failed/was reset by jQuery UI
 			chatUI.panelStartingHeight = document.getElementById('chatPanel').offsetHeight;
 			
+			var resizeCalled = false, box = document.getElementsByClassName('presav-chatPanel')[0];
+			if(box.style.width > $(window).width()){
+				resizeCalled = true;
+				//re-position the panel x-wise
+				var winwidth = parseInt($(window).width());
+				box.style.width = (winwidth - 10) + 'px';
+				box.style.left = '5px';
+			}
+			
 			//2019-04-29 - facing a bug where reloading the page, the panel opens in a different css top value.  Unable to solve, this attribute handles this.  You can remove it if you have a better understanding of why esp. jQuery dialog
 			//string value
-			localStorage.panelStartingTop = $('#chatPanel').parent().css('top');
-			
+			localStorage.panelStartingTop = $('#chatPanel').parent().css('top');			
 		},
 		close: function(event, ui){
 			console.log('dialog closed');

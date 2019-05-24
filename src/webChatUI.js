@@ -76,7 +76,16 @@ var chatUI = {
 				dialogClass : 'fixedPosition presav-chatPanel',
 				open: function(event, ui){
 					console.log('dialog re-opened');
-					
+
+					var resizeCalled = false, box = document.getElementsByClassName('presav-chatPanel')[0];
+					if(box.style.width > $(window).width()){
+						resizeCalled = true;
+						//re-position the panel x-wise
+						var winwidth = parseInt($(window).width());
+						box.style.width = (winwidth - 10) + 'px';
+						box.style.left = '5px';
+					}
+
 					//2019-04-29
 					if(typeof localStorage !== 'undefined' && localStorage.panelStartingTop){
 						$('#chatPanel').parent().css('top', localStorage.panelStartingTop);

@@ -751,5 +751,11 @@ div.presav-w-50:last-child{
 		padding-left: 0 !important;
 		background: none !important;
 	}
+	.presav-chatInitLogo, #chatInterfaceHeader{
+		background-size: 75% !important;
+	}
+	.phone-country-tip:after{
+		content: 'Country' !important;
+	} 
 }
 
