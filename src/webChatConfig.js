@@ -94,10 +94,11 @@ var chatConfig = {
     writeResponseClassChatbot : 'chatbot',
 
     // links to various images
-    agentImage : 'global/vendor/presidio-avaya/agent.png',
-    agentTypingImage : 'global/vendor/presidio-avaya/agent_typing.png',
-    supervisorImage : 'global/vendor/presidio-avaya/supervisor.png',
-    supervisorTypingImage : 'global/vendor/presidio-avaya/supervisor_typing.png',
+	// note that the base is considered xyz.cdn/global
+    agentImage : 'vendor/presidio-avaya/agent.png',
+    agentTypingImage : 'vendor/presidio-avaya/agent_typing.png',
+    supervisorImage : 'vendor/presidio-avaya/supervisor.png',
+    supervisorTypingImage : 'vendor/presidio-avaya/supervisor_typing.png',
 
     // used only by the configuration panel
     useSecureUrls : false,

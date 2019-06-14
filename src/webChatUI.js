@@ -227,19 +227,21 @@ var chatUI = {
     setup : function() {
         'use strict';
 		
-		if(!chatUI.chatPostInstructionsSet && webChat.settings.chatPostInstructions){
-			chatUI.chatPostInstructionsSet = true;
-			$('#chatPostInstructions').html(webChat.settings.chatPostInstructions);
-		}
-		
-		if(!chatUI.reasonOptionsSet && webChat.settings.reasonOptions){
-			chatUI.reasonOptionsSet = true;
-			console.log('Appending reason field options');
-			for(var i in webChat.settings.reasonOptions){
-				var a = webChat.settings.reasonOptions[i];
-				$('#reason').append('<option value="' + a[0] + '">' + a[1] + '</option>');
+		$(document).ready(function(){
+			if(!chatUI.chatPostInstructionsSet && webChat.settings.chatPostInstructions){
+				chatUI.chatPostInstructionsSet = true;
+				$('#chatPostInstructions').html(webChat.settings.chatPostInstructions);
 			}
-		}
+			
+			if(!chatUI.reasonOptionsSet && webChat.settings.reasonOptions){
+				chatUI.reasonOptionsSet = true;
+				console.log('Appending reason field options');
+				for(var i in webChat.settings.reasonOptions){
+					var a = webChat.settings.reasonOptions[i];
+					$('#reason').append('<option value="' + a[0] + '">' + a[1] + '</option>');
+				}
+			}
+		});
 
         $('#showCoBrowseLink').click(function(event) {
             if (!coBrowseUI.checkDialogOpen(coBrowseUI.proactiveJoinDialogId)) {

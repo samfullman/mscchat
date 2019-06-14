@@ -289,6 +289,10 @@ var chatSocket = {
             chatSocket.loadTranscript();
             chatUI.reloadChatPanel();
 			
+			$(document).ready(function(){
+				$('.bottom_chat_btn').fadeOut(400);
+			});
+			
             // 2019-04-26 - better to add a place holder "you navigated to xyz page"
 			// webChat.writeResponse("Opening chat after page refresh", chatConfig.writeResponseClassSystem);
             webChat.initChat(false, user, user_last, email, phone.country, phone.area, phone.number);

@@ -239,6 +239,27 @@ var avayaGlobal = {
             startIndex = index + targetStringLength;
         }
         return indices;
-    }
+    },
+
+	fromRequestCookieDefault : function(variable, _default){
+		// #1 return query string value first if present
+		var vars = window.location.search.substring(1).split('&');
+		for (var i = 0; i < vars.length; i++) {
+			var pair = vars[i].split('=');
+			if (decodeURIComponent(pair[0]) == variable) {
+				//set the cookie and return the value
+				var found = decodeURIComponent(pair[1]);
+				s_cookie(variable, found);
+				return found;
+			}
+		}
+
+		// #2 return existing cookie if found
+		var found = g_cookie(variable);
+		if(found !== null) return found;
+
+		// #3 return default if the user wants compactness
+		if(typeof _default !== 'undefined') return _default;
+	}
 };
 

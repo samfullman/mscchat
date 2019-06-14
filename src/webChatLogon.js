@@ -131,11 +131,11 @@ var chatLogon = {
             
 			webChat.addCustomFields(reason);    
 			
-			if(_MSCGlobal_.userType === 'R'){
+			if(webChat.settings && webChat.settings.userType === 'R'){
 				webChat.addCustomFields('sessionId', 'abc123def987');
-				webChat.addCustomFields('original_user', _MSCGlobal_.firstName + ' ' + _MSCGlobal_.lastName);
-				webChat.addCustomFields('original_email', _MSCGlobal_.email);
-				webChat.addCustomFields('original_phone', _MSCGlobal_.phoneNumber);
+				webChat.addCustomFields('original_user', webChat.settings.firstName + ' ' + webChat.settings.lastName);
+				webChat.addCustomFields('original_email', webChat.settings.email);
+				webChat.addCustomFields('original_phone', webChat.settings.phoneNumber);
 			}
             
             avayaGlobal.setSessionStorage('user', l_user);
@@ -198,7 +198,6 @@ var chatLogon = {
 //				avayaGlobal.setSessionStorage('contextId', (JSON.parse(this.response).data.contextId));
 //				avayaGlobal.log.info('webchatLogon: Created and set Context ID in CJ now ' + customerJourneyCommon.contextId);
 //				avayaGlobal.log.info('webchatLogon: Created and set Context ID in AvayaGlobal = ' + avayaGlobal.getSessionStorage('contextId'));
-				//chatLogon.logon(user, email, phone);
 				chatLogon.logon(l_user, l_user_last, l_email, phoneCountry, phoneArea, phone);
 
 			}
