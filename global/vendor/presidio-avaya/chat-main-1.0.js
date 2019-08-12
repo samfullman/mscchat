@@ -2500,7 +2500,7 @@ var chatSocket = {
 var webChat = {
 	
 	// Presidio build number
-	build: '3j',
+	build: '4a',
 
     // particular elements in the page
     sendButton : null,
