@@ -50,7 +50,6 @@
                 // wish to use
                 var mapId = '1';
                 var json = JSON.parse(response);
-				console.log('ewt retrun JSON is: ', json);
                 ewt.parseServiceMap(json.serviceMetricsResponseMap, mapId);
             } else {
                 if (response === '') {
@@ -64,8 +63,6 @@
 				}
 
                 chatUI.hideChatPanel();
-				// Removed till we work out the conflict with MSC Direct - they also have an API call and they conflict
-				// $('.bottom_chat_btn').fadeOut(400);
             }
         }
     };
@@ -266,7 +263,7 @@
         
         // no point in requesting EWT if reconnecting
         if (chatConfig.previouslyConnected && !forceCheck) {
-			console.log('Reconnecting, no EWT requested');
+			avayaGlobal.log.info('Reconnecting, no EWT requested');
             return;
         }
 
@@ -274,7 +271,7 @@
         var attributes = createAttributeMap();
         services["1"].attributes = attributes;
         services["1"].priority = priority;
-		console.log('Sending services to ewt with: ', services);
+		avayaGlobal.log.info('Sending services to ewt with: ', services);
 
         // send the request
         var request = new XMLHttpRequest();

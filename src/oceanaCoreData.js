@@ -63,7 +63,6 @@ var oceanaCoreData = {
         'use strict';
         if (this.readyState === 4) {
             if (this.status === 200) {
-                console.log(this.response);
                 var json = JSON.parse(this.response);
                 
                 oceanaCoreData.nonOceanaData = json.data;
@@ -328,7 +327,7 @@ var oceanaCoreData = {
                 // set the context ID if this was successful.
                 customerJourneyCommon.setContextId(JSON.parse(this.response).data.contextId);
 				chatLogon.addContextData();
-				console.log('OCD: Context ID  after creation and add context ' + avayaGlobal.getSessionStorage('contextId'));
+				avayaGlobal.log.info('OCD: Context ID  after creation and add context ' + avayaGlobal.getSessionStorage('contextId'));
 				} else if (this.status === 0) {
                 avayaGlobal.log.warn("Customer Journey: Requesting a Context returned 0. This may be caused by CORS issues or by blocking JavaScript");
             } else {

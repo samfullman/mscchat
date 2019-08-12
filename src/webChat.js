@@ -13,7 +13,7 @@
 var webChat = {
 	
 	// Presidio build number
-	build: '3d',
+	build: '4a',
 
     // particular elements in the page
     sendButton : null,
@@ -176,7 +176,7 @@ var webChat = {
         }
         var calledParty = window.location.href;
         var msg;
-		console.log('webchat: Context ID  == workid ' + avayaGlobal.getSessionStorage('contextId'));
+		avayaGlobal.log.info('webchat: Context ID  == workid ' + avayaGlobal.getSessionStorage('contextId'));
 
         if (!chatConfig.previouslyConnected) {
 			if (webChat.customFields.length > 10){
@@ -293,7 +293,9 @@ var webChat = {
     handleNotification : function(message) { // NOSONAR: too complex
         // for Sonar, but cannot be reduced further
         'use strict';
-        var body = message.body, method = body.method;
+		var setupRefresh = true;
+        var body = message.body, 
+			method = message.body.method;
         if (method === chatConfig.jsonMethodRequestChat) {
             webChat.notifyRequestChat(body);
         } else if (method === chatConfig.jsonMethodRouteCancel) {
@@ -301,6 +303,7 @@ var webChat = {
         } else if (method === chatConfig.jsonMethodRequestNewParticipant) {
             webChat.notifyNewParticipant(body);
         } else if (method === chatConfig.jsonMethodRequestIsTyping) {
+			setupRefresh = false; // don't load the system down
             webChat.notifyIsTyping(body);
         } else if (method === chatConfig.jsonMethodRequestNewMessage) {
 			//most common one - notify of new agent message
@@ -314,13 +317,18 @@ var webChat = {
         } else if (method === chatConfig.jsonMethodRequestNewCoBrowseSessionKeyMessage) {
             webChat.notifyNewCoBrowseSessionKeyMessage(body);
         } else if (method === chatConfig.jsonMethodPing) {
-            // do nothing with pings. They just confirm that the
-            // WebSocket is open.
+            // do nothing with pings. They just confirm that the WebSocket is open.
+			setupRefresh = false;
         } else if (method === chatConfig.jsonMethodFileTransfer) {
             webChat.notifyFileTransfer(body);
         } else {
             throw new TypeError('Received notification with unknown method: '.concat(method));
+			return false;
         }
+		if(setupRefresh){
+			avayaGlobal.log.info('refresh placed (incoming) from ' + method);
+			chatSocket.setupRefresh();
+		}
     },
 
     /**
@@ -681,7 +689,7 @@ var webChat = {
         }
         
         var leaveReason = body.leaveReason.toLowerCase();
-        console.log(leaveReason);
+        avayaGlobal.log.info(leaveReason);
 
         // check if this is the chatbot, and if it is to be suppressed.
         var suppressBot = (leaveReason === 'escalate' && chatConfig.suppressChatbotPresence);
@@ -770,16 +778,11 @@ var webChat = {
         'use strict';
         avayaGlobal.log.info('WebChat: Notifying of file transfer');
 		var agentname = body.agentName;
-        var url = body.address;
+        var url = body.address;	//tmpUrl
         var filename = body.name;
         var timestamp = new Date().toLocaleString();
         var message = chatConfig.fileTransferMessageText;
 		
-		/*
-		var dateMessage = agentname + ' (' + timestamp + ')';
-		webChat.writeResponse(dateMessage, chatConfig.writeResponseClassAgentDate);
-		*/
-        
 		url = webChat.replaceFileTransferHost(url);
 		message = message.replace('{0}', agentname);
         message = message.replace('{1}', filename);
@@ -865,9 +868,9 @@ var webChat = {
         chatSocket.manualClose = true;
         webChat.clearAllTimeouts();
         if (webSocket !== null && webSocket.readyState === webSocket.OPEN) {
-			console.log('Original logic block for calling close');
+			avayaGlobal.log.info('Original logic block for calling close');
         }else{
-			console.log('Criteria for close not met! Calling anyway');
+			avayaGlobal.log.info('Criteria for close not met! Calling anyway');
 		}
 		var closeRequest = {
 			apiVersion : '1.0',
@@ -892,12 +895,16 @@ var webChat = {
 
         if (avayaGlobal.isStringEmpty(message)) return;
 		
+		/* Note that the writing the block, sending, and storing for refresh are disjointed and should be related by verification */
+		
+		//write message block locally
 		webChat.writeMessageBlock({
 			timestamp: (new Date()).getTime(),
 			displayName: webChat.g_user,
 			message: message
 		}, chatConfig.writeResponseClassSent);
 
+		//send message
 		webChat.outMessage.value = '';
 		chatSocket.sendMessage({
 			apiVersion : '1.0',
@@ -912,6 +919,10 @@ var webChat = {
 				customData: webChat.customData
 			}
 		});
+		
+		//setup refresh
+		avayaGlobal.log.info('refresh placed (outgoing)');
+		chatSocket.setupRefresh();
     },
 	
     /**
@@ -1404,6 +1415,20 @@ var webChat = {
 
         webChat.isPagePushKey = false;
     },
+	
+	
+	/**
+	 * Get or set current environment
+	 * @environment string production|development
+	 * @return string
+	 */
+	getSetEnvironment: function(environment){
+		if(typeof environment !== 'undefined'){
+			this.environment = environment;
+			return environment;
+		}
+		return this.environment;
+	},
     
     /**
      * Call this to set up webChat.
@@ -1427,6 +1452,17 @@ var webChat = {
 			// production
 			this.cdnLocation = '//cdn.mscdirect.com/';
 		}
+		
+		// set environment
+		if(this.settings.environment){
+			this.getSetEnvironment(this.settings.environment);
+		}else if(!host || host.match(/quality\./) || host.match(/dev(elop)*\./)){
+			this.getSetEnvironment('development');
+		}else{
+			//production by default, no logging
+			this.getSetEnvironment('production');
+		}
+		
 		
 		// if an override is given for URLs, set them
 		if(this.settings.webChatHost) links.webChatHost = this.settings.webChatHost;
@@ -1507,7 +1543,7 @@ var webChat = {
 						
 						panel
 							.addClass('presav-minimize')
-							.attr('style', 'width: 200px; z-index: 1015; bottom: 0px; right: 20px; top: inherit; left: inherit;');
+							.attr('style', 'width: 200px; z-index: 1015; bottom: 0px; right: 20px; top: inherit; left: inherit; position: fixed !important;');
 						$('.presav-chatPanel .ui-dialog-titlebar-minimize span')
 							.removeClass('ui-icon-minusthick')
 							.addClass('ui-icon-plusthick');
@@ -1532,7 +1568,40 @@ var webChat = {
 			webChat.messages.scrollTop = webChat.messages.scrollHeight;
 
 		}
-	}
+	},
+	
+    mover: {
+    	/*
+    	our goal is to keep the window inside the <body>, and make sure that either the live chat button, or the dialog, are showing.  I think logical place for the last part is on opening the dialog; in theory that will never be called unless there's a live chat button + a user click, at which point it needs to be managed.  If NEITHER, we should fade in the live chat button.
+
+    	 */
+    	running: null,
+        monitor: function(){
+
+    		var width = $(window).width();
+    		var height = $(window).height();
+    		var el = $('.presav-chatPanel');
+    		var elWidth = el.width();
+    		var elHeight = el.height();
+    		var offset = el.offset();
+
+    		if(el.is(':visible') && $('.bottom_chat_btn').is(':visible')){
+				chatUI.showLiveChat(false);
+            }
+
+			if(width > 768) return;
+
+            if(offset.left + elWidth > width || offset.left < 0){
+
+            	el.css('left', '10px');
+            	el.css('width', (width - 20 - 7) + 'px');
+            	//seems you need to reset the width for the original element
+                $('#chatPanel').css('width', '');
+            }
+        }
+
+    }
+
 };
 
 function initChat(regState, firstName, lastName, email, parsedPhone){
@@ -1545,14 +1614,16 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 	avayaGlobal.client.phonePrefix = phone[1] ? phone[1] : '';
 	avayaGlobal.client.phoneBody = phone[2] ? phone[2] : '';
 
-	$('.bottom_chat_btn').fadeOut(400);
+	chatUI.showLiveChat(false);
 	
 	var width = Math.min( 475, $(window).width() - 20 );
+	//testing
+	width = avayaGlobal.fromRequestCookieDefault('width', width);
 	$('#chatPanel').dialog({
 		width : width,
-		dialogClass : 'fixedPosition presav-chatPanel',
+		dialogClass : 'presav-chatPanel',
 		open: function(event, ui){
-			console.log('dialog opened 1');
+			avayaGlobal.log.info('dialog opened 1');
 
 			webChat.chatPanelMaximize();
 			webChat.chatPanelConfigureMinimize();
@@ -1570,25 +1641,57 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 			chatUI.panelStartingHeight = document.getElementById('chatPanel').offsetHeight;
 			
 			var resizeCalled = false, box = document.getElementsByClassName('presav-chatPanel')[0];
-			if(box.style.width > $(window).width()){
+			
+			var maxWithScrollbar = Math.min(
+				parseInt(document.body.clientWidth), 
+				parseInt(document.body.scrollWidth), 
+				parseInt(window.innerWidth) - 17 /* note I am assuming a vertical scrollbar */
+			);
+			if(parseInt(box.style.width) > maxWithScrollbar){
+				avayaGlobal.log.info('resizing panel 1');
 				resizeCalled = true;
 				//re-position the panel x-wise
-				var winwidth = parseInt($(window).width());
-				box.style.width = (winwidth - 10) + 'px';
-				box.style.left = '5px';
+				box.style.width = (maxWithScrollbar - 30) + 'px';
+				box.style.left = '15px';
+			}
+			if(!webChat.mover.running){
+				webChat.mover.running = setInterval(webChat.mover.monitor, 1000);
 			}
 			
+			//MOBILETEST Start
+			avayaGlobal.log.info('mobile test 1');
+			var params = {
+				'event': 'open panel',
+				'innerWidth': window.innerWidth,
+				document_body_clientWidth: document.body.clientWidth,
+				document_body_scrollWidth: document.body.scrollWidth,
+				resizeCalled: resizeCalled ? 1 : 0,
+				userAgent: navigator.userAgent,
+				comment: (typeof window.comment === 'undefined' ? '' : window.comment),
+				panelWidth: box.style.width,
+				panelLeft: box.style.left,
+				url: window.location.href,
+			};
+			var str = '';
+			for(var i in params) str += i + '=' + encodeURI(params[i]) + '&';
+			if(false) min_ajax({
+				uri: 'https://www.compasspoint-sw.com/mobiletest/',
+				params: str,
+			});
+			//MOBILETEST End
+			
+						
 			//2019-04-29 - facing a bug where reloading the page, the panel opens in a different css top value.  Unable to solve, this attribute handles this.  You can remove it if you have a better understanding of why esp. jQuery dialog
 			//string value
 			localStorage.panelStartingTop = $('#chatPanel').parent().css('top');			
 		},
 		close: function(event, ui){
-			console.log('dialog closed');
+			avayaGlobal.log.info('dialog closed');
 			if (webSocket !== undefined ) {
-				console.log('calling closePanel (1)');
+				avayaGlobal.log.info('calling closePanel (1)');
 				chatUI.closePanel(event);    
 			}
-			$('.bottom_chat_btn').fadeIn(400);
+			chatUI.showLiveChat();
 		},
 	});	
 	
@@ -1598,4 +1701,93 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 function htmlEntities(str) {
 	return String(str).replace(/&/g, '&').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
+
+function g_cookie(ck){
+	var cVal = document.cookie;
+	var cStart = cVal.indexOf(" " + ck + "=");
+	if(cStart==-1)	cStart = cVal.indexOf(ck + "=");
+	if(cStart == -1){
+		cVal = null;
+	}else{
+		cStart = cVal.indexOf("=", cStart) + 1;
+		var cEnd = cVal.indexOf(';', cStart);
+		if(cEnd==-1) cEnd=cVal.length;
+		cVal = unescape(cVal.substring(cStart,cEnd));
+	}
+	return cVal;
+}
+
+function s_cookie(cName,cVal,cExp,cPath){
+	if(typeof cVal=='undefined'){
+		//remove the cookie (pass only one variable)
+		var date = new Date();
+		date.setTime(date.getTime()+(-1*24*60*60*1000));
+		var expiry='; expires='+date.toGMTString();
+		document.cookie = cName + "="+cVal + expiry+path;
+		return;
+	}
+	cVal = escape(cVal);
+	if(typeof cExp == 'undefined'){
+		var nw = new Date();
+		nw.setMonth(nw.getMonth() + 6);
+		var expiry= ";expires="+nw.toGMTString();
+	}else if(cExp==0){
+		var expiry='';
+	}else{
+		var date = new Date();
+		date.setTime(date.getTime()+(cExp*24*60*60*1000));
+		var expiry='; expires='+date.toGMTString();
+	}
+	if(typeof cPath == 'undefined'){
+		var path=';Path=/';
+	}else{
+		var path = ";Path="+cPath;
+	}
+	document.cookie = cName + "="+cVal + expiry+path;
+}
+
+function min_ajax(config){
+	/**
+	 * This function can be run with just config.uri,
+	 * config.params is usually also required depending on what your API expects.
+	 * config.params should be in name-value pair format and properly escaped
+	 */
+	var params = '', xhr = new XMLHttpRequest();
+	xhr.open(config.method ? config.method.toUpperCase() : 'POST', config.uri);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.responseType = config.responseType ? config.responseType.toLowerCase() : 'json';
+	xhr.onload = function() {
+		// this normally happens in IE
+		if(xhr.responseType === 'json' && xhr.response && typeof xhr.response === 'string'){
+			xhr.response = JSON.parse(xhr.response);
+		}
+		if(typeof config.either === 'function'){
+			config.either(xhr);
+		}
+		if (xhr.status === 200) {
+			if(typeof config.success === 'function') config.success(xhr);
+		} else {
+			// handle this
+			if(typeof config.error === 'function') config.error(xhr);
+		}
+	};
+	// for processes that need to work on the xhr before the request is sent
+	if(typeof config.before === 'function'){
+		//currently no return value
+		config.before(xhr);
+	}
+	//xhr.onload = config.onload;
+	if(typeof config.params === 'object'){
+		//process variables
+	}else{
+		//no action needed; assumed correct string format
+		params = config.params ? config.params : '';
+	}
+	xhr.send(params);
+	if(typeof config.immediately === 'function'){
+		config.immediately(xhr);
+	}
+}
+
+
 

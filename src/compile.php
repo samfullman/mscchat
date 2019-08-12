@@ -3,7 +3,10 @@
 $files = [
     '_AVAYA_HTML_.html',
     'libs/xmlToJSON.js',
-    'libs/AvayaClientServices.min.js',
+    /**
+	At least for chat, this does not appear to be needed:
+	'libs/AvayaClientServices.min.js',
+	*/
     'avayaGlobal.js',
     'links.js',
     'webChatConfig.js',

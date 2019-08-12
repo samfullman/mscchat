@@ -155,6 +155,7 @@ sfullman@presidio.com:
 Values generated server-side; this is the only touchpoint for chat from the server-side
 */
 var _MSCGlobal_ = {
+	environment: 'production',
 	chatFlagValue: 2,
 	allowedTime: true,
 	userType: 'R',
@@ -2584,7 +2585,7 @@ function sendPrintCmiCartTags(){
 
 
 <!-- Step 3: include chat-main file -->
-<script src="global/vendor/presidio-avaya/chat-main-1.0.min.js"></script>
+<script src="global/vendor/presidio-avaya/chat-main-1.0.js"></script>
 
 <!-- Step 3: overriding script -->
 <!-- Step 4: initialize Web Chat
@@ -2594,6 +2595,8 @@ All _MSCGlobal_ attributes are initialized to webChat.settings
 -->
 <script>
 $(document).ready(function(){
+	var l = window.location.href;
+	if(!l.match('test=noload'))
 	webChat.setupWebChat(typeof _MSCGlobal_ !== 'undefined' ? _MSCGlobal_ : {});
 });
 </script>

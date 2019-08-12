@@ -101,7 +101,7 @@ var customerJourneyCommon = {
     setup : function() {
         'use strict';
         avayaGlobal.detectBrowserSupport();
-        avayaGlobal.log = avayaGlobal.makeLogger();
+        avayaGlobal.log = avayaGlobal.makeLogger(webChat);
 
         customerJourneyCommon.loadUrlsFromStorage();
         customerJourneyCommon.getTouchpointFromPage();

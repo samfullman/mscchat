@@ -57,8 +57,36 @@ var chatSocket = {
                 avayaGlobal.clearSessionStorage();
                 chatSocket.handleClose(event);
             } else if (event.code === 1001) {
+				/* ====== IMPORTANT =======
+				//The following has been moved to a non-onunload event, specifically send/receive messages
                 chatSocket.setupRefresh();
+				   ======================== */
+				avayaGlobal.log.info('refresh should already be set up');
             } else {
+				
+				
+			//MOBILETEST Start
+			avayaGlobal.log.info('mobile test 3');
+			var params = {
+				'event': 'close connection',
+				'innerWidth': window.innerWidth,
+				document_body_clientWidth: document.body.clientWidth,
+				document_body_scrollWidth: document.body.scrollWidth,
+				userAgent: navigator.userAgent,
+				comment: ('Event code: ' + (event.code ? event.code : '[unknown]')) + ' ' + (typeof window.comment === 'undefined' ? '' : window.comment),
+				panelWidth: '',
+				panelLeft: '',
+				url: window.location.href,
+			};
+			var str = '';
+			for(var i in params) str += i + '=' + encodeURI(params[i]) + '&';
+			min_ajax({
+				uri: 'https://www.compasspoint-sw.com/mobiletest/',
+				params: str,
+			});
+			//MOBILETEST End
+			
+			
                 chatSocket.reconnect();
             }
         };
@@ -150,6 +178,7 @@ var chatSocket = {
             webChat.writeResponse('Chat request approved', chatConfig.writeResponseClassSystem);
         } else {
             throw new TypeError('Unknown message type:\n' + msg);
+			return;
         }
     },
 
@@ -160,8 +189,9 @@ var chatSocket = {
     handleError : function(event) {
         'use strict';
         avayaGlobal.log.error("WebChat: WebSocket error", event);
-        webChat.writeResponse('A connection error has occurred. Check the console for more details',
-                chatConfig.writeResponseClassSystem);
+        // webChat.writeResponse('A connection error has occurred... Check the console for more details',
+        //        chatConfig.writeResponseClassSystem);
+		webChat.writeResponse('Connection failed.  We apologize for the inconvenience.  Please start another chat session or contact us at customercare@mscdirect.com', chatConfig.writeResponseClassSystem);
     },
 
     /**
@@ -255,12 +285,12 @@ var chatSocket = {
         var reloadTimestamp = avayaGlobal.getSessionStorage("reloadTimestamp");
 		if(reloadTimestamp) reloadTimestamp = parseInt(reloadTimestamp);
 		if(!reloadTimestamp){
-			console.log('Reload timestamp has not yet been set');
-			return;
+			avayaGlobal.log.info('Reload timestamp has not yet been set');
+			return false;
 		}else if (isNaN(reloadTimestamp)) {
             avayaGlobal.log.warn("WebChat: Reload timestamp is not a valid UTC timestamp!");
             chatSocket.clearRefresh();
-            return;
+            return false;
         }
         
         var currentTimestamp = Date.now();
@@ -271,7 +301,7 @@ var chatSocket = {
         if (expired) {
             avayaGlobal.log.warn("WebChat: session has probably expired");
             chatSocket.clearRefresh();
-            return;
+            return false;
         }
         
         if (ak !== null && guid !== null && !isNaN(guid)) {
@@ -290,7 +320,7 @@ var chatSocket = {
             chatUI.reloadChatPanel();
 			
 			$(document).ready(function(){
-				$('.bottom_chat_btn').fadeOut(400);
+				chatUI.showLiveChat(false);
 			});
 			
             // 2019-04-26 - better to add a place holder "you navigated to xyz page"
@@ -303,7 +333,7 @@ var chatSocket = {
                 chatSocket.reloadUsers(users);
                 webChat.disableControls(false);
             }, 500);
-            
+            return true;
         }
     },
     
@@ -317,7 +347,7 @@ var chatSocket = {
         for (var key in users) {
             if (users.hasOwnProperty(key)) {
                 var agent = users[key];
-                console.log(key, agent);
+                avayaGlobal.log.info(key, agent);
                 participants.push({
                     "id" : key,
                     "name": agent.name,
@@ -330,7 +360,6 @@ var chatSocket = {
     
     setupRefresh: function(){
         'use strict';
-        avayaGlobal.log.debug("WebChat: Refreshing page");
         var users = webChat.users;
         avayaGlobal.setSessionStorage("guid", webChat.guid);
         avayaGlobal.setSessionStorage("ak", webChat.ak);
@@ -341,7 +370,7 @@ var chatSocket = {
         avayaGlobal.setSessionStorage("reloadTimestamp", Date.now());
         chatSocket.saveTranscript();
         avayaGlobal.setSessionStorage("users", JSON.stringify(users));
-    },
+ 	},
     
     /**
      * Save the transcript just before refreshing the page
@@ -359,7 +388,9 @@ var chatSocket = {
 				tagName: messages[i].tagName
 			});
         }
-        avayaGlobal.setSessionStorage('transcript', JSON.stringify(transcript));
+		var str = JSON.stringify(transcript);
+        avayaGlobal.setSessionStorage('transcript', str);
+		
     },
     
     /**
@@ -383,7 +414,6 @@ var chatSocket = {
         }
 		// one last scrolldown
 		setTimeout(function(){
-			console.log(webChat.messsages);
 			var messages = document.getElementById('messages');
 			messages.scrollTop = messages.scrollHeight;
 		}, 1000);

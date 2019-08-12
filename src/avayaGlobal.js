@@ -45,10 +45,10 @@ var avayaGlobal = {
     /**
      * Create a new logger, using the console.
      * @return AvayaClient.Base.Logger
-     */
+     * previous version..
     makeLogger : function() {
         'use strict';
-        console.info("Creating a logger");
+        // console.info("Creating a logger");
         var logger = AvayaClientServices.Base.Logger;
         if (logger !== null) {
             logger.addLogger(console);
@@ -56,8 +56,21 @@ var avayaGlobal = {
             console.warn("AvayaClientServices were null!");
             logger = console;
         }
-        return logger;
     },
+	*/
+	
+	/** Streamlined logger object; Presidio */
+	makeLogger : function(){
+		'use strict';
+		var logger = {};
+		['log','info','error','fatal','debug','trace','warn'].forEach(function(n){
+			logger[n] = function(){
+				if(typeof webChat.getSetEnvironment === 'undefined' || webChat.getSetEnvironment() === 'production' ) return;
+				console[n].apply(null, arguments);
+			}
+		});
+		return logger;
+	},
 
     /**
      * Checks that a browser supports WebSockets, XMLHttpRequests and JSON. Also checks if jQuery is included (required for UI interactions).

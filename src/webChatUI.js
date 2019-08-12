@@ -61,30 +61,64 @@ var chatUI = {
 		
 		if(formNotNeeded){
 			//we don't need a fade-in, hard set the condition
-			console.log('called!');
 			$('#chatForm').hide();
 			$('#chatInterfaceWrap').show();
 		}
 		
 		if(chatUI.panelStartingHeight){
-			console.log('maintaining panel height');
-			console.log(document.getElementById('chatPanel').style.height = chatUI.panelStartingHeight + 'px');
+			avayaGlobal.log.info('maintaining panel height');
+			document.getElementById('chatPanel').style.height = chatUI.panelStartingHeight + 'px';
 		}else{
 			var width = Math.min( 475, $(window).width() - 20 );
+			//testing
+			width = avayaGlobal.fromRequestCookieDefault('width', width);
 			$('#chatPanel').dialog({
 				width : width,
-				dialogClass : 'fixedPosition presav-chatPanel',
+				dialogClass : 'presav-chatPanel',
 				open: function(event, ui){
-					console.log('dialog re-opened');
+					avayaGlobal.log.info('dialog re-opened');
 
 					var resizeCalled = false, box = document.getElementsByClassName('presav-chatPanel')[0];
-					if(box.style.width > $(window).width()){
+					
+					var maxWithScrollbar = Math.min(
+						parseInt(document.body.clientWidth), 
+						parseInt(document.body.scrollWidth), 
+						parseInt(window.innerWidth) - 17 /* note I am assuming a vertical scrollbar */
+					);
+					if(parseInt(box.style.width) > maxWithScrollbar){
+						avayaGlobal.log.info('resizing panel 1');
 						resizeCalled = true;
 						//re-position the panel x-wise
-						var winwidth = parseInt($(window).width());
-						box.style.width = (winwidth - 10) + 'px';
-						box.style.left = '5px';
+						box.style.width = (maxWithScrollbar - 30) + 'px';
+						box.style.left = '15px';
 					}
+					if(!webChat.mover.running){
+						webChat.mover.running = setInterval(webChat.mover.monitor, 1000);
+					}
+
+			//MOBILETEST Start
+			avayaGlobal.log.info('mobile test 2');
+			var params = {
+				'event': 'open panel',
+				'innerWidth': window.innerWidth,
+				document_body_clientWidth: document.body.clientWidth,
+				document_body_scrollWidth: document.body.scrollWidth,
+				resizeCalled: resizeCalled ? 1 : 0,
+				userAgent: navigator.userAgent,
+				comment: (typeof window.comment === 'undefined' ? '' : window.comment),
+				panelWidth: box.style.width,
+				panelLeft: box.style.left,
+				url: window.location.href,
+			};
+			var str = '';
+			for(var i in params) str += i + '=' + encodeURI(params[i]) + '&';
+			min_ajax({
+				uri: 'https://www.compasspoint-sw.com/mobiletest/',
+				params: str,
+			});
+			//MOBILETEST End
+
+
 
 					//2019-04-29
 					if(typeof localStorage !== 'undefined' && localStorage.panelStartingTop){
@@ -92,11 +126,12 @@ var chatUI = {
 					}
 					webChat.chatPanelMaximize();
 					webChat.chatPanelConfigureMinimize();
+					chatUI.showLiveChat(false);
 				},
 				close: function(event, ui){
-					console.log('dialog closed after page nav');
+					avayaGlobal.log.info('dialog closed after page nav');
 					if (webSocket !== undefined ) {
-						console.log('calling closePanel (2)');
+						avayaGlobal.log.info('calling closePanel (2)');
 						chatUI.closePanel(event);    
 					}
 					$('#liveChatLink').show();
@@ -117,11 +152,13 @@ var chatUI = {
         'use strict';
         $('#chatInterfaceWrap').fadeOut(400);
         $('#chatForm').delay(400).fadeIn(400);
-		// SF: 2019-03-21 this is suspicious, will the open and close bindings be there or be overridden?
 		var width = Math.min( 475, $(window).width() - 20 );
         $('#chatPanel').dialog({
             width : width,
-			dialogClass : 'fixedPosition presav-chatPanel',
+			dialogClass : 'presav-chatPanel',
+			open: function(event, ui){
+				chatUI.showLiveChat(false);
+			}
         });
     },
 
@@ -133,20 +170,22 @@ var chatUI = {
 		chatUI.showLiveChat();
     },
 	
-	showLiveChat : function(){
-		// SF: 2019-03-21 we want to show this only if it is appropriate to show it.  If we close the chat panel and chat has since become unavailable, the chatPanel is not designed to notify of this fact.  This is a demarcation that should be on the Live Chat button itself (showing and detecting if chat is available and if not popping up a I'm sorry we missed you message).  This is poorly demarcated between the v4-chat.js API and what Presidio did on the reference client
-		// @todo: improve the logic on this
-		$('.bottom_chat_btn').fadeIn(400);
+	showLiveChat : function(show){
+		/**
+		 * Show or hide the listed Live Chat button.  Timeout because Presidio is not responsible for showing the button and it may be delayed.
+		 * Note 2019-03-21 we want to show this only if it is appropriate to show it.  If we close the chat panel and chat has since become unavailable, the chatPanel is not designed to notify of this fact.  
+		 * This is a demarcation that should be on the Live Chat button itself (showing and detecting if chat is available and if not popping up a I'm sorry we missed you message).  This is poorly demarcated between the v4-chat.js API and what Presidio did on the reference client
+		 */
+		setTimeout(function(){
+			if(typeof show === 'undefined' || show === true){
+				$('.bottom_chat_btn').fadeIn(400);
+				return;
+			}
+			// Final case, show explicitly declared false
+			$('.bottom_chat_btn').fadeOut(400);
+		}, 250);
 	},
-
-    resizeConfigPanel : function() {
-        'use strict';
-        $('#configPanel').dialog({
-            width : 400,
-            height : 350
-        });
-    },
-
+	
     /**
      * Create and show an alert
      * @param {string} msg
@@ -175,7 +214,6 @@ var chatUI = {
     
 	markElAsRequired: function(id, isRequired){
         "use strict";
-		console.log('Setting ' + id + ' as ' + (isRequired ? 'required' : 'not required'));
         var html = $(id).html(), newHtml;
         if (isRequired) {
             newHtml = html + "<sup class='presav-required'>*</sup>";
@@ -206,7 +244,7 @@ var chatUI = {
     closePanel : function(event) {
         'use strict';
         event.preventDefault();
-		console.log('step 1');
+		avayaGlobal.log.info('step 1');
         avayaGlobal.log.debug("WebChat: closing chat panel");
 
         // when the chat dialog is closed, reset things
@@ -214,9 +252,9 @@ var chatUI = {
         chatSocket.clearRefresh();
         chatSocket.manualClose = true;
         clearTimeout(chatSocket.closeTimer);
-		console.log('webSocket.readyState = ' + webSocket.readyState);
+		avayaGlobal.log.info('webSocket.readyState = ' + webSocket.readyState);
         if (webSocket.readyState !== 2) {
-			console.log('quitting chat');
+			avayaGlobal.log.info('quitting chat');
             webChat.quitChat();
         }
     },
@@ -235,7 +273,6 @@ var chatUI = {
 			
 			if(!chatUI.reasonOptionsSet && webChat.settings.reasonOptions){
 				chatUI.reasonOptionsSet = true;
-				console.log('Appending reason field options');
 				for(var i in webChat.settings.reasonOptions){
 					var a = webChat.settings.reasonOptions[i];
 					$('#reason').append('<option value="' + a[0] + '">' + a[1] + '</option>');
@@ -279,7 +316,7 @@ var chatUI = {
      */
     reloadChatPanel: function() {
         'use strict';
-        console.log("Reloading chat panel");
+        avayaGlobal.log.info("Reloading chat panel");
         chatUI.changeToChatMode(true);
         
     },
@@ -312,7 +349,6 @@ var chatUI = {
 		// [1]
 		var container = document.createElement('div')
 		container.innerHTML = '<style>body{ background-color: transparent !important; }</style>' + document.getElementById('messages').innerHTML;
-		console.log(container.innerHTML.length);
 		// Hide element
 		// [2]
 		container.style.position = 'fixed'

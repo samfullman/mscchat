@@ -48,7 +48,7 @@ var chatLogon = {
     checkEmailValidity: function(el) {
         'use strict';
         var isEmailValid = el.checkValidity() && el.value.trim().length > 0;
-        console.log("Is email " + el.value + " valid? " + isEmailValid);
+        avayaGlobal.log.warn("Is email " + el.value + " valid? " + isEmailValid);
         avayaGlobal.getEl("transcript-chat").disabled = !isEmailValid;    
         
         if (!isEmailValid) {
@@ -146,7 +146,7 @@ var chatLogon = {
 			oceanaCoreData.initialise();
 			chatLogon.addAttribute(chatLogon.mscattribute);
 			
-			console.log('Webchat: Adding CS data and Inititialzing of OCP completed');
+			avayaGlobal.log.info('Webchat: Adding CS data and Inititialzing of OCP completed');
             chatLogon.logon(l_user, l_user_last, l_email, phoneCountryVal, phoneAreaVal, phoneVal);
         } else {
             var message = "Please correct the following errors:\n" + errors;
@@ -190,9 +190,7 @@ var chatLogon = {
 		xhr.withCredentials = true;
 		
 		xhr.addEventListener("readystatechange", function () {
-			if (this.readyState === 4) {
-				console.log(this.responseText);
-				
+			if (this.readyState === 4) {				
 				// commented out things relating to the original POST method. Remove later
 //				customerJourneyCommon.setContextId(JSON.parse(this.response).data.contextId);
 //				avayaGlobal.setSessionStorage('contextId', (JSON.parse(this.response).data.contextId));
@@ -206,7 +204,7 @@ var chatLogon = {
 		
 		//avayaGlobal.log.info('CustomerJourney: Context ID  for upsert ' + avayaGlobal.getSessionStorage('contextId');
 		
-		console.log('CustomerJourney: Context ID  for upsert ' + avayaGlobal.getSessionStorage('contextId'));
+		avayaGlobal.log.info('CustomerJourney: Context ID  for upsert ' + avayaGlobal.getSessionStorage('contextId'));
 		xhr.open("PUT", (links.secureAllConnections ? 'https://' : 'http://') + links.contextStoreHost + "/services/ContextStoreRest/cs/contexts/upsert/" + avayaGlobal.getSessionStorage('contextId') + "?touchpoint=WEB");
 		xhr.setRequestHeader("content-type", "application/json");
 		xhr.send(data);
