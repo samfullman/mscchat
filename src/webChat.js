@@ -13,7 +13,7 @@
 var webChat = {
 	
 	// Presidio build number
-	build: '4a',
+	build: '4b',
 
     // particular elements in the page
     sendButton : null,
@@ -485,6 +485,13 @@ var webChat = {
 					a[i]
 				]);
 			*/
+			}else if(a[i].match(/^[-a-zA-Z0-9_.]+@([-a-zA-Z0-9_.]+\.){1,}[a-zA-Z]+$/)){
+				//email addresses - note the above regexp is custom; it will exclude "real" emails and only a "pure" start-to-end email will work (not one in parenthesis for example)
+				href = document.createElement('a');
+				href.href = 'mailto: ' + a[i];
+				href.target = '_blank';
+				href.appendChild(document.createTextNode(a[i]));
+				span.appendChild(href);
 			}else{
 				//2019-03-23: all other HTML is escaped; alas we'd like the agent to be able to send bold or underlined text but we're not ready for this yet
 				//a[i] = htmlEntities(a[i]);
@@ -1575,31 +1582,65 @@ var webChat = {
     	our goal is to keep the window inside the <body>, and make sure that either the live chat button, or the dialog, are showing.  I think logical place for the last part is on opening the dialog; in theory that will never be called unless there's a live chat button + a user click, at which point it needs to be managed.  If NEITHER, we should fade in the live chat button.
 
     	 */
+    	verticallyOffPage: null,
     	running: null,
         monitor: function(){
-
+    	    // ### console.log('monitor');
     		var width = $(window).width();
     		var height = $(window).height();
+    		var innerWidth = window.innerWidth;
+    		var innerHeight = window.innerHeight;
     		var el = $('.presav-chatPanel');
     		var elWidth = el.width();
     		var elHeight = el.height();
     		var offset = el.offset();
 
-    		if(el.is(':visible') && $('.bottom_chat_btn').is(':visible')){
-				chatUI.showLiveChat(false);
+			// ### var act = '';
+			if(offset.left + elWidth > Math.min(width, innerWidth)){
+			    // ### console.log('width off page');
+			    el.css('left', '10px');
+			    el.css('width', (width - 20 - 7) + 'px');
+			    // ### act += ' (adj. width)';
             }
 
-			if(width > 768) return;
-
-            if(offset.left + elWidth > width || offset.left < 0){
-
-            	el.css('left', '10px');
-            	el.css('width', (width - 20 - 7) + 'px');
-            	//seems you need to reset the width for the original element
-                $('#chatPanel').css('width', '');
+			if($('#chatPanel').is(':visible')){
+				var titlebarHeight = document.getElementsByClassName('presav-chatPanel')[0].firstChild.offsetHeight;
+				var chatPanelHeight = document.getElementById('chatPanel').offsetHeight;
+				if(titlebarHeight + chatPanelHeight > elHeight){
+				    // ### console.log('resized');
+				    // ### act += ' (adj. height)'
+				    el.height((titlebarHeight + chatPanelHeight + 2) + 'px')
+                }
             }
+
+			if(elHeight > Math.min(height, innerHeight)){
+			    //vertically panel is off the page so we need to scroll
+                if(!webChat.mover.verticallyOffPage){
+					// ### console.log('chat vertically off page, changed to scrollable');
+					// ### act += ' (-abs)';
+                }
+				$('.presav-chatPanel').removeClass('fixedPosition') && $('.presav-chatPanel').css('position', 'absolute');
+				webChat.mover.verticallyOffPage = true;
+            }else{
+				//back to fixed position
+			    if(webChat.mover.verticallyOffPage){
+			        // ### console.log('reverting chat to position: fixed');
+			        // ### act += ' (-fixed)';
+                }
+				$('.presav-chatPanel').addClass('fixedPosition') && $('.presav-chatPanel').css('position', 'fixed');
+				webChat.mover.verticallyOffPage = false;
+            }
+
+            /*
+			var str = 'win.: ' + width + 'x' + height;
+			str += ' (' + innerWidth + 'x' + innerHeight + ')';
+			str += ', panel: ' +  elWidth + 'x' + elHeight;
+			str += ', panel l,t: ' + offset.left + ',' + offset.top;
+			str += ', scrollY: ' + window.scrollY;
+			str += act;
+			document.getElementsByClassName('presav-chatInitLogo')[0].innerHTML = str;
+			*/
         }
-
     }
 
 };
@@ -1621,7 +1662,7 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 	width = avayaGlobal.fromRequestCookieDefault('width', width);
 	$('#chatPanel').dialog({
 		width : width,
-		dialogClass : 'presav-chatPanel',
+		dialogClass : 'fixedPosition presav-chatPanel',
 		open: function(event, ui){
 			avayaGlobal.log.info('dialog opened 1');
 

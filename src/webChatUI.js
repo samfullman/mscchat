@@ -74,7 +74,7 @@ var chatUI = {
 			width = avayaGlobal.fromRequestCookieDefault('width', width);
 			$('#chatPanel').dialog({
 				width : width,
-				dialogClass : 'presav-chatPanel',
+				dialogClass : 'fixedPosition presav-chatPanel',
 				open: function(event, ui){
 					avayaGlobal.log.info('dialog re-opened');
 
@@ -155,7 +155,7 @@ var chatUI = {
 		var width = Math.min( 475, $(window).width() - 20 );
         $('#chatPanel').dialog({
             width : width,
-			dialogClass : 'presav-chatPanel',
+			dialogClass : 'fixedPosition presav-chatPanel',
 			open: function(event, ui){
 				chatUI.showLiveChat(false);
 			}

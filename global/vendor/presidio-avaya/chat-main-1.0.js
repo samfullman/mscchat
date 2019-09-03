@@ -12,7 +12,7 @@
     oceanaCoreData.js
     customerJourneyCommon.js
 */
-/* ---- File (1): _AVAYA_HTML_.html; compiled 2019-08-12 12:51:32 by /src/compile.php ---- */
+/* ---- File (1): _AVAYA_HTML_.html; compiled 2019-09-03 17:33:22 by /src/compile.php ---- */
 var _AVAYA_HTML_ = 
 '<!-- ' + 
 'This HTML is compiled by src/compile.php into a single JS variable _AVAYA_HTML_' + 
@@ -262,7 +262,7 @@ var _AVAYA_HTML_ =
 '</div>';
 
 
-/* ---- File (2): libs/xmlToJSON.js; compiled 2019-08-12 12:51:32 by /src/compile.php ---- */
+/* ---- File (2): libs/xmlToJSON.js; compiled 2019-09-03 17:33:22 by /src/compile.php ---- */
 /* Copyright 2013 William Summers, metaTribal LLC
  * adapted from https://developer.mozilla.org/en-US/docs/JXON
  *
@@ -506,7 +506,7 @@ if (typeof module != "undefined" && module !== null && module.exports) module.ex
 else if (typeof define === "function" && define.amd) define(function() {return xmlToJSON});
 
 
-/* ---- File (3): avayaGlobal.js; compiled 2019-08-12 12:51:32 by /src/compile.php ---- */
+/* ---- File (3): avayaGlobal.js; compiled 2019-09-03 17:33:22 by /src/compile.php ---- */
 /**
  *  Copyright 2018 Avaya Inc. All Rights Reserved.
  *
@@ -787,7 +787,7 @@ var avayaGlobal = {
 
 
 
-/* ---- File (4): links.js; compiled 2019-08-12 12:51:32 by /src/compile.php ---- */
+/* ---- File (4): links.js; compiled 2019-09-03 17:33:22 by /src/compile.php ---- */
 /**
  *  Copyright 2018 Avaya Inc. All Rights Reserved.
  *
@@ -923,7 +923,7 @@ var links = {
 };
 
 
-/* ---- File (5): webChatConfig.js; compiled 2019-08-12 12:51:32 by /src/compile.php ---- */
+/* ---- File (5): webChatConfig.js; compiled 2019-09-03 17:33:22 by /src/compile.php ---- */
 /**
  *  Copyright 2018 Avaya Inc. All Rights Reserved.
  *
@@ -1074,7 +1074,7 @@ var chatConfig = {
 };
 
 
-/* ---- File (6): webChatLogon.js; compiled 2019-08-12 12:51:32 by /src/compile.php ---- */
+/* ---- File (6): webChatLogon.js; compiled 2019-09-03 17:33:22 by /src/compile.php ---- */
 /**
  *  Copyright 2018 Avaya Inc. All Rights Reserved.
  *
@@ -1355,7 +1355,7 @@ var chatLogon = {
 };
 
 
-/* ---- File (7): webChatUI.js; compiled 2019-08-12 12:51:32 by /src/compile.php ---- */
+/* ---- File (7): webChatUI.js; compiled 2019-09-03 17:33:22 by /src/compile.php ---- */
 /**
  *  Copyright 2018 Avaya Inc. All Rights Reserved.
  *
@@ -1432,7 +1432,7 @@ var chatUI = {
 			width = avayaGlobal.fromRequestCookieDefault('width', width);
 			$('#chatPanel').dialog({
 				width : width,
-				dialogClass : 'presav-chatPanel',
+				dialogClass : 'fixedPosition presav-chatPanel',
 				open: function(event, ui){
 					avayaGlobal.log.info('dialog re-opened');
 
@@ -1513,7 +1513,7 @@ var chatUI = {
 		var width = Math.min( 475, $(window).width() - 20 );
         $('#chatPanel').dialog({
             width : width,
-			dialogClass : 'presav-chatPanel',
+			dialogClass : 'fixedPosition presav-chatPanel',
 			open: function(event, ui){
 				chatUI.showLiveChat(false);
 			}
@@ -1753,7 +1753,7 @@ var chatUI = {
 };
 
 
-/* ---- File (8): webChatSocket.js; compiled 2019-08-12 12:51:32 by /src/compile.php ---- */
+/* ---- File (8): webChatSocket.js; compiled 2019-09-03 17:33:22 by /src/compile.php ---- */
 /**
  *  Copyright 2018 Avaya Inc. All Rights Reserved.
  *
@@ -2012,7 +2012,6 @@ var chatSocket = {
      */
     resetWebSocket : function() {
         'use strict';
-		console.log('only place the webSocket object is actually nulled out, kinda');
         webChat.initCalled = false;
         chatConfig.previouslyConnected = false;
         chatConfig.totalNumberOfRetries = 0;
@@ -2186,7 +2185,7 @@ var chatSocket = {
 };
 
 
-/* ---- File (9): estimatedWaitTime.js; compiled 2019-08-12 12:51:32 by /src/compile.php ---- */
+/* ---- File (9): estimatedWaitTime.js; compiled 2019-09-03 17:33:22 by /src/compile.php ---- */
 /**
  *  Copyright 2018 Avaya Inc. All Rights Reserved.
  *
@@ -2484,7 +2483,7 @@ var chatSocket = {
 
 
 
-/* ---- File (10): webChat.js; compiled 2019-08-12 12:51:32 by /src/compile.php ---- */
+/* ---- File (10): webChat.js; compiled 2019-09-03 17:33:22 by /src/compile.php ---- */
 /**
  *  Copyright 2018 Avaya Inc. All Rights Reserved.
  *
@@ -2500,7 +2499,7 @@ var chatSocket = {
 var webChat = {
 	
 	// Presidio build number
-	build: '4a',
+	build: '4b',
 
     // particular elements in the page
     sendButton : null,
@@ -2972,6 +2971,13 @@ var webChat = {
 					a[i]
 				]);
 			*/
+			}else if(a[i].match(/^[-a-zA-Z0-9_.]+@([-a-zA-Z0-9_.]+\.){1,}[a-zA-Z]+$/)){
+				//email addresses - note the above regexp is custom; it will exclude "real" emails and only a "pure" start-to-end email will work (not one in parenthesis for example)
+				href = document.createElement('a');
+				href.href = 'mailto: ' + a[i];
+				href.target = '_blank';
+				href.appendChild(document.createTextNode(a[i]));
+				span.appendChild(href);
 			}else{
 				//2019-03-23: all other HTML is escaped; alas we'd like the agent to be able to send bold or underlined text but we're not ready for this yet
 				//a[i] = htmlEntities(a[i]);
@@ -4062,31 +4068,65 @@ var webChat = {
     	our goal is to keep the window inside the <body>, and make sure that either the live chat button, or the dialog, are showing.  I think logical place for the last part is on opening the dialog; in theory that will never be called unless there's a live chat button + a user click, at which point it needs to be managed.  If NEITHER, we should fade in the live chat button.
 
     	 */
+    	verticallyOffPage: null,
     	running: null,
         monitor: function(){
-
+    	    // ### console.log('monitor');
     		var width = $(window).width();
     		var height = $(window).height();
+    		var innerWidth = window.innerWidth;
+    		var innerHeight = window.innerHeight;
     		var el = $('.presav-chatPanel');
     		var elWidth = el.width();
     		var elHeight = el.height();
     		var offset = el.offset();
 
-    		if(el.is(':visible') && $('.bottom_chat_btn').is(':visible')){
-				chatUI.showLiveChat(false);
+			// ### var act = '';
+			if(offset.left + elWidth > Math.min(width, innerWidth)){
+			    // ### console.log('width off page');
+			    el.css('left', '10px');
+			    el.css('width', (width - 20 - 7) + 'px');
+			    // ### act += ' (adj. width)';
             }
 
-			if(width > 768) return;
-
-            if(offset.left + elWidth > width || offset.left < 0){
-
-            	el.css('left', '10px');
-            	el.css('width', (width - 20 - 7) + 'px');
-            	//seems you need to reset the width for the original element
-                $('#chatPanel').css('width', '');
+			if($('#chatPanel').is(':visible')){
+				var titlebarHeight = document.getElementsByClassName('presav-chatPanel')[0].firstChild.offsetHeight;
+				var chatPanelHeight = document.getElementById('chatPanel').offsetHeight;
+				if(titlebarHeight + chatPanelHeight > elHeight){
+				    // ### console.log('resized');
+				    // ### act += ' (adj. height)'
+				    el.height((titlebarHeight + chatPanelHeight + 2) + 'px')
+                }
             }
+
+			if(elHeight > Math.min(height, innerHeight)){
+			    //vertically panel is off the page so we need to scroll
+                if(!webChat.mover.verticallyOffPage){
+					// ### console.log('chat vertically off page, changed to scrollable');
+					// ### act += ' (-abs)';
+                }
+				$('.presav-chatPanel').removeClass('fixedPosition') && $('.presav-chatPanel').css('position', 'absolute');
+				webChat.mover.verticallyOffPage = true;
+            }else{
+				//back to fixed position
+			    if(webChat.mover.verticallyOffPage){
+			        // ### console.log('reverting chat to position: fixed');
+			        // ### act += ' (-fixed)';
+                }
+				$('.presav-chatPanel').addClass('fixedPosition') && $('.presav-chatPanel').css('position', 'fixed');
+				webChat.mover.verticallyOffPage = false;
+            }
+
+            /*
+			var str = 'win.: ' + width + 'x' + height;
+			str += ' (' + innerWidth + 'x' + innerHeight + ')';
+			str += ', panel: ' +  elWidth + 'x' + elHeight;
+			str += ', panel l,t: ' + offset.left + ',' + offset.top;
+			str += ', scrollY: ' + window.scrollY;
+			str += act;
+			document.getElementsByClassName('presav-chatInitLogo')[0].innerHTML = str;
+			*/
         }
-
     }
 
 };
@@ -4108,7 +4148,7 @@ function initChat(regState, firstName, lastName, email, parsedPhone){
 	width = avayaGlobal.fromRequestCookieDefault('width', width);
 	$('#chatPanel').dialog({
 		width : width,
-		dialogClass : 'presav-chatPanel',
+		dialogClass : 'fixedPosition presav-chatPanel',
 		open: function(event, ui){
 			avayaGlobal.log.info('dialog opened 1');
 
@@ -4280,7 +4320,7 @@ function min_ajax(config){
 
 
 
-/* ---- File (11): oceanaCoreData.js; compiled 2019-08-12 12:51:32 by /src/compile.php ---- */
+/* ---- File (11): oceanaCoreData.js; compiled 2019-09-03 17:33:22 by /src/compile.php ---- */
 /**
  *  Copyright 2018 Avaya Inc. All Rights Reserved.
  *
@@ -4686,7 +4726,7 @@ var oceanaCoreData = {
 };
 
 
-/* ---- File (12): customerJourneyCommon.js; compiled 2019-08-12 12:51:32 by /src/compile.php ---- */
+/* ---- File (12): customerJourneyCommon.js; compiled 2019-09-03 17:33:22 by /src/compile.php ---- */
 /**
  *  Copyright 2018 Avaya Inc. All Rights Reserved.
  *

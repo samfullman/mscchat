@@ -15,8 +15,10 @@
  */
  
 /* 1 of 2: comment this out to allow the chat panel to float */
- .fixedPosition {
-    position:fixed!important;
+@media only screen and (min-width: 499px) {
+	 .fixedPosition {
+		position:fixed!important;
+	}
 }
 
 #pageTopic {
